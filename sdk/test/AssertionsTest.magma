@@ -1,7 +1,11 @@
 {
-	Assertions.assertTrue("TrueTest", true);
-	Assertions.assertFalse("FalseTest", false);
+ 	Assertions.assertTrue("TrueTest", true);
+ 	Assertions.assertFalse("FalseTest", false);
 
-	val x = 10;
-	Assertions.assertSame("SameTest", &x, &x);
+	Assertions.assertIntEquals("IntEqualsTest", 10, 10);
+	Assertions.assertFloatEquals("FloatEqualsTest", 5f, 5f);
+	Assertions.assertDoubleEquals("DoublEEqualsTest", 10d, 10d);
+
+ 	val x = 10;
+ 	Assertions.assertSame("SameTest", &x, &x);
 }
