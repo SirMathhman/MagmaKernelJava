@@ -29,6 +29,15 @@ public abstract class AbstractDeclaration implements Declaration {
 	}
 
 	@Override
+	public String toString() {
+		return "AbstractDeclaration {" +
+		       flags +
+		       type +
+		       stack +
+		       '}';
+	}
+
+	@Override
 	public void clear() {
 		children.clear();
 	}
