@@ -1,9 +1,6 @@
 package com.meti.core;
 
-import com.meti.core.task.BuildTask;
-import com.meti.core.task.CompileTask;
-import com.meti.core.task.RunTask;
-import com.meti.core.task.Task;
+import com.meti.core.task.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -16,7 +13,8 @@ public final class Main {
 	private static final List<Task> tasks = List.of(
 			new CompileTask(logger),
 			new BuildTask(logger),
-			new RunTask(logger));
+			new RunTask(logger),
+			new CleanTask(logger));
 
 	private Main() {
 	}
