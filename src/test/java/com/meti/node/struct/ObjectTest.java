@@ -7,7 +7,11 @@ import com.meti.node.declare.VariableParser;
 import com.meti.node.declare.VariableResolver;
 import com.meti.node.primitive.ints.IntResolver;
 import com.meti.node.struct.invoke.InvocationParser;
+import com.meti.node.struct.invoke.InvocationResolver;
+import com.meti.node.transform.QuantityParser;
+import com.meti.node.transform.QuantityResolver;
 import com.meti.node.transform.operate.OperationParser;
+import com.meti.node.transform.operate.OperationResolver;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.CollectionCache;
@@ -24,15 +28,19 @@ public class ObjectTest {
         Cache cache = new CollectionCache();
         Unit unit = new StructUnit(declarations, cache);
         Parser parser = new ParentParser(
+                new QuantityParser(),
                 unit,
                 new DeclareParser(declarations),
-                new ReturnParser(),
+                new ReturnParser(declarations),
                 new OperationParser(),
                 new InvocationParser(declarations),
                 new VariableParser(declarations)
         );
         Resolver resolver = new ParentResolver(
+                new QuantityResolver(),
                 unit,
+                new InvocationResolver(declarations),
+                new OperationResolver(),
                 new IntResolver(),
                 new VariableResolver(declarations),
                 new ObjectResolver(declarations)
@@ -43,7 +51,7 @@ public class ObjectTest {
                        "        return value;\n" +
                        "    };\n" +
                        "    val compare = (Some other) => Int :{\n" +
-                       "        return value - other.getValue();\n" +
+                       "        return value - (other.getValue());\n" +
                        "    };\n" +
                        "}\n");
         Assertions.assertEquals("int _exitCode=0;" +
@@ -52,11 +60,11 @@ public class ObjectTest {
                                 "int Some_getValue(struct Some Some_){" +
                                 "return Some_.value;}" +
                                 "int Some_compare(struct Some other,struct Some Some_){" +
-                                "return Some_.value-Some_getValue(other);}" +
+                                "return Some_.value-(Some_getValue(other));}" +
                                 "struct Some Some(int value){" +
                                 "struct Some Some_={value};" +
                                 "return Some_;}" +
-                "int main(){" +
-                "return _exitCode;}", cache.render());
+                                "int main(){" +
+                                "return _exitCode;}", cache.render());
     }
 }

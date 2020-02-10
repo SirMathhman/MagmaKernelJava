@@ -1,9 +1,9 @@
 package com.meti.node.primitive.floats;
 
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 
-public class FloatType extends ValueType {
+public class FloatType extends PrimitiveType {
 	public static final Type INSTANCE = new FloatType();
 
 	@Override

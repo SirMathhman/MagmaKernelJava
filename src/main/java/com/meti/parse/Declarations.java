@@ -21,13 +21,21 @@ public interface Declarations {
 
 	void define(Parameter parameter);
 
+	default void define(Type type, String name) {
+		define(type, name, Collections.emptySet());
+	}
+
 	void define(Type type, String name, Set<Flag> flags);
 
 	void defineParent(Type type, String name, Set<Flag> flags);
 
-	Set<Flag> flags();
-
 	<T> T inStack(String name, Function<? super String, T> mapper);
+
+	default boolean isDefined(String nameString) {
+		return relative(nameString).isPresent();
+	}
+
+	Optional<Declaration> relative(String name);
 
 	boolean isInClass();
 
@@ -35,24 +43,20 @@ public interface Declarations {
 
 	boolean isRoot(Declaration declaration);
 
-    Declaration parent();
+	Declaration parent();
 
-    Optional<Declaration> parent(String name);
+	Optional<Declaration> parent(String name);
 
-    Optional<Declaration> relative(String name);
+	default Set<Flag> swapFlags(Collection<Flag> flags) {
+		Set<Flag> previousFlags = EnumSet.copyOf(flags());
+		flags().clear();
+		flags().addAll(flags);
+		return previousFlags;
+	}
 
-    Type toLazyStruct(String name);
+	Set<Flag> flags();
+
+	Type toLazyStruct(String name);
 
 	Type toLazyStruct();
-
-    default Set<Flag> swapFlags(Collection<Flag> flags) {
-        Set<Flag> previousFlags = EnumSet.copyOf(flags());
-        flags().clear();
-        flags().addAll(flags);
-        return previousFlags;
-    }
-
-    default boolean isDefined(String nameString) {
-        return relative(nameString).isPresent();
-    }
 }

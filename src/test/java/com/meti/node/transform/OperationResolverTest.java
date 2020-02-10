@@ -43,7 +43,7 @@ class OperationResolverTest {
 				new StringParser(),
 				new DeclareParser(declarations),
 				new InvocationParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new IntParser(),
 				new OperationParser(),
 				new VariableParser(declarations)

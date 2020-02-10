@@ -1,6 +1,7 @@
 package com.meti.core.task;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RunTask extends ProcessTask {
@@ -18,5 +19,10 @@ public class RunTask extends ProcessTask {
 		return new ProcessBuilder()
 				.command("a")
 				.start();
+	}
+
+	@Override
+	protected void logExecuteMessage() {
+		logger.log(Level.INFO, "Running.");
 	}
 }

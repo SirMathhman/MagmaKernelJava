@@ -60,6 +60,6 @@ public class VariableResolver implements Resolver {
 	private Type resolveLocal(String trim) {
 		return declarations.relative(trim)
 				.map(Declaration::type)
-				.orElseThrow();
+				.orElseThrow(() -> new ParseException(trim + " is not defined."));
 	}
 }

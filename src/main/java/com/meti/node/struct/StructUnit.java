@@ -12,7 +12,7 @@ import com.meti.node.declare.AssignNode;
 import com.meti.node.declare.VariableNode;
 import com.meti.node.primitive.special.VoidType;
 import com.meti.node.struct.invoke.InvocationNode;
-import com.meti.node.struct.type.FunctionTypeImpl;
+import com.meti.node.struct.type.FunctionTypeBuilder;
 import com.meti.parse.Declaration;
 import com.meti.parse.Declarations;
 import com.meti.util.BracketPartitioner;
@@ -174,6 +174,6 @@ public class StructUnit implements Unit {
 		Collection<Parameter> parameters = parseGivenParameters(compiler, indexBuffer)
 				.collect(Collectors.toList());
 		Type returnType = parseReturnType(compiler, indexBuffer);
-		return new FunctionTypeImpl(parameters, returnType, declarations.currentName());
+		return FunctionTypeBuilder.create().withParameters(parameters).withReturnType(returnType).withName(declarations.currentName()).build();
 	}
 }

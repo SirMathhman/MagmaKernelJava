@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class ProcessTask implements Task {
-	private final Logger logger;
+	protected final Logger logger;
 
 	ProcessTask(Logger logger) {
 		this.logger = logger;
@@ -23,11 +23,13 @@ public abstract class ProcessTask implements Task {
 	}
 
 	private void executeExceptionally() throws IOException {
-		logger.log(Level.INFO, "Building.");
+		logExecuteMessage();
 		Process process = createProcess();
 		transferProcessStream(process.getErrorStream(), System.err);
 		transferProcessStream(process.getInputStream(), System.out);
 	}
+
+	protected abstract void logExecuteMessage();
 
 	protected abstract Process createProcess() throws IOException;
 

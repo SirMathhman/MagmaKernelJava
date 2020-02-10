@@ -1,9 +1,9 @@
 package com.meti.node.primitive.special;
 
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 
-public class AnyType extends ValueType {
+public class AnyType extends PrimitiveType {
 	public static final Type INSTANCE = new AnyType();
 
 	@Override

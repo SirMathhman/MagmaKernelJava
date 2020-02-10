@@ -7,7 +7,7 @@ import com.meti.node.declare.VariableResolver;
 import com.meti.node.primitive.ints.IntParser;
 import com.meti.node.primitive.special.VoidType;
 import com.meti.node.struct.invoke.InvocationParser;
-import com.meti.node.struct.type.FunctionTypeImpl;
+import com.meti.node.struct.type.FunctionTypeBuilder;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.ParentParser;
@@ -24,7 +24,7 @@ class InvocationParserTest {
 	@Test
 	void parse() throws ParseException {
 		Declarations declarations = new TreeDeclarations();
-		declarations.define(new FunctionTypeImpl(Collections.emptySet(), VoidType.INSTANCE, "a"), "a",
+		declarations.define(FunctionTypeBuilder.create().withParameters(Collections.emptySet()).withReturnType(VoidType.INSTANCE).withName("a").build(), "a",
 				Collections.emptySet());
 		Parser parser = new ParentParser(
 				new InvocationParser(declarations),

@@ -1,8 +1,8 @@
 package com.meti.node.struct.type;
 
-import com.meti.node.ValueType;
+import com.meti.node.PrimitiveType;
 
-public class NativeStructType extends ValueType {
+public class NativeStructType extends PrimitiveType {
 	private final String name;
 
 	public NativeStructType(String name) {

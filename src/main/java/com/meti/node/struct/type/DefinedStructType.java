@@ -36,17 +36,23 @@ public class DefinedStructType extends ValueType implements StructType {
 	}
 
 	@Override
-	public String toMagmaString() {
-		return "";
+	public boolean isInstanceOf(Type type) {
+		if (!(type instanceof StructType)) return false;
+		return declaration.equals(((StructType) type).declaration());
 	}
 
 	@Override
 	public String render() {
-		throw new UnsupportedOperationException();
+		return new NativeStructType(declaration.name()).render();
 	}
 
 	@Override
 	public String render(String name) {
 		return new NativeStructType(declaration.name()).render(name);
+	}
+
+	@Override
+	public String toMagmaString() {
+		return "";
 	}
 }
