@@ -35,4 +35,23 @@ class BlockTest {
                                      "}\n");
         assertEquals("{int x=10;int y=20;}", result.render());
     }
+
+    @Test
+    void testParent() {
+        Declarations declarations = new TreeDeclarations();
+        Parser parser = new ParentParser(
+                new BlockParser(),
+                new DeclareParser(declarations),
+                new IntParser()
+        );
+        Resolver resolver = new ParentResolver(
+                new IntResolver()
+        );
+        Compiler compiler = new UnitCompiler(parser, resolver);
+        Node result = compiler.parse("{" +
+                                     "{}" +
+                                     "{}" +
+                                     "}");
+        assertEquals("{{}{}}", result.render());
+    }
 }

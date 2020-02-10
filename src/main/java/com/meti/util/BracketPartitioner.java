@@ -19,6 +19,11 @@ public class BracketPartitioner implements Partitioner {
 			if (';' == c && 0 == depth) {
 				partitions.add(buffer.toString());
 				buffer = new StringBuilder();
+			} else if ('}' == c && 1 == depth) {
+				buffer.append('}');
+				partitions.add(buffer.toString());
+				buffer = new StringBuilder();
+				depth = 0;
 			} else {
 				if ('{' == c) depth++;
 				if ('}' == c) depth--;
