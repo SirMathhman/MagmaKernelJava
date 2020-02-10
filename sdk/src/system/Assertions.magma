@@ -1,0 +1,35 @@
+single val Assertions =: {
+	val pass = (String name) : {
+		Internal.writeString(name);
+		Internal.writeString(" has passed.\n");
+	}
+
+	val fail = (String name) : {
+		Internal.writeString(name);
+		Internal.writeString(" has failed.\n");
+	}
+
+	val assertTrue = (String name, Bool value) : {
+		if(value) {
+			pass(name);
+		} else {
+			fail(name);
+		}
+	}
+
+	val assertFalse = (String name, Bool value) : {
+		if(!value) {
+			pass(name);
+		} else {
+			fail(name);
+		}
+	}
+
+	val assertSame = (String name, Any* value0, Any* value1) : {
+		if(value0 == value1) {
+			pass(name);
+		} else {
+			fail(name);
+		}
+	}
+}

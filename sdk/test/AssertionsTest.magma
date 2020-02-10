@@ -1,0 +1,7 @@
+{
+	Assertions.assertTrue("TrueTest", true);
+	Assertions.assertFalse("FalseTest", false);
+
+	val x = 10;
+	Assertions.assertSame("SameTest", &x, &x);
+}
