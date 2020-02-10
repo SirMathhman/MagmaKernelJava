@@ -1,0 +1,5 @@
+single val IOBridge =: {
+	val print = (String content) :{
+		printf("%s", content);
+	}
+}
