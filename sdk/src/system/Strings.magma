@@ -1,0 +1,13 @@
+single val Strings =: {
+	val length = (String value) => Int : {
+		return StringBinding.length(value);
+	}
+
+	val compare = (String value0, String value1) => Int : {
+		return StringBinding.compare(value0, value1);
+	}
+
+	val equals = (String value0, String value1) => Bool : {
+		return compare(value0, value1) == 0;
+	}
+}

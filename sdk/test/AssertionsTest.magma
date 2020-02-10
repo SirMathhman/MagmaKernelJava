@@ -4,7 +4,7 @@
 
 	Assertions.assertIntEquals("IntEqualsTest", 10, 10);
 	Assertions.assertFloatEquals("FloatEqualsTest", 5f, 5f);
-	Assertions.assertDoubleEquals("DoublEEqualsTest", 10d, 10d);
+	Assertions.assertDoubleEquals("DoubleEqualsTest", 10d, 10d);
 
  	val x = 10;
  	Assertions.assertSame("SameTest", &x, &x);

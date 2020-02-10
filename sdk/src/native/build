@@ -1,2 +1,5 @@
 stdio.h
 stdio.magma
+
+string.h
+string.magma
