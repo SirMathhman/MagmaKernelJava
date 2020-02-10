@@ -3,6 +3,10 @@ single val StringBinding =: {
 		return strlen(value);
 	}
 
+	val copy = (String dest, String src) : {
+		strcpy(dest, src);
+	}
+
 	val compare = (String value0, String value1) => Int : {
 		return strcmp(value0, value1);
 	}

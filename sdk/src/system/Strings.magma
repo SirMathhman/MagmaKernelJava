@@ -3,6 +3,13 @@ single val Strings =: {
 		return StringBinding.length(value);
 	}
 
+	val copy = (String value) => String : {
+		val newLength = length(value) + 1;
+		val block = <String>Memory.allocate(newLength);
+		StringBinding.copy(block, value);
+		return block;
+	}
+
 	val compare = (String value0, String value1) => Int : {
 		return StringBinding.compare(value0, value1);
 	}

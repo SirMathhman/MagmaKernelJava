@@ -2,4 +2,7 @@
 	Assertions.assertIntEquals("Length", 4, Strings.length("test"));
 	Assertions.assertIntEquals("Compare", 0, Strings.compare("foo", "foo"));
 	Assertions.assertTrue("Equals", Strings.equals("bar", "bar"));
+
+	val copy = Strings.copy("test");
+	Assertions.assertTrue("Copy", Strings.equals("test", copy));
 }
