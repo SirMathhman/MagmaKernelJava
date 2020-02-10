@@ -1,0 +1,4 @@
+{
+	val digit = Integers.digitAt(123, 2);
+	Assertions.assertIntEquals("DigitAt", 3, digit);
+}

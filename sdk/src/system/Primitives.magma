@@ -1,0 +1,5 @@
+single val Integers =: {
+	val digitAt = (Int value, Int index) => Int : {
+		return 0;
+	}
+}
