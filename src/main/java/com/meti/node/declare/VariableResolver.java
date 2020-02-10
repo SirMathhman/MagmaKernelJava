@@ -44,7 +44,7 @@ public class VariableResolver implements Resolver {
 		return declarations.relative(trim + "$")
 				.flatMap((Function<Declaration, Optional<Declaration>>) declaration -> declaration.child(trim))
 				.map(Declaration::type)
-				.orElse(resolveLocal(trim));
+				.orElseGet(() -> resolveLocal(trim));
 	}
 
 	private Type parentType(Compiler compiler, String trim) {
