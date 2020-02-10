@@ -11,7 +11,9 @@ import com.meti.node.struct.type.StructType;
 import com.meti.parse.Declaration;
 import com.meti.parse.Declarations;
 
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class VariableParser implements Parser {
 	private final Declarations declarations;
@@ -27,8 +29,7 @@ public class VariableParser implements Parser {
 	}
 
 	private Optional<Node> buildVariable(Declaration parent, String childName, StructType type) {
-		Declaration child = parent.child(childName).orElseThrow(
-				() -> new ParseException(parent.name() + "." + childName + " is " + "not defined."));
+		Declaration child = parent.child(childName).orElseThrow(() -> throwChildNotDefined(parent, childName));
 		Node node = child.isFunctional() ?
 				new VariableNode(child.joinStack()) :
 				new FieldNode(parent, childName);
@@ -106,5 +107,30 @@ public class VariableParser implements Parser {
 		} else {
 			throw new ParseException(before + " is not an reference to a singleton.");
 		}
+	}
+
+	private RuntimeException throwChildNotDefined(Declaration parent, String childName) {
+		String parentName = parent.name();
+		String formattedParentName = (parentName.endsWith("$")) ?
+				parentName.substring(0, parentName.length() - 1) :
+				parentName;
+		StringBuilder builder = new StringBuilder()
+				.append(formattedParentName)
+				.append(".")
+				.append(childName)
+				.append(" is not defined.");
+		if (!parent.children().isEmpty()) {
+			String collect = parent.children()
+					.stream()
+					.map(Declaration::name)
+					.filter(s -> !s.equals(formattedParentName))
+					.sorted(Comparator.comparingInt(o -> o.toString().compareTo(childName)).reversed())
+					.limit(3)
+					.collect(Collectors.joining(" or "));
+			builder.append(" Perhaps you meant ")
+					.append(collect)
+					.append(".");
+		}
+		return new ParseException(builder.toString());
 	}
 }
