@@ -11,7 +11,7 @@ public class FunctionTypeImpl implements FunctionType {
 	private final Collection<? extends Parameter> parameters;
 	private final Type returnType;
 
-	public FunctionTypeImpl(Collection<? extends Parameter> parameters, Type returnType, String name) {
+	FunctionTypeImpl(Collection<? extends Parameter> parameters, Type returnType, String name) {
 		this.parameters = parameters;
 		this.returnType = returnType;
 		this.name = name;

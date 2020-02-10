@@ -2,14 +2,14 @@ package com.meti.node.struct.type;
 
 import com.meti.exception.ParseException;
 import com.meti.node.Node;
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 import com.meti.node.declare.VariableNode;
 import com.meti.parse.Declaration;
 
 import java.util.Optional;
 
-public class DefinedStructType extends ValueType implements StructType {
+public class DefinedStructType extends PrimitiveType implements StructType {
 	private final Declaration declaration;
 
 	public DefinedStructType(Declaration declaration) {

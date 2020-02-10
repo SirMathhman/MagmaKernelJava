@@ -11,5 +11,10 @@ public interface StructType extends Type {
 
 	Declaration declaration();
 
+	@Override
+	default boolean isInstanceOf(Type type) {
+		return false;
+	}
+
 	Optional<Type> typeOf(String child);
 }

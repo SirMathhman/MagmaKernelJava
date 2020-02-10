@@ -69,7 +69,7 @@ class MagmaCompiler extends UnitCompiler {
 						new CatchParser(declarations),
 						new ThrowParser(declarations, cache),
 						new NullParser(),
-						new ReturnParser(),
+						new ReturnParser(declarations),
 						new DeclareParser(declarations),
 						new NotParser(),
 						new ElseParser(),

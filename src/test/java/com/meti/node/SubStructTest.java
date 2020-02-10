@@ -9,7 +9,9 @@ import com.meti.node.primitive.ints.IntResolver;
 import com.meti.node.struct.ReturnParser;
 import com.meti.node.struct.StructUnit;
 import com.meti.node.struct.invoke.InvocationParser;
+import com.meti.node.struct.invoke.InvocationResolver;
 import com.meti.node.transform.operate.OperationParser;
+import com.meti.node.transform.operate.OperationResolver;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.CollectionCache;
@@ -29,13 +31,15 @@ class SubStructTest {
 		Parser parser = new ParentParser(
 				structUnit,
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new OperationParser(),
 				new InvocationParser(declarations),
 				new VariableParser(declarations)
 		);
 		Resolver resolver = new ParentResolver(
 				structUnit,
+				new OperationResolver(),
+				new InvocationResolver(declarations),
 				new IntResolver(),
 				new VariableResolver(declarations)
 		);

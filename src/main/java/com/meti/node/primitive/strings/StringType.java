@@ -2,10 +2,10 @@ package com.meti.node.primitive.strings;
 
 import com.meti.node.DefaultType;
 import com.meti.node.Node;
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 
-public class StringType extends ValueType implements DefaultType {
+public class StringType extends PrimitiveType implements DefaultType {
 	public static final Type INSTANCE = new StringType();
 	private static final String DEFAULT_VALUE = "";
 

@@ -33,7 +33,7 @@ class ThisParserTest {
 				structUnit,
 				new BlockParser(),
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new StringParser(),
 				new InvocationParser(declarations),
 				new ThisParser(declarations),
@@ -77,7 +77,7 @@ class ThisParserTest {
 		Parser parser = new ParentParser(
 				structUnit,
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new ThisParser(declarations),
 				new VariableParser(declarations)
 		);
@@ -115,7 +115,7 @@ class ThisParserTest {
 		Parser parser = new ParentParser(
 				structUnit,
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new ThisParser(declarations),
 				new VariableParser(declarations)
 		);
@@ -155,7 +155,7 @@ class ThisParserTest {
 				structUnit,
 				new BlockParser(),
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new StringParser(),
 				new InvocationParser(declarations),
 				new ThisParser(declarations),

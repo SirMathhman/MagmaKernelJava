@@ -20,6 +20,7 @@ import com.meti.node.struct.ThisParser;
 import com.meti.node.struct.invoke.InvocationParser;
 import com.meti.node.struct.invoke.InvocationResolver;
 import com.meti.node.transform.operate.OperationParser;
+import com.meti.node.transform.operate.OperationResolver;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.CollectionCache;
@@ -45,7 +46,7 @@ class VariableParserTest {
 				new IntParser(),
 				new BlockParser(),
 				new DeclareParser(declarations),
-				new ReturnParser(),
+				new ReturnParser(declarations),
 				new OperationParser(),
 				new StringParser(),
 				new InvocationParser(declarations),
@@ -54,6 +55,7 @@ class VariableParserTest {
 		);
 		Resolver resolver = new ParentResolver(
 				structUnit,
+				new OperationResolver(),
 				new IntResolver(),
 				new BooleanResolver(),
 				new BlockResolver(declarations),

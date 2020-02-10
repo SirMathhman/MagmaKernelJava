@@ -1,9 +1,9 @@
 package com.meti.node.array.type;
 
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 
-abstract class ArrayType extends ValueType {
+abstract class ArrayType extends PrimitiveType {
 	final Type elementType;
 
 	ArrayType(Type elementType) {

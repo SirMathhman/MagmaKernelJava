@@ -2,8 +2,8 @@ package com.meti.node.struct.type;
 
 import com.meti.exception.ParseException;
 import com.meti.node.Node;
+import com.meti.node.PrimitiveType;
 import com.meti.node.Type;
-import com.meti.node.ValueType;
 import com.meti.node.declare.VariableNode;
 import com.meti.parse.Declaration;
 import com.meti.parse.Declarations;
@@ -11,7 +11,7 @@ import com.meti.parse.Declarations;
 import java.util.List;
 import java.util.Optional;
 
-public class LazyStructType extends ValueType implements StructType {
+public class LazyStructType extends PrimitiveType implements StructType {
 	private final Declarations declarations;
 	private final List<String> stack;
 

@@ -7,7 +7,9 @@ import com.meti.node.declare.VariableParser;
 import com.meti.node.declare.VariableResolver;
 import com.meti.node.primitive.ints.IntResolver;
 import com.meti.node.struct.invoke.InvocationParser;
+import com.meti.node.struct.invoke.InvocationResolver;
 import com.meti.node.transform.operate.OperationParser;
+import com.meti.node.transform.operate.OperationResolver;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.CollectionCache;
@@ -26,13 +28,15 @@ public class ObjectTest {
         Parser parser = new ParentParser(
                 unit,
                 new DeclareParser(declarations),
-                new ReturnParser(),
+                new ReturnParser(declarations),
                 new OperationParser(),
                 new InvocationParser(declarations),
                 new VariableParser(declarations)
         );
         Resolver resolver = new ParentResolver(
                 unit,
+                new InvocationResolver(declarations),
+                new OperationResolver(),
                 new IntResolver(),
                 new VariableResolver(declarations),
                 new ObjectResolver(declarations)

@@ -61,7 +61,7 @@ class StructUnitTest {
         Parser parser = new ParentParser(
                 unit,
                 new DeclareParser(declarations),
-                new ReturnParser(),
+                new ReturnParser(declarations),
                 new IntParser(),
                 new VariableParser(declarations)
         );
