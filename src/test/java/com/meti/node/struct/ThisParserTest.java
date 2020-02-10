@@ -12,6 +12,8 @@ import com.meti.node.primitive.strings.StringParser;
 import com.meti.node.primitive.strings.StringResolver;
 import com.meti.node.struct.invoke.InvocationParser;
 import com.meti.node.struct.invoke.InvocationResolver;
+import com.meti.node.transform.QuantityParser;
+import com.meti.node.transform.QuantityResolver;
 import com.meti.parse.Declarations;
 import com.meti.parse.TreeDeclarations;
 import com.meti.util.CollectionCache;
@@ -113,6 +115,7 @@ class ThisParserTest {
 		Declarations declarations = new TreeDeclarations();
 		Unit structUnit = new StructUnit(declarations, cache);
 		Parser parser = new ParentParser(
+				new QuantityParser(),
 				structUnit,
 				new DeclareParser(declarations),
 				new ReturnParser(declarations),
@@ -120,6 +123,8 @@ class ThisParserTest {
 				new VariableParser(declarations)
 		);
 		Resolver resolver = new ParentResolver(
+				new ThisResolver(declarations),
+				new QuantityResolver(),
 				structUnit,
 				new IntResolver(),
 				new VariableResolver(declarations),

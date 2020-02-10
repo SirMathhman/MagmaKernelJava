@@ -28,8 +28,8 @@ public class ObjectTest {
         Cache cache = new CollectionCache();
         Unit unit = new StructUnit(declarations, cache);
         Parser parser = new ParentParser(
-                unit,
                 new QuantityParser(),
+                unit,
                 new DeclareParser(declarations),
                 new ReturnParser(declarations),
                 new OperationParser(),
@@ -37,8 +37,8 @@ public class ObjectTest {
                 new VariableParser(declarations)
         );
         Resolver resolver = new ParentResolver(
-                unit,
                 new QuantityResolver(),
+                unit,
                 new InvocationResolver(declarations),
                 new OperationResolver(),
                 new IntResolver(),
@@ -60,11 +60,11 @@ public class ObjectTest {
                                 "int Some_getValue(struct Some Some_){" +
                                 "return Some_.value;}" +
                                 "int Some_compare(struct Some other,struct Some Some_){" +
-                                "return Some_.value-Some_getValue(other);}" +
+                                "return Some_.value-(Some_getValue(other));}" +
                                 "struct Some Some(int value){" +
                                 "struct Some Some_={value};" +
                                 "return Some_;}" +
-                "int main(){" +
-                "return _exitCode;}", cache.render());
+                                "int main(){" +
+                                "return _exitCode;}", cache.render());
     }
 }
