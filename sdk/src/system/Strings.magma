@@ -10,6 +10,14 @@ single val Strings =: {
 		return block;
 	}
 
+	val concat = (String value0, String value1) => String : {
+		val newLength = length(value0) + length(value1) + 1;
+		val block = <String>Memory.allocate(newLength);
+		StringBinding.copy(block, value0);
+		StringBinding.concat(block, value1);
+		return block;
+	}
+
 	val compare = (String value0, String value1) => Int : {
 		return StringBinding.compare(value0, value1);
 	}

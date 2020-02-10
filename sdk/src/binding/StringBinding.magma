@@ -7,6 +7,10 @@ single val StringBinding =: {
 		strcpy(dest, src);
 	}
 
+	val concat = (String dest, String src) : {
+		strcat(dest, src);
+	}
+
 	val compare = (String value0, String value1) => Int : {
 		return strcmp(value0, value1);
 	}
