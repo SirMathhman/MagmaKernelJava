@@ -25,8 +25,8 @@ public class UnitCompiler implements Compiler {
 		}
 	}
 
-	private RuntimeException failParse(String value, Throwable e) {
-		return new ParseException("Failed to parse value:\n" + value, e);
+	private RuntimeException failName(String name, Throwable e) {
+		return new ParseException("Failed to resolve name of value: " + name.trim(), e);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class UnitCompiler implements Compiler {
 		}
 	}
 
-	private RuntimeException failName(String name, Throwable e) {
-		return new ParseException("Failed to resolve name of value:\n" + name, e);
+	private RuntimeException failParse(String value, Throwable e) {
+		return new ParseException("Failed to parse value: " + value.trim(), e);
 	}
 
 	@Override
@@ -52,6 +52,6 @@ public class UnitCompiler implements Compiler {
 	}
 
 	private RuntimeException failValue(String value, Throwable e) {
-		return new ParseException("Failed to resolve type of value:\n" + value, e);
+		return new ParseException("Failed to resolve type of value: " + value.trim(), e);
 	}
 }

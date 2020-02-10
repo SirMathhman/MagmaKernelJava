@@ -49,9 +49,20 @@ public class CompileTask implements Task {
 	@Override
 	public void execute(String line) {
 		logger.log(Level.INFO, "Compiling sources.");
-		clearFields();
-		resetHeaders();
-		processCache();
+		try {
+			clearFields();
+			resetHeaders();
+			processCache();
+		} catch (Exception e) {
+			StringBuilder builder = new StringBuilder();
+			Throwable exception = e;
+			do {
+				builder.append(exception.getMessage())
+						.append("\n");
+				exception = exception.getCause();
+			} while (exception != null);
+			logger.log(Level.SEVERE, "Failed to compile sources:\n" + builder);
+		}
 	}
 
 	private void clearFields() {
