@@ -8,6 +8,8 @@ import com.meti.node.declare.VariableResolver;
 import com.meti.node.primitive.ints.IntResolver;
 import com.meti.node.struct.invoke.InvocationParser;
 import com.meti.node.struct.invoke.InvocationResolver;
+import com.meti.node.transform.QuantityParser;
+import com.meti.node.transform.QuantityResolver;
 import com.meti.node.transform.operate.OperationParser;
 import com.meti.node.transform.operate.OperationResolver;
 import com.meti.parse.Declarations;
@@ -27,6 +29,7 @@ public class ObjectTest {
         Unit unit = new StructUnit(declarations, cache);
         Parser parser = new ParentParser(
                 unit,
+                new QuantityParser(),
                 new DeclareParser(declarations),
                 new ReturnParser(declarations),
                 new OperationParser(),
@@ -35,6 +38,7 @@ public class ObjectTest {
         );
         Resolver resolver = new ParentResolver(
                 unit,
+                new QuantityResolver(),
                 new InvocationResolver(declarations),
                 new OperationResolver(),
                 new IntResolver(),
@@ -47,7 +51,7 @@ public class ObjectTest {
                        "        return value;\n" +
                        "    };\n" +
                        "    val compare = (Some other) => Int :{\n" +
-                       "        return value - other.getValue();\n" +
+                       "        return value - (other.getValue());\n" +
                        "    };\n" +
                        "}\n");
         Assertions.assertEquals("int _exitCode=0;" +
