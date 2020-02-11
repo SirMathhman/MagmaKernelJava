@@ -2,7 +2,6 @@ package com.meti.node.block;
 
 import com.meti.Compiler;
 import com.meti.Parser;
-import com.meti.node.CContent;
 import com.meti.node.Node;
 import com.meti.util.BracketPartitioner;
 import com.meti.util.Partitioner;
@@ -19,7 +18,7 @@ public class BlockParser implements Parser {
 				.filter(s -> s.startsWith("{") && s.endsWith("}"))
 				.map(s -> s.substring(1, s.length() - 1))
 				.map(s -> parseChildren(compiler, s))
-				.map(CContent::new);
+				.map(Block::new);
 	}
 
 	private List<Node> parseChildren(Compiler compiler, String childString) {
