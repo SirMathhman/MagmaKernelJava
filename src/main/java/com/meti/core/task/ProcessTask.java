@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class ProcessTask implements Task {
-	protected final Logger logger;
+	final Logger logger;
 
 	ProcessTask(Logger logger) {
 		this.logger = logger;
@@ -27,6 +27,8 @@ public abstract class ProcessTask implements Task {
 		Process process = createProcess();
 		transferProcessStream(process.getErrorStream(), System.err);
 		transferProcessStream(process.getInputStream(), System.out);
+		process.onExit().whenComplete((process1, throwable) -> logger.log(Level.INFO,
+				"Process ended with exit code " + process1.exitValue() + "."));
 	}
 
 	protected abstract void logExecuteMessage();
