@@ -13,6 +13,6 @@ public class DereferenceParser implements Parser {
 				.filter(s -> s.startsWith("*"))
 				.map(s -> s.substring(1))
 				.map(compiler::parse)
-				.map(DereferenceNode::new);
+				.map(CDereferenceNode::new);
 	}
 }

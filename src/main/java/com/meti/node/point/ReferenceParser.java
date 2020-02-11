@@ -14,6 +14,6 @@ public class ReferenceParser implements Parser {
 				.filter(s -> s.startsWith("&"))
 				.map(s -> s.substring(1))
 				.map(compiler::parse)
-				.map(ReferenceNode::new);
+				.map(CReferenceNode::new);
 	}
 }

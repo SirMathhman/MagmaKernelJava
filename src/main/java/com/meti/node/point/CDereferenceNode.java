@@ -2,15 +2,15 @@ package com.meti.node.point;
 
 import com.meti.node.Node;
 
-public class ReferenceNode implements Node {
+public class CDereferenceNode implements Node {
 	private final Node value;
 
-	public ReferenceNode(Node value) {
+	public CDereferenceNode(Node value) {
 		this.value = value;
 	}
 
 	@Override
 	public String render() {
-		return "&" + value.render();
+		return "*" + value.render();
 	}
 }
