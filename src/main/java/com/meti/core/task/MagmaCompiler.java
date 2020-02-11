@@ -57,6 +57,7 @@ class MagmaCompiler extends UnitCompiler {
 		//TODO: group parser
 		this(new ParentParser(
 						unit,
+						new IntParser(),
 						new DoubleParser(),
 						new CharParser(),
 						new WhileParser(),
@@ -78,7 +79,6 @@ class MagmaCompiler extends UnitCompiler {
 						new StringParser(),
 						new OperationParser(),
 						new ThisParser(declarations),
-						new IntParser(),
 						new VariableParser(declarations)
 				),
 				new ParentResolver(

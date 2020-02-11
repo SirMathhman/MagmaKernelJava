@@ -8,10 +8,7 @@ import com.meti.node.Type;
 import com.meti.parse.Declarations;
 import com.meti.parse.Flag;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
@@ -31,14 +28,19 @@ public class DeclareParser implements Parser {
                 .map(s -> parseValid(compiler, s));
     }
 
-    Node parseValid(Compiler compiler, String trim) {
-        String head = parseHead(trim);
-        Set<Flag> flags = parseFlagSet(head);
-        String name = parseName(head);
-        String value = parseValue(trim);
-        return isDeclaration(flags) ?
-                buildDeclaration(compiler, flags, name, value) :
-                buildAssignment(compiler, head, value);
+    private Set<Flag> parseFlags(String flagString) {
+        return Arrays.stream(flagString.split(" "))
+                .filter(s -> !s.isBlank())
+                .map(String::toUpperCase)
+                .map(name -> {
+                    try {
+                        return Flag.valueOf(name);
+                    } catch (IllegalArgumentException e) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     private String parseHead(String trim) {
@@ -108,12 +110,14 @@ public class DeclareParser implements Parser {
         return new DeclareNode(type, name, value);
     }
 
-    private Set<Flag> parseFlags(String flagString) {
-        return Arrays.stream(flagString.split(" "))
-                .filter(s -> !s.isBlank())
-                .map(String::toUpperCase)
-                .map(Flag::valueOf)
-                .collect(Collectors.toSet());
+    private Node parseValid(Compiler compiler, String trim) {
+        String head = parseHead(trim);
+        Set<Flag> flags = parseFlagSet(head);
+        String name = parseName(head);
+        String value = parseValue(trim);
+        return isDeclaration(flags) ?
+                buildDeclaration(compiler, flags, name, value) :
+                buildAssignment(compiler, head, value);
     }
 
     private boolean isValid(String trim, int equalsIndex) {

@@ -1,3 +1,10 @@
+single val Chars =: {
+	val toChar = (Int singleDigit) => Char : {
+		val asciiValue = singleDigit + 48;
+		return <Char> asciiValue;
+	}
+}
+
 single val Integers =: {
 	val count = (Int value) => Int : {
 		val doubleValue = <Double> value;
@@ -13,5 +20,22 @@ single val Integers =: {
 		val childPow = Math.powInt(10, indexToUse);
 		val remainder = value % parentPow;
 		return remainder / childPow;
+	}
+
+	val toString = (Int value) => String : {
+		val valueCount = count(value);
+		val stringSize = valueCount + 1;
+		val block = <String> Memory.allocate(stringSize);
+		var i = 0;
+		while(i < valueCount) {
+			val digit = digitAt(value, i);
+			val c = Chars.toChar(digit);
+			val iIndex = block + i;
+			*iIndex = c;
+			i = i + 1
+		}
+		val lastIndex = block + valueCount;
+		lastIndex = 0;
+		return block;
 	}
 }
