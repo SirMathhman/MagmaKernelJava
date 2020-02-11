@@ -2,7 +2,7 @@ package com.meti;
 
 import com.meti.node.Node;
 import com.meti.node.Parameter;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.ints.IntNode;
 import com.meti.node.primitive.ints.IntType;
 import com.meti.node.struct.*;
@@ -57,13 +57,13 @@ class CacheTest {
 
 		Collection<Parameter> getXParams = Collections.singleton(Parameter.create(new NativeStructType("Point"),
 				Collections.singletonList("Point_")));
-		Collection<Node> getXContent = Collections.singleton(new ReturnNode(new FieldNode(new VariableNode("Point_"),
+		Collection<Node> getXContent = Collections.singleton(new ReturnNode(new FieldNode(new CVariableNode("Point_"),
 				"x")));
 		cache.addFunction(new FunctionNode("Point_getX", IntType.INSTANCE, new BlockNode(getXContent), getXParams));
 
 		Collection<Parameter> getYParams = Collections.singleton(Parameter.create(new NativeStructType("Point"),
 				Collections.singletonList("Point_")));
-		Collection<Node> getYContent = Collections.singleton(new ReturnNode(new FieldNode(new VariableNode("Point_"),
+		Collection<Node> getYContent = Collections.singleton(new ReturnNode(new FieldNode(new CVariableNode("Point_"),
 				"y")));
 		cache.addFunction(new FunctionNode("Point_getY", IntType.INSTANCE, new BlockNode(getYContent), getYParams));
 

@@ -1,7 +1,7 @@
 package com.meti;
 
 import com.meti.node.Node;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.point.DereferenceNode;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class DereferenceNodeTest {
 
 	@Test
 	void render() {
-		Node value = new VariableNode("test");
+		Node value = new CVariableNode("test");
 		Node node = new DereferenceNode(value);
 		assertEquals("*test", node.render());
 	}

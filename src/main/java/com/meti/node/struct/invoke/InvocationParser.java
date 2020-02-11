@@ -5,7 +5,7 @@ import com.meti.Parser;
 import com.meti.exception.RenderException;
 import com.meti.node.Node;
 import com.meti.node.Type;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.VoidType;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.node.struct.type.StructType;
@@ -140,7 +140,7 @@ public class InvocationParser implements Parser {
 	private Optional<Node> checkSingleton(String parent) {
 		return declarations.relative(parent + "$")
 				.flatMap(declaration -> declaration.child(parent))
-				.map(declaration -> new VariableNode(parent));
+				.map(declaration -> new CVariableNode(parent));
 	}
 
 	private Optional<Node> checkClass(String parent, Compiler compiler) {

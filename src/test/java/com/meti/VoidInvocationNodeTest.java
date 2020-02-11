@@ -1,7 +1,7 @@
 package com.meti;
 
 import com.meti.node.Node;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.struct.invoke.VoidInvocationNode;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +13,8 @@ class VoidInvocationNodeTest {
 
 	@Test
 	void render() {
-		Node a = new VariableNode("a");
-		Node b = new VariableNode("b");
+		Node a = new CVariableNode("a");
+		Node b = new CVariableNode("b");
 		Node node = new VoidInvocationNode(a, Collections.singletonList(b));
 		assertEquals("a(b);", node.render());
 	}

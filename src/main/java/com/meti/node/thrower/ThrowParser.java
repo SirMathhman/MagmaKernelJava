@@ -9,8 +9,8 @@ import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
 import com.meti.node.block.CContentNode;
-import com.meti.node.declare.AssignNode;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CAssignNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.struct.FunctionNode;
 import com.meti.node.struct.ReturnNode;
 import com.meti.node.struct.invoke.InvocationNode;
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ThrowParser implements Parser {
-	private static final VariableNode THROW = new VariableNode("_throw");
-	private static final VariableNode THROWABLE = new VariableNode("throwable");
+	private static final CVariableNode THROW = new CVariableNode("_throw");
+	private static final CVariableNode THROWABLE = new CVariableNode("throwable");
 	private final Cache cache;
 	private final Declarations declarations;
 	private int counter = 0;
@@ -60,13 +60,13 @@ public class ThrowParser implements Parser {
 	}
 
 	private Node buildReturn(Node value) {
-		Node varNode = new VariableNode("_throw" + counter);
+		Node varNode = new CVariableNode("_throw" + counter);
 		Node node = new InvocationNode(varNode, value);
 		return new ReturnNode(node);
 	}
 
 	private Collection<Node> buildChildren(Type returnType) {
-		Node assign = new AssignNode(THROW, THROWABLE);
+		Node assign = new CAssignNode(THROW, THROWABLE);
 		Node returnDefault = getReturnDefault(returnType);
 		Node returnNode = new ReturnNode(returnDefault);
 		return List.of(assign, returnNode);

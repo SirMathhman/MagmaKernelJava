@@ -4,7 +4,7 @@ import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Type;
 import com.meti.node.ValueType;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.parse.Declaration;
 
 import java.util.Optional;
@@ -19,7 +19,7 @@ public class DefinedStructType extends ValueType implements StructType {
 	@Override
 	public Node bind(String instanceName, String child) {
 		if (declaration().hasChild(child)) {
-			return new VariableNode(instanceName);
+			return new CVariableNode(instanceName);
 		} else {
 			throw new ParseException(instanceName + "." + child + " is not defined.");
 		}

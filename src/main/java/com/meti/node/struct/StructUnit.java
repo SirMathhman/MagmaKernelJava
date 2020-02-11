@@ -8,8 +8,8 @@ import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
 import com.meti.node.block.CContentNode;
-import com.meti.node.declare.AssignNode;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CAssignNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.VoidType;
 import com.meti.node.struct.invoke.InvocationNode;
 import com.meti.node.struct.type.FunctionTypeBuilder;
@@ -141,7 +141,7 @@ public class StructUnit implements Unit {
 
 	private void registerReturnInstance(Deque<? super Node> statements) {
 		String name = declarations.currentName() + "_";
-		Node varNode = new VariableNode(name);
+		Node varNode = new CVariableNode(name);
 		Node returnNode = new ReturnNode(varNode);
 		statements.addLast(returnNode);
 	}
@@ -150,7 +150,7 @@ public class StructUnit implements Unit {
 		String name = current.name();
 		String varName = name.substring(0, name.length() - 1);
 		cache.addFunction(compiler.parse("val " + varName + "={}"));
-		cache.add(new AssignNode(new VariableNode(varName), new InvocationNode(new VariableNode(name),
+		cache.add(new CAssignNode(new CVariableNode(varName), new InvocationNode(new CVariableNode(name),
 				Collections.emptyList())));
 	}
 

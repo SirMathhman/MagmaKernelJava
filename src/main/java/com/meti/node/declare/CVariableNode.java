@@ -2,10 +2,10 @@ package com.meti.node.declare;
 
 import com.meti.node.Node;
 
-public class VariableNode implements Node {
+public class CVariableNode implements Node {
 	private final String value;
 
-	public VariableNode(String value) {
+	public CVariableNode(String value) {
 		this.value = value;
 	}
 

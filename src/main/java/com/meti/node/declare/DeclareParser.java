@@ -93,7 +93,7 @@ public class DeclareParser implements Parser {
     private Node buildAssignment(Compiler compiler, String to, String from) {
         Node fromNode = compiler.parse(from);
         Node toNode = compiler.parse(to);
-        return new AssignNode(toNode, fromNode);
+        return new CAssignNode(toNode, fromNode);
     }
 
     private Node renderInStack(Compiler compiler, Set<Flag> flags, String name, String valueString) {
@@ -107,7 +107,7 @@ public class DeclareParser implements Parser {
         Type type = compiler.resolveValue(valueString);
         declarations.defineParent(type, name, flags);
         Node value = compiler.parse(valueString);
-        return new DeclareNode(type, name, value);
+        return new CDeclareNode(type, name, value);
     }
 
     private Node parseValid(Compiler compiler, String trim) {

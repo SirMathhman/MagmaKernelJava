@@ -31,7 +31,7 @@ public class VariableParser implements Parser {
 	private Optional<Node> buildVariable(Declaration parent, String childName, StructType type) {
 		Declaration child = parent.child(childName).orElseThrow(() -> throwChildNotDefined(parent, childName));
 		Node node = child.isFunctional() ?
-				new VariableNode(child.joinStack()) :
+				new CVariableNode(child.joinStack()) :
 				new FieldNode(parent, childName);
 		return Optional.of(node);
 	}
@@ -41,7 +41,7 @@ public class VariableParser implements Parser {
 				.filter(Declaration::isFunctional)
 				.map(Declaration::joinStack)
 				.orElse(trim);
-		Node node = new VariableNode(name);
+		Node node = new CVariableNode(name);
 		return Optional.of(node);
 	}
 

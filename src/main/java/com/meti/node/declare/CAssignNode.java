@@ -2,11 +2,11 @@ package com.meti.node.declare;
 
 import com.meti.node.Node;
 
-public class AssignNode implements Node {
+public class CAssignNode implements Node {
 	private final Node from;
 	private final Node to;
 
-	public AssignNode(Node to, Node from) {
+	public CAssignNode(Node to, Node from) {
 		this.from = from;
 		this.to = to;
 	}

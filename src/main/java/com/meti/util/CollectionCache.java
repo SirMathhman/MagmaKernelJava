@@ -2,8 +2,8 @@ package com.meti.util;
 
 import com.meti.Cache;
 import com.meti.node.Node;
-import com.meti.node.declare.DeclareNode;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CDeclareNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.node.point.PointerType;
 import com.meti.node.primitive.ints.IntNode;
 import com.meti.node.primitive.ints.IntType;
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 
 public class CollectionCache implements Cache {
 	private static final String EXIT_NAME = "_exitCode";
-	private static final Node EXIT_DECLARE = new DeclareNode(IntType.INSTANCE, EXIT_NAME, new IntNode(0));
-	private static final Node THROWS_DECLARE = new DeclareNode(new PointerType(AnyType.INSTANCE), "_throw",
+	private static final Node EXIT_DECLARE = new CDeclareNode(IntType.INSTANCE, EXIT_NAME, new IntNode(0));
+	private static final Node THROWS_DECLARE = new CDeclareNode(new PointerType(AnyType.INSTANCE), "_throw",
 			new NullNode());
 	private final Collection<Node> functions;
 	private final Collection<Node> main;
@@ -75,7 +75,7 @@ public class CollectionCache implements Cache {
 	}
 
 	private String renderMain() {
-		main.add(new ReturnNode(new VariableNode(EXIT_NAME)));
+		main.add(new ReturnNode(new CVariableNode(EXIT_NAME)));
 		Node node = new FunctionNode("main", IntType.INSTANCE, new BlockNode(main), Collections.emptyList());
 		return node.render();
 	}
