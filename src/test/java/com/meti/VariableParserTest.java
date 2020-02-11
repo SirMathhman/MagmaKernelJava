@@ -66,11 +66,11 @@ class VariableParserTest {
 		);
 		Compiler compiler = new UnitCompiler(parser, resolver);
 		compiler.parse("single val Strings =: {\n" +
-		               "    val length = (String string) => Int :{\n" +
+		               "    val length = [String string] => Int :{\n" +
 		               "        return 0;\n" +
 		               "    };\n" +
 		               "\n" +
-		               "    val sameSize = (String s0, String s1) => Bool :{\n" +
+		               "    val sameSize = [String s0, String s1] => Bool :{\n" +
 		               "        val length0 = length(s0);\n" +
 		               "        val length1 = length(s1);\n" +
 		               "        return length0 == length1;\n" +

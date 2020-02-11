@@ -34,6 +34,6 @@ class InvocationOperationTest {
 		cache = new CollectionCache();
 		declarations = new TreeDeclarations();
 		compiler = new MagmaCompiler(cache, declarations);
-		compiler.parse("val empty=(Int x)=>Int:{return x;}");
+		compiler.parse("val empty=[Int x]=>Int:{return x;}");
 	}
 }

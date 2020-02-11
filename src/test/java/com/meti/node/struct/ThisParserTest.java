@@ -90,7 +90,7 @@ class ThisParserTest {
 				new ObjectResolver(declarations)
 		);
 		Compiler compiler = new UnitCompiler(parser, resolver);
-		compiler.parse("class val Point = (Int x, Int y) :{\n" +
+		compiler.parse("class val Point = [Int x, Int y] :{\n" +
 		               "	val getX ==> Int :{\n" +
 		               "		return x;\n" +
 		               "	};\n" +
@@ -131,7 +131,7 @@ class ThisParserTest {
 				new ObjectResolver(declarations)
 		);
 		Compiler compiler = new UnitCompiler(parser, resolver);
-		compiler.parse("val Point = (Int x, Int y) => Point :{\n" +
+		compiler.parse("val Point = [Int x, Int y] => Point :{\n" +
 		               "	val getX ==> Int :{\n" +
 		               "		return x;\n" +
 		               "	};\n" +
@@ -176,7 +176,7 @@ class ThisParserTest {
 		);
 		Compiler compiler = new UnitCompiler(parser, resolver);
 		compiler.parse("single val MySingleton =:{\n" +
-		               "	val returnAValue = () => String :{\n" +
+		               "	val returnAValue ==> String :{\n" +
 		               "		return \"test\";\n" +
 		               "	}\n" +
 		               "}\n");

@@ -44,7 +44,7 @@ class SubStructTest {
 				new VariableResolver(declarations)
 		);
 		Compiler compiler = new UnitCompiler(parser, resolver);
-		compiler.parse("            val addTwoNumbers = (Int x, Int y) => Int :{\n" +
+		compiler.parse("            val addTwoNumbers = [Int x, Int y] => Int :{\n" +
 		               "                val doOperation ==> Int :{\n" +
 		               "                    return x + y;\n" +
 		               "                };\n" +

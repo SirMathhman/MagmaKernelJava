@@ -46,11 +46,11 @@ public class ObjectTest {
                 new ObjectResolver(declarations)
         );
         Compiler compiler = new UnitCompiler(parser, resolver);
-        compiler.parse("class val Some = (Int value) : {\n" +
+        compiler.parse("class val Some = [Int value] : {\n" +
                        "    val getValue ==> Int : {\n" +
                        "        return value;\n" +
                        "    };\n" +
-                       "    val compare = (Some other) => Int :{\n" +
+                       "    val compare = [Some other] => Int :{\n" +
                        "        return value - (other.getValue());\n" +
                        "    };\n" +
                        "}\n");

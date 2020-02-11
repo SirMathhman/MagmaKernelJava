@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StructUnit implements Unit {
-	private static final List<String> MARKERS = List.of("(", "=>", ":");
+	private static final List<String> MARKERS = List.of("[", "=>", ":");
 	private final Cache cache;
 	private final Declarations declarations;
 
@@ -93,7 +93,7 @@ public class StructUnit implements Unit {
 		return buffer.cutIfPresent(0)
 				.stream()
 				.map(String::trim)
-				.filter(s -> s.startsWith("(") && s.endsWith(")"))
+				.filter(s -> s.startsWith("[") && s.endsWith("]"))
 				.map(s -> s.substring(1, s.length() - 1))
 				.map(s -> s.split(","))
 				.flatMap(Arrays::stream)

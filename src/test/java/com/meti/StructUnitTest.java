@@ -48,7 +48,7 @@ class StructUnitTest {
 
     @Test
     void parseComplete() throws ParseException {
-        Node node = compiler.parse("val complete = (Int value) => Int : {return value;}");
+        Node node = compiler.parse("val complete = [Int value] => Int : {return value;}");
         assertTrue(node.render().isBlank());
         assertEquals("int _exitCode=0;void *_throw=NULL;int complete(int value){return value;}int main(){return _exitCode;}",
                 cache.render());
@@ -75,13 +75,15 @@ class StructUnitTest {
 
     @Test
     void withParam() {
-        compiler.parse("val accept = (Int some) : {}");
-        assertEquals("int _exitCode=0;void *_throw=NULL;void accept(int some){}int main(){return _exitCode;}", cache.render());
+        compiler.parse("val accept = [Int some] : {}");
+        assertEquals("int _exitCode=0;void *_throw=NULL;void accept(int some){}int main(){return _exitCode;}",
+                cache.render());
     }
 
     @Test
     void withTwoParam() {
-        compiler.parse("val accept = (Int one, Int two) : {}");
-        assertEquals("int _exitCode=0;void *_throw=NULL;void accept(int one,int two){}int main(){return _exitCode;}", cache.render());
+        compiler.parse("val accept = [Int one, Int two] : {}");
+        assertEquals("int _exitCode=0;void *_throw=NULL;void accept(int one,int two){}int main(){return _exitCode;}",
+                cache.render());
     }
 }

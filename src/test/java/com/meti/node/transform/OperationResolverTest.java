@@ -55,10 +55,10 @@ class OperationResolverTest {
 				new OperationResolver(),
 				new VariableResolver(declarations)
 		));
-		compiler.parse("val length = (String value) => Int :{\n" +
+		compiler.parse("val length = [String value] => Int :{\n" +
 		               "		return 0;\n" +
 		               "	}\n");
-		compiler.parse("val copy = (String value) => String : {\n" +
+		compiler.parse("val copy = [String value] => String : {\n" +
 		               "			val oldLength = length(value);\n" +
 		               "			val valueLength = oldLength + 1;\n" +
 		               "		}\n");
