@@ -32,6 +32,13 @@ public class InvocationParser implements Parser {
 		String trim = content.trim();
 		if (trim.endsWith(")")) {
 			String caller = trim.substring(0, trim.indexOf('('));
+			String value = trim.substring(trim.indexOf('(') + 1);
+			int before = value.indexOf(')');
+			int after = value.indexOf('(');
+			if (after > before) {
+				return Optional.empty();
+			}
+
 			Node callerNode = compiler.parse(caller);
 			List<Node> arguments = parseArguments(compiler, trim, caller);
 			return buildNode(compiler.resolveValue(caller), callerNode, arguments);
@@ -59,7 +66,24 @@ public class InvocationParser implements Parser {
 	}
 
 	private Stream<Node> parseGivenArguments(Compiler compiler, String trim) {
-		String values = trim.substring(trim.indexOf('(') + 1, trim.length() - 1);
+		int index = -1;
+		String subString = trim.substring(trim.indexOf('(') + 1);
+		int depth = 0;
+		char[] charArray = subString.toCharArray();
+		for (int i = 0; i < charArray.length; i++) {
+			char c = charArray[i];
+			if (c == '(') {
+				depth++;
+			} else if (c == ')') {
+				if (depth == 0) {
+					index = i;
+					break;
+				}
+				depth--;
+			}
+		}
+
+		String values = subString.substring(0, index);
 		return new ArgumentPartitioner(values)
 				.partition()
 				.stream()

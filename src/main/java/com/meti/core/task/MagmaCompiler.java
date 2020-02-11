@@ -48,12 +48,12 @@ import com.meti.util.ParentParser;
 import com.meti.util.ParentResolver;
 import com.meti.util.UnitCompiler;
 
-class MagmaCompiler extends UnitCompiler {
-	MagmaCompiler(Cache cache, Declarations declarations) {
-		this(declarations, new StructUnit(declarations, cache), cache);
+public class MagmaCompiler extends UnitCompiler {
+	public MagmaCompiler(Cache cache, Declarations declarations) {
+		this(declarations, cache, new StructUnit(declarations, cache));
 	}
 
-	private MagmaCompiler(Declarations declarations, Unit unit, Cache cache) {
+	private MagmaCompiler(Declarations declarations, Cache cache, Unit unit) {
 		//TODO: group parser
 		this(new ParentParser(
 						unit,
