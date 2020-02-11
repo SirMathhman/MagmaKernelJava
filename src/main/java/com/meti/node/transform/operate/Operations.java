@@ -14,6 +14,7 @@ public enum Operations implements Operation {
 	SUBTRACT("-", "-", false),
 	MULTIPLY("*", "*", false),
 	DIVIDE("/", "/", false),
+	MODULUS("%", "%", false),
 	EQUALS("==", "==", true),
 	NOT_EQUALS("!=", "!=", true),
 	LESS_THAN("<", "<", true);

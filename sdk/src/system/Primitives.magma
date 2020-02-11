@@ -1,5 +1,9 @@
 single val Integers =: {
 	val digitAt = (Int value, Int index) => Int : {
-		return 0;
+		val parentIndex = index + 1;
+		val parentPow = Math.powInt(10, parentIndex);
+		val childPow = Math.powInt(10, index);
+		val remainder = value % parentPow;
+		return remainder / childPow;
 	}
 }
