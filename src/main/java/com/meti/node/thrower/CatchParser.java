@@ -6,7 +6,7 @@ import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Type;
 import com.meti.node.block.CContentNode;
-import com.meti.node.condition.IfNode;
+import com.meti.node.condition.CIfNode;
 import com.meti.node.declare.VariableNode;
 import com.meti.node.primitive.special.NullNode;
 import com.meti.node.struct.invoke.InvocationNode;
@@ -57,7 +57,7 @@ public class CatchParser implements Parser {
 	private Node generateIf() {
 		Node condition = generateOperation();
 		Node block = generateBlock();
-		return new IfNode(condition, block);
+		return new CIfNode(condition, block);
 	}
 
 	private Type buildFunctionType(Type current) {

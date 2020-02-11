@@ -25,7 +25,7 @@ public class IfParser implements Parser {
     }
 
     private Node mapToIfNode(List<? extends Node> nodes) {
-        return new IfNode(nodes.get(0), nodes.get(1));
+        return new CIfNode(nodes.get(0), nodes.get(1));
     }
 
     private List<Node> mapToNodes(Collection<String> strings, Compiler compiler) {
