@@ -2,10 +2,10 @@ package com.meti.node.primitive.chars;
 
 import com.meti.node.Node;
 
-public class CharNode implements Node {
+public class CCharNode implements Node {
 	private final char value;
 
-	public CharNode(char value) {
+	public CCharNode(char value) {
 		this.value = value;
 	}
 

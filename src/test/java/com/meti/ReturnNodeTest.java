@@ -1,7 +1,7 @@
 package com.meti;
 
 import com.meti.node.Node;
-import com.meti.node.primitive.ints.IntNode;
+import com.meti.node.primitive.ints.CIntNode;
 import com.meti.node.struct.ReturnNode;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class ReturnNodeTest {
 
 	@Test
 	void render() {
-		Node value = new IntNode(10);
+		Node value = new CIntNode(10);
 		Node node = new ReturnNode(value);
 		assertEquals("return 10;", node.render());
 	}

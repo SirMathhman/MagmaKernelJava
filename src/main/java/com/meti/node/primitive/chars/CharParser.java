@@ -19,7 +19,7 @@ public class CharParser implements Parser {
 
 	private Node buildNode(String trim) {
 		if (3 == trim.length()) {
-			return new CharNode(trim.charAt(1));
+			return new CCharNode(trim.charAt(1));
 		} else {
 			throw new ParseException(trim + " has too many characters.");
 		}

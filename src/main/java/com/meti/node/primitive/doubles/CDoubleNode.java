@@ -2,10 +2,10 @@ package com.meti.node.primitive.doubles;
 
 import com.meti.node.Node;
 
-public class DoubleNode implements Node {
+public class CDoubleNode implements Node {
 	private final double value;
 
-	public DoubleNode(double value) {
+	public CDoubleNode(double value) {
 		this.value = value;
 	}
 

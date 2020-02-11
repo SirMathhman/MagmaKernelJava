@@ -12,6 +12,6 @@ public class NullParser implements Parser {
 		return Optional.of(content)
 				.map(String::trim)
 				.filter("null"::equals)
-				.map(s -> NullNode.INSTANCE);
+				.map(s -> CNullNode.INSTANCE);
 	}
 }

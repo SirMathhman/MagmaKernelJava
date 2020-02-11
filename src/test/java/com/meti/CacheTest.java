@@ -3,7 +3,7 @@ package com.meti;
 import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.declare.CVariableNode;
-import com.meti.node.primitive.ints.IntNode;
+import com.meti.node.primitive.ints.CIntNode;
 import com.meti.node.primitive.ints.IntType;
 import com.meti.node.struct.*;
 import com.meti.node.struct.type.NativeStructType;
@@ -24,7 +24,7 @@ class CacheTest {
 	void add() {
 		List<Node> main = new ArrayList<>();
 		Cache cache = new CollectionCache(Collections.emptyList(), Collections.emptyList(), main);
-		Node expected = new IntNode(10);
+		Node expected = new CIntNode(10);
 		cache.add(expected);
 		assertEquals(expected, main.get(0));
 	}
@@ -33,7 +33,7 @@ class CacheTest {
 	void addFunction() {
 		Collection<Node> nodes = new ArrayList<>();
 		Cache cache = new CollectionCache(Collections.emptyList(), nodes, new ArrayList<>());
-		Node function = new IntNode(10);
+		Node function = new CIntNode(10);
 		cache.addFunction(function);
 		assertIterableEquals(Collections.singleton(function), nodes);
 	}
@@ -42,7 +42,7 @@ class CacheTest {
 	void addStruct() {
 		Collection<Node> nodes = new ArrayList<>();
 		Cache cache = new CollectionCache(nodes, Collections.emptyList(), new ArrayList<>());
-		Node struct = new IntNode(10);
+		Node struct = new CIntNode(10);
 		cache.addStruct(struct);
 		assertIterableEquals(Collections.singleton(struct), nodes);
 	}

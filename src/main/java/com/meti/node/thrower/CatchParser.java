@@ -8,7 +8,7 @@ import com.meti.node.Type;
 import com.meti.node.block.CContentNode;
 import com.meti.node.condition.CIfNode;
 import com.meti.node.declare.CVariableNode;
-import com.meti.node.primitive.special.NullNode;
+import com.meti.node.primitive.special.CNullNode;
 import com.meti.node.struct.invoke.InvocationNode;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.node.transform.operate.OperationNode;
@@ -85,7 +85,7 @@ public class CatchParser implements Parser {
 	}
 
 	private Node generateOperation() {
-		return new OperationNode(THROWS, Operations.NOT_EQUALS, NullNode.INSTANCE);
+		return new OperationNode(THROWS, Operations.NOT_EQUALS, CNullNode.INSTANCE);
 	}
 
 	private Node generateBlock() {

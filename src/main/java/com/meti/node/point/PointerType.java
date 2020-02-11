@@ -2,7 +2,7 @@ package com.meti.node.point;
 
 import com.meti.node.Node;
 import com.meti.node.Type;
-import com.meti.node.primitive.special.NullNode;
+import com.meti.node.primitive.special.CNullNode;
 
 public class PointerType implements SingleType {
 	private final Type child;
@@ -18,7 +18,7 @@ public class PointerType implements SingleType {
 
 	@Override
 	public Node defaultValue() {
-		return NullNode.INSTANCE;
+		return CNullNode.INSTANCE;
 	}
 
 	@Override

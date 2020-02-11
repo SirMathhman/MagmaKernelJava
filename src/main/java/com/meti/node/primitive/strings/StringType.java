@@ -14,7 +14,7 @@ public class StringType extends PrimitiveType implements DefaultType {
 
 	@Override
 	public Node defaultValue() {
-		return new StringNode(DEFAULT_VALUE);
+		return new CStringNode(DEFAULT_VALUE);
 	}
 
 	@Override

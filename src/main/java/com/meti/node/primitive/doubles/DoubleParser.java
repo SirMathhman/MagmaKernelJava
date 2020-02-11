@@ -11,7 +11,7 @@ public class DoubleParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		try {
 			String doubleValue = clip(content);
-			return Optional.of(new DoubleNode(Double.parseDouble(doubleValue)));
+			return Optional.of(new CDoubleNode(Double.parseDouble(doubleValue)));
 		} catch (NumberFormatException e) {
 			return Optional.empty();
 		}

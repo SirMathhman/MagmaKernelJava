@@ -11,7 +11,7 @@ public class FloatParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		try {
 			String floatValue = clip(content);
-			return Optional.of(new FloatNode(Float.parseFloat(floatValue)));
+			return Optional.of(new CFloatNode(Float.parseFloat(floatValue)));
 		} catch (NumberFormatException e) {
 			return Optional.empty();
 		}
