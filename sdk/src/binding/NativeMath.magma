@@ -1,0 +1,5 @@
+single val NativeMath =: {
+	val nativePow = (Double base, Double exponent) => Double : {
+		return pow(base, exponent);
+	}
+}

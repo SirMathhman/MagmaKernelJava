@@ -1,0 +1,4 @@
+{
+	Assertions.assertDoubleEquals("DoublePow", 25d, Math.powDouble(5d, 2d));
+	Assertions.assertIntEquals("IntPow", 25, Math.powInt(5, 2));
+}

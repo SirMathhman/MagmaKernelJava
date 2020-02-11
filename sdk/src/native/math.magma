@@ -1,0 +1,1 @@
+native val pow = (Double base, Double exponent) => Double;

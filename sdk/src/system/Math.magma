@@ -1,0 +1,12 @@
+single val Math =: {
+	val powDouble = (Double value0, Double value1) => Double : {
+		return NativeMath.nativePow(value0, value1);
+	}
+
+	val powInt = (Int value0, Int value1) => Int : {
+		val cast0 = <Double> value0;
+		val cast1 = <Double> value1;
+		val result = powDouble(cast0, cast1);
+		return <Int> result;
+	}
+}

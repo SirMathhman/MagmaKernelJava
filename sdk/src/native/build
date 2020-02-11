@@ -6,3 +6,6 @@ stdlib.magma
 
 string.h
 string.magma
+
+math.h
+math.magma

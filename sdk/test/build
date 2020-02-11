@@ -1,3 +1,4 @@
 AssertionsTest.magma
 StringsTest.magma
 PrimitivesTest.magma
+MathTest.magma
