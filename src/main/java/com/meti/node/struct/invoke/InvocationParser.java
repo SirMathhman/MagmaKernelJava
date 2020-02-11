@@ -133,8 +133,8 @@ public class InvocationParser implements Parser {
 
 	private Node buildNodeFromReturnType(Node callerNode, List<? extends Node> arguments, Type returnType) {
 		return returnType.equals(VoidType.INSTANCE) ?
-				new VoidInvocationNode(callerNode, arguments) :
-				new InvocationNode(callerNode, arguments);
+				new CVoidInvocationNode(callerNode, arguments) :
+				new CInvocationNode(callerNode, arguments);
 	}
 
 	private Optional<Node> checkSingleton(String parent) {

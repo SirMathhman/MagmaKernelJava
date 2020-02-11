@@ -11,9 +11,9 @@ import com.meti.node.Type;
 import com.meti.node.block.CContentNode;
 import com.meti.node.declare.CAssignNode;
 import com.meti.node.declare.CVariableNode;
-import com.meti.node.struct.FunctionNode;
-import com.meti.node.struct.ReturnNode;
-import com.meti.node.struct.invoke.InvocationNode;
+import com.meti.node.struct.CFunctionNode;
+import com.meti.node.struct.CReturnNode;
+import com.meti.node.struct.invoke.CInvocationNode;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.parse.Declarations;
 
@@ -55,20 +55,20 @@ public class ThrowParser implements Parser {
 		Collection<Node> children = buildChildren(returnType);
 		Node content = new CContentNode(children);
 		Parameter parameters = Parameter.create(type, "throwable");
-		Node node = new FunctionNode("_throw" + counter, returnType, content, parameters);
+		Node node = new CFunctionNode("_throw" + counter, returnType, content, parameters);
 		cache.addFunction(node);
 	}
 
 	private Node buildReturn(Node value) {
 		Node varNode = new CVariableNode("_throw" + counter);
-		Node node = new InvocationNode(varNode, value);
-		return new ReturnNode(node);
+		Node node = new CInvocationNode(varNode, value);
+		return new CReturnNode(node);
 	}
 
 	private Collection<Node> buildChildren(Type returnType) {
 		Node assign = new CAssignNode(THROW, THROWABLE);
 		Node returnDefault = getReturnDefault(returnType);
-		Node returnNode = new ReturnNode(returnDefault);
+		Node returnNode = new CReturnNode(returnDefault);
 		return List.of(assign, returnNode);
 	}
 

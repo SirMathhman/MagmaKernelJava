@@ -53,19 +53,19 @@ class CacheTest {
 		Collection<Parameter> structParams = List.of(
 				Parameter.create(IntType.INSTANCE, Collections.singletonList("x")),
 				Parameter.create(IntType.INSTANCE, Collections.singletonList("y")));
-		cache.addStruct(new StructNode("Point", structParams));
+		cache.addStruct(new CStructNode("Point", structParams));
 
 		Collection<Parameter> getXParams = Collections.singleton(Parameter.create(new NativeStructType("Point"),
 				Collections.singletonList("Point_")));
-		Collection<Node> getXContent = Collections.singleton(new ReturnNode(new FieldNode(new CVariableNode("Point_"),
+		Collection<Node> getXContent = Collections.singleton(new CReturnNode(new CStructAccesorNode(new CVariableNode("Point_"),
 				"x")));
-		cache.addFunction(new FunctionNode("Point_getX", IntType.INSTANCE, new BlockNode(getXContent), getXParams));
+		cache.addFunction(new CFunctionNode("Point_getX", IntType.INSTANCE, new BlockNode(getXContent), getXParams));
 
 		Collection<Parameter> getYParams = Collections.singleton(Parameter.create(new NativeStructType("Point"),
 				Collections.singletonList("Point_")));
-		Collection<Node> getYContent = Collections.singleton(new ReturnNode(new FieldNode(new CVariableNode("Point_"),
+		Collection<Node> getYContent = Collections.singleton(new CReturnNode(new CStructAccesorNode(new CVariableNode("Point_"),
 				"y")));
-		cache.addFunction(new FunctionNode("Point_getY", IntType.INSTANCE, new BlockNode(getYContent), getYParams));
+		cache.addFunction(new CFunctionNode("Point_getY", IntType.INSTANCE, new BlockNode(getYContent), getYParams));
 
 		assertEquals("int _exitCode=0;" +
 				"void *_throw=NULL;" +

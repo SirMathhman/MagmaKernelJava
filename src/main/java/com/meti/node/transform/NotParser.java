@@ -13,7 +13,7 @@ public class NotParser implements Parser {
 		if (trim.startsWith("!")) {
 			String valueString = trim.substring(1);
 			Node value = compiler.parse(valueString);
-			return Optional.of(new NotNode(value));
+			return Optional.of(new CNotNode(value));
 		}
 		return Optional.empty();
 	}

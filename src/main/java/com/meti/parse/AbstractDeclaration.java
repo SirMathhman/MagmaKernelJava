@@ -6,7 +6,7 @@ import com.meti.node.Parameter;
 import com.meti.node.Type;
 import com.meti.node.declare.CDeclareNode;
 import com.meti.node.declare.CVariableNode;
-import com.meti.node.struct.StructNode;
+import com.meti.node.struct.CStructNode;
 import com.meti.node.struct.type.DefinedStructType;
 import com.meti.node.struct.type.NativeStructType;
 
@@ -154,7 +154,7 @@ public abstract class AbstractDeclaration implements Declaration {
 
 	@Override
 	public Node toStruct() {
-		return new StructNode(name(), childrenAsParams());
+		return new CStructNode(name(), childrenAsParams());
 	}
 
 	@Override

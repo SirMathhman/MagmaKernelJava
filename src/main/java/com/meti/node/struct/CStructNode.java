@@ -6,11 +6,11 @@ import com.meti.node.Parameter;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class StructNode implements Node {
+public class CStructNode implements Node {
 	private final String name;
 	private final Collection<? extends Parameter> parameters;
 
-	public StructNode(String name, Collection<? extends Parameter> parameters) {
+	public CStructNode(String name, Collection<? extends Parameter> parameters) {
 		this.name = name;
 		this.parameters = parameters;
 	}

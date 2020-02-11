@@ -11,7 +11,7 @@ import com.meti.node.block.CContentNode;
 import com.meti.node.declare.CAssignNode;
 import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.VoidType;
-import com.meti.node.struct.invoke.InvocationNode;
+import com.meti.node.struct.invoke.CInvocationNode;
 import com.meti.node.struct.type.FunctionTypeBuilder;
 import com.meti.parse.Declaration;
 import com.meti.parse.Declarations;
@@ -54,9 +54,9 @@ public class StructUnit implements Unit {
 		String funcName = declarations.buildStackName();
 		Collection<Parameter> parameters = parseParameters(compiler, buffer);
 		Type returnType = parseReturnType(compiler, buffer);
-		Node abstraction = new AbstractFunctionNode(funcName, returnType, parameters);
+		Node abstraction = new CFunctionHeaderNode(funcName, returnType, parameters);
 		Node block = parseBlock(compiler, buffer, abstraction);
-		return new FunctionNode(funcName, returnType, block, parameters);
+		return new CFunctionNode(funcName, returnType, block, parameters);
 	}
 
 	private Collection<Parameter> parseParameters(Compiler compiler, IndexBuffer buffer) {
@@ -142,7 +142,7 @@ public class StructUnit implements Unit {
 	private void registerReturnInstance(Deque<? super Node> statements) {
 		String name = declarations.currentName() + "_";
 		Node varNode = new CVariableNode(name);
-		Node returnNode = new ReturnNode(varNode);
+		Node returnNode = new CReturnNode(varNode);
 		statements.addLast(returnNode);
 	}
 
@@ -150,7 +150,7 @@ public class StructUnit implements Unit {
 		String name = current.name();
 		String varName = name.substring(0, name.length() - 1);
 		cache.addFunction(compiler.parse("val " + varName + "={}"));
-		cache.add(new CAssignNode(new CVariableNode(varName), new InvocationNode(new CVariableNode(name),
+		cache.add(new CAssignNode(new CVariableNode(varName), new CInvocationNode(new CVariableNode(name),
 				Collections.emptyList())));
 	}
 

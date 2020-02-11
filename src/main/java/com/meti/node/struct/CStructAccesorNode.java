@@ -3,15 +3,15 @@ package com.meti.node.struct;
 import com.meti.node.Node;
 import com.meti.parse.Declaration;
 
-public class FieldNode implements Node {
+public class CStructAccesorNode implements Node {
 	private final String name;
 	private final Node node;
 
-	public FieldNode(Declaration instance, String name) {
+	public CStructAccesorNode(Declaration instance, String name) {
 		this(instance.toVariable(), name);
 	}
 
-	public FieldNode(Node node, String name) {
+	public CStructAccesorNode(Node node, String name) {
 		this.name = name;
 		this.node = node;
 	}

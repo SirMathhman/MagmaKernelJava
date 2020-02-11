@@ -10,8 +10,8 @@ import com.meti.node.primitive.ints.IntType;
 import com.meti.node.primitive.special.AnyType;
 import com.meti.node.primitive.special.CNullNode;
 import com.meti.node.struct.BlockNode;
-import com.meti.node.struct.FunctionNode;
-import com.meti.node.struct.ReturnNode;
+import com.meti.node.struct.CFunctionNode;
+import com.meti.node.struct.CReturnNode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -75,8 +75,8 @@ public class CollectionCache implements Cache {
 	}
 
 	private String renderMain() {
-		main.add(new ReturnNode(new CVariableNode(EXIT_NAME)));
-		Node node = new FunctionNode("main", IntType.INSTANCE, new BlockNode(main), Collections.emptyList());
+		main.add(new CReturnNode(new CVariableNode(EXIT_NAME)));
+		Node node = new CFunctionNode("main", IntType.INSTANCE, new BlockNode(main), Collections.emptyList());
 		return node.render();
 	}
 }

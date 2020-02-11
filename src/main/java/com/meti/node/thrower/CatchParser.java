@@ -9,9 +9,9 @@ import com.meti.node.block.CContentNode;
 import com.meti.node.condition.CIfNode;
 import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.CNullNode;
-import com.meti.node.struct.invoke.InvocationNode;
+import com.meti.node.struct.invoke.CInvocationNode;
 import com.meti.node.struct.type.FunctionType;
-import com.meti.node.transform.operate.OperationNode;
+import com.meti.node.transform.operate.COperationNode;
 import com.meti.node.transform.operate.Operations;
 import com.meti.parse.Declarations;
 
@@ -85,12 +85,12 @@ public class CatchParser implements Parser {
 	}
 
 	private Node generateOperation() {
-		return new OperationNode(THROWS, Operations.NOT_EQUALS, CNullNode.INSTANCE);
+		return new COperationNode(THROWS, Operations.NOT_EQUALS, CNullNode.INSTANCE);
 	}
 
 	private Node generateBlock() {
 		Node countNode = new CVariableNode("_catch" + counter);
-		Node invocationNode = new InvocationNode(countNode, THROWS);
+		Node invocationNode = new CInvocationNode(countNode, THROWS);
 		return new CContentNode(invocationNode);
 	}
 }

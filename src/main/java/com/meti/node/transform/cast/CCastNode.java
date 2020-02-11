@@ -3,11 +3,11 @@ package com.meti.node.transform.cast;
 import com.meti.node.Node;
 import com.meti.node.Type;
 
-public class CastNode implements Node {
+public class CCastNode implements Node {
 	private final Type type;
 	private final Node value;
 
-	public CastNode(Type type, Node value) {
+	public CCastNode(Type type, Node value) {
 		this.type = type;
 		this.value = value;
 	}

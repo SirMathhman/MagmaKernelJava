@@ -2,10 +2,10 @@ package com.meti.node.struct;
 
 import com.meti.node.Node;
 
-public class ReturnNode implements Node {
+public class CReturnNode implements Node {
 	private final Node value;
 
-	public ReturnNode(Node value) {
+	public CReturnNode(Node value) {
 		this.value = value;
 	}
 
