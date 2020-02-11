@@ -39,9 +39,6 @@ public class InvocationParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		String trim = content.trim();
 		if (trim.endsWith(")")) {
-			if (trim.contains("StringBuilders")) {
-				System.out.println();
-			}
 			int index = index(trim);
 			String caller = trim.substring(0, index);
 			Node callerNode = compiler.parse(caller);
