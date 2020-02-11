@@ -7,7 +7,7 @@ import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
-import com.meti.node.block.BlockNode;
+import com.meti.node.block.CContentNode;
 import com.meti.node.declare.AssignNode;
 import com.meti.node.declare.VariableNode;
 import com.meti.node.primitive.special.VoidType;
@@ -115,7 +115,7 @@ public class StructUnit implements Unit {
 		}
 		if (declarations.isInClass()) registerReturnInstance(statements);
 		if (declarations.isInSingleton()) registerSingleton(compiler, current);
-		return new BlockNode(statements);
+		return new CContentNode(statements);
 	}
 
 	private Parameter parseParam(Compiler compiler, String paramString) {

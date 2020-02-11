@@ -8,7 +8,7 @@ import com.meti.node.DefaultType;
 import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
-import com.meti.node.block.BlockNode;
+import com.meti.node.block.CContentNode;
 import com.meti.node.declare.AssignNode;
 import com.meti.node.declare.VariableNode;
 import com.meti.node.struct.FunctionNode;
@@ -53,7 +53,7 @@ public class ThrowParser implements Parser {
 	private void buildFunction(Type type, FunctionType innerType) {
 		Type returnType = innerType.returnType();
 		Collection<Node> children = buildChildren(returnType);
-		Node content = new BlockNode(children);
+		Node content = new CContentNode(children);
 		Parameter parameters = Parameter.create(type, "throwable");
 		Node node = new FunctionNode("_throw" + counter, returnType, content, parameters);
 		cache.addFunction(node);
