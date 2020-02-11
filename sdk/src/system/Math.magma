@@ -9,4 +9,29 @@ single val Math =: {
 		val result = powDouble(cast0, cast1);
 		return <Int> result;
 	}
+
+	val logNatural = (Double value) => Double : {
+		return NativeMath.nativeLog(value);
+	}
+
+	val logDouble = (Double base, Double value) => Double : {
+		val den = logNatural(base);
+		val num = logNatural(value);
+		return num / den;
+	}
+
+	val floorDouble = (Double value) => Double : {
+		return NativeMath.nativeFloor(value);
+	}
+
+	val ceilDouble = (Double value) => Double : {
+		return NativeMath.nativeCeil(value);
+	}
+
+	val logInt = (Int base, Int value) => Int : {
+		val baseCast = <Double> base;
+		val valueCast = <Double> value;
+		val result = logDouble(baseCast, valueCast);
+		return <Int> ceilDouble(result);
+	}
 }
