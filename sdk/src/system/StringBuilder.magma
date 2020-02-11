@@ -3,6 +3,7 @@ class val StringBuilder = [String value, Int length] : {
 		val concat = Strings.concat(value, content);
 		val contentLength = Strings.length(content);
 		val newLength = length + contentLength;
+		Memory.empty(value);
 		return StringBuilder(concat, newLength);
 	}
 
@@ -20,6 +21,6 @@ single val StringBuilders =: {
 		return StringBuilder("", 0);
 	}
 	val of = [String content] => StringBuilder :{
-		return StringBuilder(content, Strings.length(content));
+		return StringBuilder(Strings.copy(content), Strings.length(content));
 	}
 }
