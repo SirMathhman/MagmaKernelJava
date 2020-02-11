@@ -18,7 +18,7 @@ public class BlockParser implements Parser {
 				.filter(s -> s.startsWith("{") && s.endsWith("}"))
 				.map(s -> s.substring(1, s.length() - 1))
 				.map(s -> parseChildren(compiler, s))
-				.map(BlockNode::new);
+				.map(CContentNode::new);
 	}
 
 	private List<Node> parseChildren(Compiler compiler, String childString) {

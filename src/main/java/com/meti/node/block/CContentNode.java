@@ -6,14 +6,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class BlockNode implements Node {
+public class CContentNode implements Node {
 	private final Collection<? extends Node> children;
 
-	public BlockNode(Node node) {
+	public CContentNode(Node node) {
 		this(Collections.singleton(node));
 	}
 
-	public BlockNode(Collection<? extends Node> children) {
+	public CContentNode(Collection<? extends Node> children) {
 		this.children = children;
 	}
 
