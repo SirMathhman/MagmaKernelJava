@@ -16,14 +16,6 @@ public class DeclareNode implements Node {
 
     @Override
     public String render() {
-        return null == value ? renderWithoutValue() : renderWithValue(value);
-    }
-
-    private String renderWithoutValue() {
-        return type.render(name) + ";";
-    }
-
-    private String renderWithValue(Node value) {
         String renderedValue = value.render();
         return renderedValue.isBlank() ? "" :
                 type.render(name) + "=" + renderedValue + ";";
