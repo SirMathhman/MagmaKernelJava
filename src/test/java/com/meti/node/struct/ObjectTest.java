@@ -57,6 +57,7 @@ public class ObjectTest {
         Assertions.assertEquals("int _exitCode=0;" +
                                 "void *_throw=NULL;" +
                                 "struct Some{int value;};" +
+                                "struct Some Some(int value);" +
                                 "int Some_getValue(struct Some Some_){" +
                                 "return Some_.value;}" +
                                 "int Some_compare(struct Some other,struct Some Some_){" +

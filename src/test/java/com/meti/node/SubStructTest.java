@@ -53,6 +53,7 @@ class SubStructTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct addTwoNumbers{int x;int y;};" +
+		             "int addTwoNumbers(int x,int y);" +
 		             "int addTwoNumbers_doOperation(struct addTwoNumbers addTwoNumbers_){" +
 		             "return addTwoNumbers_.x+addTwoNumbers_.y;" +
 		             "}" +
@@ -60,8 +61,8 @@ class SubStructTest {
 		             "struct addTwoNumbers addTwoNumbers_={x,y};" +
 		             "return addTwoNumbers_doOperation(addTwoNumbers_);" +
 		             "}" +
-				"int main(){" +
-				"return _exitCode;" +
-				"}", cache.render());
+		             "int main(){" +
+		             "return _exitCode;" +
+		             "}", cache.render());
 	}
 }

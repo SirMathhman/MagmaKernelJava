@@ -79,6 +79,7 @@ class VariableParserTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct Strings${};" +
+		             "struct Strings$ Strings$();" +
 		             "int Strings$_length(char* string,struct Strings$ Strings$_){" +
 		             "return 0;}" +
 		             "int Strings$_sameSize(char* s0,char* s1,struct Strings$ Strings$_){" +
@@ -86,12 +87,12 @@ class VariableParserTest {
 		             "int length1=Strings$_length(s1,Strings$_);" +
 		             "return length0==length1;}" +
 		             "struct Strings$ Strings={};" +
-				"struct Strings$ Strings$(){" +
-				"struct Strings$ Strings$_={};" +
-				"return Strings$_;}" +
-				"int main(){" +
-				"Strings=Strings$();" +
-				"return _exitCode;}", cache.render());
+		             "struct Strings$ Strings$(){" +
+		             "struct Strings$ Strings$_={};" +
+		             "return Strings$_;}" +
+		             "int main(){" +
+		             "Strings=Strings$();" +
+		             "return _exitCode;}", cache.render());
 	}
 
 	@Test

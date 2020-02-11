@@ -61,6 +61,7 @@ class ThisParserTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct HasTwoMethods{};" +
+		             "struct HasTwoMethods HasTwoMethods();" +
 		             "void HasTwoMethods_methodOne(struct HasTwoMethods HasTwoMethods_){}" +
 		             "void HasTwoMethods_methodTwo(struct HasTwoMethods HasTwoMethods_){" +
 		             "HasTwoMethods_methodOne(HasTwoMethods_);}" +
@@ -68,7 +69,7 @@ class ThisParserTest {
 		             "struct HasTwoMethods HasTwoMethods_={};" +
 		             "return HasTwoMethods_;}" +
 		             "int main(){" +
-				"return _exitCode;}", cache.render());
+		             "return _exitCode;}", cache.render());
 	}
 
 	@Test
@@ -101,6 +102,7 @@ class ThisParserTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct Point{int x;int y;};" +
+		             "struct Point Point(int x,int y);" +
 		             "int Point_getX(struct Point Point_){return Point_.x;}" +
 		             "int Point_getY(struct Point Point_){return Point_.y;}" +
 		             "struct Point Point(int x,int y){" +
@@ -143,6 +145,7 @@ class ThisParserTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct Point{int x;int y;};" +
+		             "struct Point Point(int x,int y);" +
 		             "int Point_getX(struct Point Point_){return Point_.x;}" +
 		             "int Point_getY(struct Point Point_){return Point_.y;}" +
 		             "struct Point Point(int x,int y){" +
@@ -183,6 +186,7 @@ class ThisParserTest {
 		assertEquals("int _exitCode=0;" +
 		             "void *_throw=NULL;" +
 		             "struct MySingleton${};" +
+		             "struct MySingleton$ MySingleton$();" +
 		             "char* MySingleton$_returnAValue(struct MySingleton$ MySingleton$_){" +
 		             "return \"test\";}" +
 		             "struct MySingleton$ MySingleton={};" +

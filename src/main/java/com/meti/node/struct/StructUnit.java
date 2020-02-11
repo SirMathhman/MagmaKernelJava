@@ -54,7 +54,8 @@ public class StructUnit implements Unit {
 		String funcName = declarations.buildStackName();
 		Collection<Parameter> parameters = parseParameters(compiler, buffer);
 		Type returnType = parseReturnType(compiler, buffer);
-		Node block = parseBlock(compiler, buffer);
+		Node abstraction = new AbstractFunctionNode(funcName, returnType, parameters);
+		Node block = parseBlock(compiler, buffer, abstraction);
 		return new FunctionNode(funcName, returnType, block, parameters);
 	}
 
@@ -75,7 +76,7 @@ public class StructUnit implements Unit {
 				.orElseGet(this::buildMissingReturnType);
 	}
 
-	private Node parseBlock(Compiler compiler, IndexBuffer buffer) {
+	private Node parseBlock(Compiler compiler, IndexBuffer buffer, Node abstraction) {
 		if (buffer.isPresent(2)) {
 			return Optional.of(buffer)
 					.map(b -> b.cut(2))
@@ -83,7 +84,7 @@ public class StructUnit implements Unit {
 					.map(s -> s.substring(1))
 					.map(String::trim)
 					.filter(s -> s.startsWith("{") && s.endsWith("}"))
-					.map(s -> parseValidBlock(compiler, s))
+					.map(s -> parseValidBlock(compiler, s, abstraction))
 					.orElseThrow(() -> new ParseException("Single statement methods are not supported yet."));
 		}
 		throw new ParseException("Abstract methods are not supported yet.");
@@ -105,10 +106,13 @@ public class StructUnit implements Unit {
 		return declarations.isInClass() ? declarations.toLazyStruct() : VoidType.INSTANCE;
 	}
 
-	private Node parseValidBlock(Compiler compiler, String implString) {
+	private Node parseValidBlock(Compiler compiler, String implString, Node abstraction) {
 		Deque<Node> statements = parseStatements(compiler, implString);
 		Declaration current = declarations.current();
-		if (current.isSuperStructure()) statements.addFirst(assign(current));
+		if (current.isSuperStructure()) {
+			statements.addFirst(assign(current));
+			cache.addStruct(abstraction);
+		}
 		if (declarations.isInClass()) registerReturnInstance(statements);
 		if (declarations.isInSingleton()) registerSingleton(compiler, current);
 		return new BlockNode(statements);
