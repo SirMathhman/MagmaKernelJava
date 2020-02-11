@@ -54,8 +54,8 @@ public class VariableParser implements Parser {
 	}
 
 	private Optional<Node> parseAccessor(Compiler compiler, String trim) {
-		String parent = trim.substring(0, trim.indexOf('.'));
-		String child = trim.substring(trim.indexOf('.') + 1);
+		String parent = trim.substring(0, trim.lastIndexOf('.'));
+		String child = trim.substring(trim.lastIndexOf('.') + 1);
 		Type parentType = compiler.resolveValue(parent);
 		return parentType instanceof StructType ?
 				parseObject(child, (StructType) parentType) :

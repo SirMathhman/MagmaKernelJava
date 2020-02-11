@@ -48,12 +48,12 @@ public class VariableResolver implements Resolver {
 	}
 
 	private Type parentType(Compiler compiler, String trim) {
-		String parent = trim.substring(0, trim.indexOf('.'));
+		String parent = trim.substring(0, trim.lastIndexOf('.'));
 		return compiler.resolveValue(parent);
 	}
 
 	private Type parseChild(StructType parentType, String trim) {
-		String child = trim.substring(trim.indexOf('.') + 1);
+		String child = trim.substring(trim.lastIndexOf('.') + 1);
 		return parentType.typeOf(child).orElseThrow();
 	}
 

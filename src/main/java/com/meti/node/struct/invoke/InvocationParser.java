@@ -27,28 +27,51 @@ public class InvocationParser implements Parser {
 		this.declarations = declarations;
 	}
 
+	private Stream<Node> checkClass(Type parent, Node callerNode) {
+		return Optional.of(parent)
+				.filter(StructType.class::isInstance)
+				.map(StructType.class::cast)
+				.map(s -> callerNode)
+				.stream();
+	}
+
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
 		String trim = content.trim();
 		if (trim.endsWith(")")) {
-			String caller = trim.substring(0, trim.indexOf('('));
-			String value = trim.substring(trim.indexOf('(') + 1);
-			int before = value.indexOf(')');
-			int after = value.indexOf('(');
-			if (after > before) {
-				return Optional.empty();
+			if (trim.contains("StringBuilders")) {
+				System.out.println();
 			}
-
+			int index = index(trim);
+			String caller = trim.substring(0, index);
 			Node callerNode = compiler.parse(caller);
-			List<Node> arguments = parseArguments(compiler, trim, caller);
+			List<Node> arguments = parseArguments(compiler, trim, caller, callerNode);
 			return buildNode(compiler.resolveValue(caller), callerNode, arguments);
 		}
 		return Optional.empty();
 	}
 
-	private List<Node> parseArguments(Compiler compiler, String trim, String caller) {
+	private int index(String trim) {
+		int index = -1;
+		int depth = 0;
+		char[] charArray = trim.toCharArray();
+		for (int i = 0; i < charArray.length; i++) {
+			char c = charArray[i];
+			if (c == '(') {
+				if (depth == 0) {
+					index = i;
+				}
+				depth++;
+			} else if (c == ')') {
+				depth--;
+			}
+		}
+		return index;
+	}
+
+	private List<Node> parseArguments(Compiler compiler, String trim, String caller, Node callerNode) {
 		return Stream.of(parseGivenArguments(compiler, trim),
-				parseParentArguments(caller),
+				parseParentArguments(compiler, caller, callerNode),
 				parseStackArguments(caller))
 				.reduce(Stream::concat)
 				.map(stream -> stream.collect(Collectors.toList()))
@@ -67,7 +90,7 @@ public class InvocationParser implements Parser {
 
 	private Stream<Node> parseGivenArguments(Compiler compiler, String trim) {
 		int index = -1;
-		String subString = trim.substring(trim.indexOf('(') + 1);
+		String subString = trim.substring(index(trim) + 1);
 		int depth = 0;
 		char[] charArray = subString.toCharArray();
 		for (int i = 0; i < charArray.length; i++) {
@@ -91,11 +114,15 @@ public class InvocationParser implements Parser {
 				.map(compiler::parse);
 	}
 
-	private Stream<Node> parseParentArguments(String caller) {
+	private Stream<Node> parseParentArguments(Compiler compiler, String caller, Node callerNode) {
 		if (caller.contains(".")) {
 			String parent = caller.substring(0, caller.lastIndexOf('.')).trim();
-			String child = caller.substring(caller.lastIndexOf('.') + 1);
-			return Stream.concat(checkSingleton(parent), checkClass(parent, child));
+			Optional<Node> singleton = checkSingleton(parent);
+			if (singleton.isEmpty()) {
+				return checkClass(parent, compiler).stream();
+			} else {
+				return singleton.stream();
+			}
 		}
 		return Stream.empty();
 	}
@@ -113,19 +140,19 @@ public class InvocationParser implements Parser {
 				new InvocationNode(callerNode, arguments);
 	}
 
-	private Stream<VariableNode> checkSingleton(String parent) {
+	private Optional<Node> checkSingleton(String parent) {
 		return declarations.relative(parent + "$")
 				.flatMap(declaration -> declaration.child(parent))
-				.map(declaration -> new VariableNode(parent))
-				.stream();
+				.map(declaration -> new VariableNode(parent));
 	}
 
-	private Stream<Node> checkClass(String parent, String child) {
-		return declarations.relative(parent)
-				.map(Declaration::type)
-				.filter(StructType.class::isInstance)
-				.map(StructType.class::cast)
-				.map(s -> s.bind(parent, child))
-				.stream();
+	private Optional<Node> checkClass(String parent, Compiler compiler) {
+		Type parentType = compiler.resolveValue(parent);
+		if (parentType instanceof StructType) {
+			Node parentNode = compiler.parse(parent);
+			return Optional.of(parentNode);
+		} else {
+			return Optional.empty();
+		}
 	}
 }

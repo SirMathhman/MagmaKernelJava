@@ -1,0 +1,7 @@
+{
+	val result = StringBuilders.empty()
+		.appendString("foo")
+		.appendString("bar")
+		.toString();
+	Assertions.assertStringEquals("StringBuilderAppendString", "foobar", result);
+}

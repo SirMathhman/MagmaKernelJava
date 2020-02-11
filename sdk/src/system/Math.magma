@@ -15,7 +15,9 @@ single val Math =: {
 	}
 
 	val logDouble = [Double base, Double value] => Double : {
-		return logNatural(value) / logNatural(base);
+		val num = logNatural(value);
+		val den = logNatural(base);
+		return num / den;
 	}
 
 	val floorDouble = [Double value] => Double : {

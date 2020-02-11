@@ -1,0 +1,25 @@
+class val StringBuilder = [String value, Int length] : {
+	val appendString = [String content] => StringBuilder : {
+		val concat = Strings.concat(value, content);
+		val contentLength = Strings.length(content);
+		val newLength = length + contentLength;
+		return StringBuilder(concat, newLength);
+	}
+
+	val appendInt = [Int content] => StringBuilder : {
+		return appendString(Integers.toString(content));
+	}
+
+	val toString ==> String : {
+		return value;
+	}
+}
+
+single val StringBuilders =: {
+	val empty ==> StringBuilder :{
+		return StringBuilder("", 0);
+	}
+	val of = [String content] => StringBuilder :{
+		return StringBuilder(content, Strings.length(content));
+	}
+}

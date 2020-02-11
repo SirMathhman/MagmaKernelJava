@@ -22,11 +22,12 @@ public class InvocationResolver implements Resolver {
 		return Optional.empty();
 	}
 
+
 	@Override
 	public Optional<Type> resolveValue(String content, Compiler compiler) {
 		String trim = content.trim();
 		if (trim.endsWith(")")) {
-			int start = trim.indexOf('(');
+			int start = index(trim);
 			String caller = trim.substring(0, start);
 			if (caller.contains(".")) {
 				Type functionType = compiler.resolveValue(caller);
@@ -47,5 +48,23 @@ public class InvocationResolver implements Resolver {
 			}
 		}
 		return Optional.empty();
+	}
+
+	private int index(String trim) {
+		int index = -1;
+		int depth = 0;
+		char[] charArray = trim.toCharArray();
+		for (int i = 0; i < charArray.length; i++) {
+			char c = charArray[i];
+			if (c == '(') {
+				if (depth == 0) {
+					index = i;
+				}
+				depth++;
+			} else if (c == ')') {
+				depth--;
+			}
+		}
+		return index;
 	}
 }
