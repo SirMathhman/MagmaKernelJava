@@ -1,17 +1,17 @@
 single val MemoryBridge =: {
-	val of = (Int size) => Any* : {
+	val of = [Int size] => Any* : {
 		return malloc(size);
 	}
 
-	val contiguous = (Int count, Int size) => Any* : {
+	val contiguous = [Int count, Int size] => Any* : {
 		return calloc(count, size);
 	}
 
-	val resize = (Any* block, Int size) : {
+	val resize = [Any* block, Int size] : {
 		realloc(block, size);
 	}
 
-	val empty = (Any* block) : {
+	val empty = [Any* block] : {
 		free(block);
 	}
 }

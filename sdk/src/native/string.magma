@@ -1,4 +1,4 @@
-native val strlen = (String string) => Int;
-native val strcpy = (String to, String from);
-native val strcat = (String to, String from);
-native val strcmp = (String value0, String value1) => Int;
+native val strlen = [String string] => Int;
+native val strcpy = [String to, String from];
+native val strcat = [String to, String from];
+native val strcmp = [String value0, String value1] => Int;

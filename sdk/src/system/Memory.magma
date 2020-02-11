@@ -1,17 +1,17 @@
 single val Memory =: {
-	val allocate = (Int size) => Any* : {
+	val allocate = [Int size] => Any* : {
 		return MemoryBridge.of(size);
 	}
 
-	val contiguous = (Int count, Int size) => Any* : {
+	val contiguous = [Int count, Int size] => Any* : {
 		return MemoryBridge.contiguous(count, size);
 	}
 
-	val resize = (Any* block, Int size) : {
+	val resize = [Any* block, Int size] : {
 		MemoryBridge.resize(block, size);
 	}
 
-	val empty = (Any* block) : {
+	val empty = [Any* block] : {
 		MemoryBridge.empty(block);
 	}
 }

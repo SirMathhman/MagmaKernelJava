@@ -1,16 +1,15 @@
 single val Strings =: {
-	val length = (String value) => Int : {
+	val length = [String value] => Int : {
 		return StringBinding.length(value);
 	}
 
-	val copy = (String value) => String : {
-		val newLength = length(value) + 1;
-		val block = <String>Memory.allocate(newLength);
+	val copy = [String value] => String : {
+		val block = <String>Memory.allocate(length(value) + 1);
 		StringBinding.copy(block, value);
 		return block;
 	}
 
-	val concat = (String value0, String value1) => String : {
+	val concat = [String value0, String value1] => String : {
 		val newLength = length(value0) + length(value1) + 1;
 		val block = <String>Memory.allocate(newLength);
 		StringBinding.copy(block, value0);
@@ -18,11 +17,11 @@ single val Strings =: {
 		return block;
 	}
 
-	val compare = (String value0, String value1) => Int : {
+	val compare = [String value0, String value1] => Int : {
 		return StringBinding.compare(value0, value1);
 	}
 
-	val equals = (String value0, String value1) => Bool : {
+	val equals = [String value0, String value1] => Bool : {
 		return compare(value0, value1) == 0;
 	}
 }

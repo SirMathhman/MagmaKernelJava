@@ -1,5 +1,5 @@
 single val Internal =: {
-	val writeString = (String value) : {
+	val writeString = [String value] : {
 		IOBridge.print(value);
 	}
 }

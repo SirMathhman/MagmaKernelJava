@@ -1,34 +1,32 @@
 single val Math =: {
-	val powDouble = (Double value0, Double value1) => Double : {
+	val powDouble = [Double value0, Double value1] => Double : {
 		return NativeMath.nativePow(value0, value1);
 	}
 
-	val powInt = (Int value0, Int value1) => Int : {
+	val powInt = [Int value0, Int value1] => Int : {
 		val cast0 = <Double> value0;
 		val cast1 = <Double> value1;
 		val result = powDouble(cast0, cast1);
 		return <Int> result;
 	}
 
-	val logNatural = (Double value) => Double : {
+	val logNatural = [Double value] => Double : {
 		return NativeMath.nativeLog(value);
 	}
 
-	val logDouble = (Double base, Double value) => Double : {
-		val den = logNatural(base);
-		val num = logNatural(value);
-		return num / den;
+	val logDouble = [Double base, Double value] => Double : {
+		return logNatural(value) / logNatural(base);
 	}
 
-	val floorDouble = (Double value) => Double : {
+	val floorDouble = [Double value] => Double : {
 		return NativeMath.nativeFloor(value);
 	}
 
-	val ceilDouble = (Double value) => Double : {
+	val ceilDouble = [Double value] => Double : {
 		return NativeMath.nativeCeil(value);
 	}
 
-	val logInt = (Int base, Int value) => Int : {
+	val logInt = [Int base, Int value] => Int : {
 		val baseCast = <Double> base;
 		val valueCast = <Double> value;
 		val result = logDouble(baseCast, valueCast);

@@ -1,1 +1,1 @@
-native val printf = (String format, String content);
+native val printf = [String format, String content];

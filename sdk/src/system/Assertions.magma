@@ -1,15 +1,15 @@
 single val Assertions =: {
-	val pass = (String name) : {
+	val pass = [String name] : {
 		Internal.writeString(name);
 		Internal.writeString(" has passed.\n");
 	}
 
-	val fail = (String name) : {
+	val fail = [String name] : {
 		Internal.writeString(name);
 		Internal.writeString(" has failed.\n");
 	}
 
-	val assertTrue = (String name, Bool value) : {
+	val assertTrue = [String name, Bool value] : {
 		if(value) {
 			pass(name);
 		} else {
@@ -17,7 +17,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertFalse = (String name, Bool value) : {
+	val assertFalse = [String name, Bool value] : {
 		if(!value) {
 			pass(name);
 		} else {
@@ -25,7 +25,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertIntEquals = (String name, Int value0, Int value1) : {
+	val assertIntEquals = [String name, Int value0, Int value1] : {
 		if(value0 == value1) {
 			pass(name);
 		} else {
@@ -33,7 +33,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertFloatEquals = (String name, Float value0, Float value1) : {
+	val assertFloatEquals = [String name, Float value0, Float value1] : {
 		if(value0 == value1) {
 			pass(name);
 		} else {
@@ -41,7 +41,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertDoubleEquals = (String name, Double value0, Double value1) : {
+	val assertDoubleEquals = [String name, Double value0, Double value1] : {
 		if(value0 == value1) {
 			pass(name);
 		} else {
@@ -49,7 +49,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertStringEquals = (String name, String value0, String value1) : {
+	val assertStringEquals = [String name, String value0, String value1] : {
 		if(Strings.equals(value0, value1)) {
 			pass(name);
 		} else {
@@ -57,7 +57,7 @@ single val Assertions =: {
 		}
 	}
 
-	val assertSame = (String name, Any* value0, Any* value1) : {
+	val assertSame = [String name, Any* value0, Any* value1] : {
 		if(value0 == value1) {
 			pass(name);
 		} else {

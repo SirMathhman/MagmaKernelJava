@@ -1,4 +1,4 @@
-native val pow = (Double base, Double exponent) => Double;
-native val log = (Double value) => Double;
-native val floor = (Double value) => Double;
-native val ceil = (Double value) => Double;
+native val pow = [Double base, Double exponent] => Double;
+native val log = [Double value] => Double;
+native val floor = [Double value] => Double;
+native val ceil = [Double value] => Double;
