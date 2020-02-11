@@ -1,4 +1,7 @@
 {
+	Assertions.assertIntEquals("IntCount", 3, Integers.count(123));
+	Assertions.assertIntEquals("IntCountSingle", 1, Integers.count(8));
+
 	val digit = Integers.digitAt(123, 2);
-	Assertions.assertIntEquals("DigitAt", 1, digit);
+	Assertions.assertIntEquals("DigitAt", 3, digit);
 }
