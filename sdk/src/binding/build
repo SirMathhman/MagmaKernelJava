@@ -2,3 +2,4 @@ IOBridge.magma
 StringBinding.magma
 MemoryBridge.magma
 NativeMath.magma
+FileBridge.magma

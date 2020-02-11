@@ -1,0 +1,24 @@
+class val File = [Any* pointer] : {
+    val getPointer ==> Any* : {
+        return pointer;
+    }
+}
+
+single val Files =: {
+    val READ = "r";
+    val WRITE = "w";
+
+    val openRead = [String fileName] => File : {
+        val pointer = FileBridge.open(fileName, READ);
+        return File(pointer);
+    }
+
+    val openWrite = [String fileName] => File : {
+        val pointer = FileBridge.open(fileName, WRITE);
+        return File(pointer);
+    }
+
+    val close = [File file] : {
+        FileBridge.close(file.getPointer());
+    }
+}

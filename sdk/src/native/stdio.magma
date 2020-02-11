@@ -1,1 +1,4 @@
 native val printf = [String format, String content];
+
+native val fopen = [String fileName, String mode] => Any*;
+native val fclose = [Any* filePointer] => Int;
