@@ -7,24 +7,30 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class CContentNode implements Node {
-	private final Collection<? extends Node> children;
+    private final Collection<? extends Node> children;
+    private final String delimiter;
 
-	public CContentNode(Node node) {
-		this(Collections.singleton(node));
-	}
+    public CContentNode(Node node) {
+        this(Collections.singleton(node));
+    }
 
-	public CContentNode(Collection<? extends Node> children) {
-		this.children = children;
-	}
+    public CContentNode(Collection<? extends Node> children, String delimiter) {
+        this.children = children;
+        this.delimiter = delimiter;
+    }
 
-	@Override
-	public String render() {
-		return "{" + joinChildren() + "}";
-	}
+    public CContentNode(Collection<? extends Node> children) {
+        this(children, "");
+    }
 
-	private String joinChildren() {
-		return children.stream()
-				.map(Node::render)
-				.collect(Collectors.joining());
-	}
+    @Override
+    public String render() {
+        return "{" + joinChildren() + "}";
+    }
+
+    private String joinChildren() {
+        return children.stream()
+                .map(Node::render)
+                .collect(Collectors.joining(delimiter));
+    }
 }
