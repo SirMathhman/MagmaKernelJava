@@ -3,9 +3,9 @@ package com.meti.node.thrower;
 import com.meti.Compiler;
 import com.meti.Parser;
 import com.meti.exception.ParseException;
+import com.meti.node.CContent;
 import com.meti.node.Node;
 import com.meti.node.Type;
-import com.meti.node.block.CContentNode;
 import com.meti.node.condition.CIfNode;
 import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.CNullNode;
@@ -91,6 +91,6 @@ public class CatchParser implements Parser {
 	private Node generateBlock() {
 		Node countNode = new CVariableNode("_catch" + counter);
 		Node invocationNode = new CInvocationNode(countNode, THROWS);
-		return new CContentNode(invocationNode);
+		return new CContent(invocationNode);
 	}
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CContentNodeTest {
+class CContentTest {
 
 	@Test
 	void render() {

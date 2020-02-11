@@ -4,10 +4,10 @@ import com.meti.Cache;
 import com.meti.Compiler;
 import com.meti.Unit;
 import com.meti.exception.ParseException;
+import com.meti.node.CContent;
 import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
-import com.meti.node.block.CContentNode;
 import com.meti.node.declare.CAssignNode;
 import com.meti.node.declare.CVariableNode;
 import com.meti.node.primitive.special.VoidType;
@@ -115,7 +115,7 @@ public class StructUnit implements Unit {
 		}
 		if (declarations.isInClass()) registerReturnInstance(statements);
 		if (declarations.isInSingleton()) registerSingleton(compiler, current);
-		return new CContentNode(statements);
+		return new CContent(statements);
 	}
 
 	private Parameter parseParam(Compiler compiler, String paramString) {

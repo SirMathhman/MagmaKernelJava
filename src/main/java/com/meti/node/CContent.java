@@ -1,25 +1,23 @@
-package com.meti.node.block;
-
-import com.meti.node.Node;
+package com.meti.node;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class CContentNode implements Node {
+public class CContent implements Node {
     private final Collection<? extends Node> children;
     private final String delimiter;
 
-    public CContentNode(Node node) {
+    public CContent(Node node) {
         this(Collections.singleton(node));
     }
 
-    public CContentNode(Collection<? extends Node> children, String delimiter) {
+    public CContent(Collection<? extends Node> children, String delimiter) {
         this.children = children;
         this.delimiter = delimiter;
     }
 
-    public CContentNode(Collection<? extends Node> children) {
+    public CContent(Collection<? extends Node> children) {
         this(children, "");
     }
 

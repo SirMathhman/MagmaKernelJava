@@ -4,11 +4,7 @@ import com.meti.Cache;
 import com.meti.Compiler;
 import com.meti.Parser;
 import com.meti.exception.ParseException;
-import com.meti.node.DefaultType;
-import com.meti.node.Node;
-import com.meti.node.Parameter;
-import com.meti.node.Type;
-import com.meti.node.block.CContentNode;
+import com.meti.node.*;
 import com.meti.node.declare.CAssignNode;
 import com.meti.node.declare.CVariableNode;
 import com.meti.node.struct.CFunctionNode;
@@ -53,7 +49,7 @@ public class ThrowParser implements Parser {
 	private void buildFunction(Type type, FunctionType innerType) {
 		Type returnType = innerType.returnType();
 		Collection<Node> children = buildChildren(returnType);
-		Node content = new CContentNode(children);
+		Node content = new CContent(children);
 		Parameter parameters = Parameter.create(type, "throwable");
 		Node node = new CFunctionNode("_throw" + counter, returnType, content, parameters);
 		cache.addFunction(node);
