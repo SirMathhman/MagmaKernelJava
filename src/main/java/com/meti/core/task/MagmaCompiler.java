@@ -77,9 +77,9 @@ public class MagmaCompiler extends UnitCompiler {
 						new NotParser(),
 						new ElseParser(),
 						new BooleanParser(),
+						new OperationParser(),
 						new InvocationParser(declarations),
 						new StringParser(),
-						new OperationParser(),
 						new ThisParser(declarations),
 						new VariableParser(declarations)
 				),

@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class OperationParser implements Parser {
-	@Override
-	public Optional<Node> parse(String content, Compiler compiler) {
-		return Arrays.stream(Operations.values())
-				.filter(operation -> operation.isPresent(content))
-				.map(operation -> operation.toNode(content, compiler::parse))
-				.findFirst();
-	}
+    @Override
+    public Optional<Node> parse(String content, Compiler compiler) {
+        return Arrays.stream(Operations.values())
+                .filter(operation -> operation.isPresent(content))
+                .map(operation -> operation.toNode(content, compiler::parse))
+                .findFirst();
+    }
 }
