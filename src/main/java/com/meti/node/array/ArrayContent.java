@@ -18,7 +18,7 @@ public class ArrayContent implements Statement {
     @Override
     public Node build() {
         Collection<Node> children = buildChildren();
-        return new CContent(children);
+        return new CContent(children, ",");
     }
 
     List<Node> buildChildren() {

@@ -11,7 +11,7 @@ public class IntParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		try {
 			String intValue = clip(content);
-			return Optional.of(new CIntNode(Integer.parseInt(intValue)));
+			return Optional.of(new Int(Integer.parseInt(intValue)));
 		} catch (NumberFormatException e) {
 			return Optional.empty();
 		}
