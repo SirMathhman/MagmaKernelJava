@@ -30,7 +30,7 @@ char* VarNode_render(void* instance){
     return _VarNode.value;
 }
 
-struct VarNode VarNode(struct Node _Node, const char* value) {
+struct VarNode VarNode(struct Node _Node, char* value) {
     struct VarNode _VarNode = {_Node, value};
     return _VarNode;
 }
