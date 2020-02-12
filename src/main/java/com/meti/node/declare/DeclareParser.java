@@ -107,7 +107,7 @@ public class DeclareParser implements Parser {
         Type type = compiler.resolveValue(valueString);
         declarations.defineParent(type, name, flags);
         Node value = compiler.parse(valueString);
-        return new CDeclareNode(type, name, value);
+        return new Declare(type, name, value);
     }
 
     private Node parseValid(Compiler compiler, String trim) {
