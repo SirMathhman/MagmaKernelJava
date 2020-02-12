@@ -27,9 +27,11 @@ public class ObjectTest {
                 "void *_throw=NULL;" +
                 "struct Some{int value;};" +
                 "struct Some Some(int value);" +
-                "int Some_getValue(struct Some Some_){" +
+                "int Some_getValue(void* _Some_){" +
+                "struct Some Some_=*(struct Some*)(_Some_;)" +
                 "return Some_.value;}" +
-                "int Some_compare(struct Some other,struct Some Some_){" +
+                "int Some_compare(struct Some other,void* _Some_){" +
+                "struct Some Some_=*(struct Some*)(_Some_;)" +
                 "return Some_.value-Some_getValue(other);}" +
                 "struct Some Some(int value){" +
                 "struct Some Some_={value};" +
