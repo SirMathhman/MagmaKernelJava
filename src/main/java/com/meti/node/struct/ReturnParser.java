@@ -25,7 +25,7 @@ public class ReturnParser implements Parser {
 				.filter(s -> s.startsWith("return "))
 				.map(s -> s.substring(7))
 				.map(s -> buildNode(s, compiler))
-				.map(ReturnNode::new);
+				.map(CReturnNode::new);
 	}
 
 	private Node buildNode(String valueString, Compiler compiler) {

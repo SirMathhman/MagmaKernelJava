@@ -5,7 +5,7 @@ import com.meti.Parser;
 import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Type;
-import com.meti.node.struct.FieldNode;
+import com.meti.node.struct.CStructAccesorNode;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.node.struct.type.StructType;
 import com.meti.parse.Declaration;
@@ -31,8 +31,8 @@ public class VariableParser implements Parser {
 	private Optional<Node> buildVariable(Declaration parent, String childName, StructType type) {
 		Declaration child = parent.child(childName).orElseThrow(() -> throwChildNotDefined(parent, childName));
 		Node node = child.isFunctional() ?
-				new VariableNode(child.joinStack()) :
-				new FieldNode(parent, childName);
+				new CVariableNode(child.joinStack()) :
+				new CStructAccesorNode(parent, childName);
 		return Optional.of(node);
 	}
 
@@ -41,7 +41,7 @@ public class VariableParser implements Parser {
 				.filter(Declaration::isFunctional)
 				.map(Declaration::joinStack)
 				.orElse(trim);
-		Node node = new VariableNode(name);
+		Node node = new CVariableNode(name);
 		return Optional.of(node);
 	}
 

@@ -14,6 +14,6 @@ public class StringParser implements Parser {
 				.filter(s -> s.startsWith("\""))
 				.filter(s -> s.endsWith("\""))
 				.map(s -> s.substring(1, s.length() - 1))
-				.map(StringNode::new);
+				.map(CStringNode::new);
 	}
 }

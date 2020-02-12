@@ -14,6 +14,6 @@ public class ElseParser implements Parser {
                 .filter(s -> s.startsWith("else"))
                 .map(s -> s.substring(4))
                 .map(compiler::parse)
-                .map(ElseNode::new);
+                .map(Else::new);
     }
 }

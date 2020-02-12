@@ -3,22 +3,22 @@ package com.meti.node.thrower;
 import com.meti.Compiler;
 import com.meti.Parser;
 import com.meti.exception.ParseException;
+import com.meti.node.CContent;
 import com.meti.node.Node;
 import com.meti.node.Type;
-import com.meti.node.block.BlockNode;
-import com.meti.node.condition.IfNode;
-import com.meti.node.declare.VariableNode;
-import com.meti.node.primitive.special.NullNode;
-import com.meti.node.struct.invoke.InvocationNode;
+import com.meti.node.condition.CIfNode;
+import com.meti.node.declare.CVariableNode;
+import com.meti.node.primitive.special.CNullNode;
+import com.meti.node.struct.invoke.CInvocationNode;
 import com.meti.node.struct.type.FunctionType;
-import com.meti.node.transform.operate.OperationNode;
+import com.meti.node.transform.operate.COperationNode;
 import com.meti.node.transform.operate.Operations;
 import com.meti.parse.Declarations;
 
 import java.util.Optional;
 
 public class CatchParser implements Parser {
-	private static final Node THROWS = new VariableNode("_throw");
+	private static final Node THROWS = new CVariableNode("_throw");
 	private final Declarations declarations;
 	private int counter = 0;
 
@@ -57,7 +57,7 @@ public class CatchParser implements Parser {
 	private Node generateIf() {
 		Node condition = generateOperation();
 		Node block = generateBlock();
-		return new IfNode(condition, block);
+		return new CIfNode(condition, block);
 	}
 
 	private Type buildFunctionType(Type current) {
@@ -85,12 +85,12 @@ public class CatchParser implements Parser {
 	}
 
 	private Node generateOperation() {
-		return new OperationNode(THROWS, Operations.NOT_EQUALS, NullNode.INSTANCE);
+		return new COperationNode(THROWS, Operations.NOT_EQUALS, CNullNode.INSTANCE);
 	}
 
 	private Node generateBlock() {
-		Node countNode = new VariableNode("_catch" + counter);
-		Node invocationNode = new InvocationNode(countNode, THROWS);
-		return new BlockNode(invocationNode);
+		Node countNode = new CVariableNode("_catch" + counter);
+		Node invocationNode = new CInvocationNode(countNode, THROWS);
+		return new CContent(invocationNode);
 	}
 }

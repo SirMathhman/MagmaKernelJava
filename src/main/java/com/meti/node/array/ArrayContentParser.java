@@ -23,7 +23,7 @@ public class ArrayContentParser implements Parser {
 		String content = parseContent(trim);
 		if (isBlock(content)) {
 			List<Node> list = parseContent(compiler, content);
-			return new ArrayContentNode(list);
+			return new ArrayContent(list);
 		} else {
 			throw new ParseException(trim + " does not have content surrounded in curly braces.");
 		}

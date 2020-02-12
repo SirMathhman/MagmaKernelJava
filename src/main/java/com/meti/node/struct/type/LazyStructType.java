@@ -4,7 +4,7 @@ import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Type;
 import com.meti.node.ValueType;
-import com.meti.node.declare.VariableNode;
+import com.meti.node.declare.CVariableNode;
 import com.meti.parse.Declaration;
 import com.meti.parse.Declarations;
 
@@ -23,7 +23,7 @@ public class LazyStructType extends ValueType implements StructType {
 	@Override
 	public Node bind(String instanceName, String child) {
 		if (declaration().hasChild(child)) {
-			return new VariableNode(stack.get(stack.size() - 1));
+			return new CVariableNode(stack.get(stack.size() - 1));
 		} else {
 			throw new ParseException(instanceName + "." + child + " is not defined.");
 		}

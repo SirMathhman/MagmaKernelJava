@@ -4,9 +4,9 @@ import com.meti.exception.ParseException;
 import com.meti.node.Node;
 import com.meti.node.Parameter;
 import com.meti.node.Type;
-import com.meti.node.declare.DeclareNode;
-import com.meti.node.declare.VariableNode;
-import com.meti.node.struct.StructNode;
+import com.meti.node.declare.CDeclareNode;
+import com.meti.node.declare.CVariableNode;
+import com.meti.node.struct.CStructNode;
 import com.meti.node.struct.type.DefinedStructType;
 import com.meti.node.struct.type.NativeStructType;
 
@@ -56,8 +56,8 @@ public abstract class AbstractDeclaration implements Declaration {
 
 	@Override
 	public Node declareInstance() {
-		return new DeclareNode(new NativeStructType(name()),
-				instanceName(), new VariableNode("{" + joinArgs() + "}"));
+		return new CDeclareNode(new NativeStructType(name()),
+				instanceName(), new CVariableNode("{" + joinArgs() + "}"));
 	}
 
 	private List<Parameter> childrenAsParams() {
@@ -148,18 +148,18 @@ public abstract class AbstractDeclaration implements Declaration {
 		return stack.subList(0, stack.size() - 1)
 				.stream()
 				.map(s -> s + "_")
-				.map(VariableNode::new)
+				.map(CVariableNode::new)
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Node toStruct() {
-		return new StructNode(name(), childrenAsParams());
+		return new CStructNode(name(), childrenAsParams());
 	}
 
 	@Override
 	public Node toVariable() {
-		return new VariableNode(name() + "_");
+		return new CVariableNode(name() + "_");
 	}
 
 	@Override

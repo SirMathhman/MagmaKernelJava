@@ -15,7 +15,7 @@ public class CastParser implements Parser {
 			int indexToSplit = findIndex(content);
 			Type type = parseType(compiler, trim, indexToSplit);
 			Node value = parseValue(compiler, trim, indexToSplit);
-			return Optional.of(new CastNode(type, value));
+			return Optional.of(new CCastNode(type, value));
 		}
 		return Optional.empty();
 	}

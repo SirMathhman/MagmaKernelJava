@@ -4,16 +4,12 @@ import com.meti.Cache;
 import com.meti.Compiler;
 import com.meti.Parser;
 import com.meti.exception.ParseException;
-import com.meti.node.DefaultType;
-import com.meti.node.Node;
-import com.meti.node.Parameter;
-import com.meti.node.Type;
-import com.meti.node.block.BlockNode;
-import com.meti.node.declare.AssignNode;
-import com.meti.node.declare.VariableNode;
-import com.meti.node.struct.FunctionNode;
-import com.meti.node.struct.ReturnNode;
-import com.meti.node.struct.invoke.InvocationNode;
+import com.meti.node.*;
+import com.meti.node.declare.CAssignNode;
+import com.meti.node.declare.CVariableNode;
+import com.meti.node.struct.CFunctionNode;
+import com.meti.node.struct.CReturnNode;
+import com.meti.node.struct.invoke.CInvocationNode;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.parse.Declarations;
 
@@ -22,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ThrowParser implements Parser {
-	private static final VariableNode THROW = new VariableNode("_throw");
-	private static final VariableNode THROWABLE = new VariableNode("throwable");
+	private static final CVariableNode THROW = new CVariableNode("_throw");
+	private static final CVariableNode THROWABLE = new CVariableNode("throwable");
 	private final Cache cache;
 	private final Declarations declarations;
 	private int counter = 0;
@@ -53,22 +49,22 @@ public class ThrowParser implements Parser {
 	private void buildFunction(Type type, FunctionType innerType) {
 		Type returnType = innerType.returnType();
 		Collection<Node> children = buildChildren(returnType);
-		Node content = new BlockNode(children);
+		Node content = new CContent(children);
 		Parameter parameters = Parameter.create(type, "throwable");
-		Node node = new FunctionNode("_throw" + counter, returnType, content, parameters);
+		Node node = new CFunctionNode("_throw" + counter, returnType, content, parameters);
 		cache.addFunction(node);
 	}
 
 	private Node buildReturn(Node value) {
-		Node varNode = new VariableNode("_throw" + counter);
-		Node node = new InvocationNode(varNode, value);
-		return new ReturnNode(node);
+		Node varNode = new CVariableNode("_throw" + counter);
+		Node node = new CInvocationNode(varNode, value);
+		return new CReturnNode(node);
 	}
 
 	private Collection<Node> buildChildren(Type returnType) {
-		Node assign = new AssignNode(THROW, THROWABLE);
+		Node assign = new CAssignNode(THROW, THROWABLE);
 		Node returnDefault = getReturnDefault(returnType);
-		Node returnNode = new ReturnNode(returnDefault);
+		Node returnNode = new CReturnNode(returnDefault);
 		return List.of(assign, returnNode);
 	}
 

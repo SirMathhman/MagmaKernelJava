@@ -15,6 +15,6 @@ public class QuantityParser implements Parser {
 				.filter(s -> s.endsWith(")"))
 				.map(s -> s.substring(1, s.length() - 1))
 				.map(compiler::parse)
-				.map(QuantityNode::new);
+				.map(CQuantityNode::new);
 	}
 }
