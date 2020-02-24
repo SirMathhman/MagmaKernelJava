@@ -6,7 +6,6 @@ import com.meti.exception.RenderException;
 import com.meti.node.Node;
 import com.meti.node.Type;
 import com.meti.node.declare.CVariableNode;
-import com.meti.node.primitive.special.VoidType;
 import com.meti.node.struct.type.FunctionType;
 import com.meti.node.struct.type.StructType;
 import com.meti.parse.Declaration;
@@ -30,9 +29,6 @@ public class InvocationParser implements Parser {
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
 		String trim = content.trim();
-		if (trim.equals("StringBuilders.empty()\t\t.appendString(\"foo\")\t\t.appendString(\"bar\")\t\t.toString()")) {
-			System.out.println();
-		}
 		if (trim.endsWith(")")) {
 			int index = index(trim.substring(0, trim.length() - 1));
 			if (index == -1) {
@@ -131,9 +127,7 @@ public class InvocationParser implements Parser {
 	}
 
 	private Node buildNodeFromReturnType(Node callerNode, List<? extends Node> arguments, Type returnType) {
-		return returnType.equals(VoidType.INSTANCE) ?
-				new CVoidInvocationNode(callerNode, arguments) :
-				new CInvocationNode(callerNode, arguments);
+		return new Invocation(returnType, callerNode, arguments);
 	}
 
 	private Optional<Node> checkSingleton(String parent) {
