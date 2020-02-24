@@ -80,9 +80,9 @@ class VariableParserTest {
 		             "void *_throw=NULL;" +
 		             "struct Strings${};" +
 		             "struct Strings$ Strings$();" +
-		             "int Strings$_length(char* string,struct Strings$ Strings$_){" +
+		             "int Strings$_length(char* string,void *_Strings$_){" +
 		             "return 0;}" +
-		             "int Strings$_sameSize(char* s0,char* s1,struct Strings$ Strings$_){" +
+		             "int Strings$_sameSize(char* s0,char* s1,void *_Strings$_){" +
 		             "int length0=Strings$_length(s0,Strings$_);" +
 		             "int length1=Strings$_length(s1,Strings$_);" +
 		             "return length0==length1;}" +

@@ -54,7 +54,7 @@ class SubStructTest {
 		             "void *_throw=NULL;" +
 		             "struct addTwoNumbers{int x;int y;};" +
 		             "int addTwoNumbers(int x,int y);" +
-		             "int addTwoNumbers_doOperation(struct addTwoNumbers addTwoNumbers_){" +
+		             "int addTwoNumbers_doOperation(void *_addTwoNumbers_){" +
 		             "return addTwoNumbers_.x+addTwoNumbers_.y;" +
 		             "}" +
 		             "int addTwoNumbers(int x,int y){" +

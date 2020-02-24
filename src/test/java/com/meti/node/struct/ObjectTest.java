@@ -16,13 +16,13 @@ public class ObjectTest {
         Cache cache = new CollectionCache();
         Compiler compiler = new MagmaCompiler(cache, declarations);
         compiler.parse("class val Some = [Int value] : {\n" +
-                "    val getValue ==> Int : {\n" +
-                "        return value;\n" +
-                "    };\n" +
-                "    val compare = [Some other] => Int :{\n" +
-                "        return value - other.getValue();\n" +
-                "    };\n" +
-                "}\n");
+                       "    val getValue ==> Int : {\n" +
+                       "        return value;\n" +
+                       "    };\n" +
+                       "    val compare = [Some other] => Int :{\n" +
+                       "        return value - (other.getValue());\n" +
+                       "    };\n" +
+                       "}\n");
         Assertions.assertEquals("int _exitCode=0;" +
                 "void *_throw=NULL;" +
                 "struct Some{int value;};" +

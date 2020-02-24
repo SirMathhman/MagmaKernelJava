@@ -40,6 +40,7 @@ import com.meti.node.thrower.ThrowParser;
 import com.meti.node.thrower.TryParser;
 import com.meti.node.transform.NotParser;
 import com.meti.node.transform.QuantityParser;
+import com.meti.node.transform.QuantityResolver;
 import com.meti.node.transform.cast.CastParser;
 import com.meti.node.transform.cast.CastResolver;
 import com.meti.node.transform.operate.OperationParser;
@@ -85,6 +86,7 @@ public class MagmaCompiler extends UnitCompiler {
 				),
 				new ParentResolver(
 						unit,
+						new QuantityResolver(),
 						new CastResolver(),
 						new CharResolver(),
 						new OperationResolver(),
