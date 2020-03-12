@@ -1,9 +1,0 @@
-single val FileBridge =: {
-    val open = [String fileName, String mode] => Any* : {
-        return fopen(fileName, mode);
-    }
-
-    val close = [Any* file] => Int : {
-        return fclose(file);
-    }
-}

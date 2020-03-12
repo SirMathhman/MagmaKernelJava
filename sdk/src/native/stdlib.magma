@@ -1,4 +1,0 @@
-native val malloc = [Int size] => Any*;
-native val calloc = [Int count, Int size] => Any*;
-native val realloc = [Any* block, Int size];
-native val free = [Any* block];
