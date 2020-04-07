@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render.block;
+
+import com.meti.render.Renderable;
 
 public class If implements Renderable {
 	private final Renderable condition;

@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.type;
 
 public class PointerType implements Type {
 	private final Type type;

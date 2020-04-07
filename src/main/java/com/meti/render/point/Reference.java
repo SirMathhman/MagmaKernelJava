@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render.point;
+
+import com.meti.render.Renderable;
 
 public class Reference implements Renderable {
 	private final Renderable renderable;

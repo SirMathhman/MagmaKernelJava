@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.type;
 
 public interface Type {
 	default String render() {

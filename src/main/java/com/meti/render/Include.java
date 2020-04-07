@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.render;
 
 public class Include implements Renderable {
 	private final String header;

@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.type;
 
 public enum PrimitiveType implements Type {
 	SHORT("short"),

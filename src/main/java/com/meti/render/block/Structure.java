@@ -1,4 +1,7 @@
-package com.meti;
+package com.meti.render.block;
+
+import com.meti.render.Renderable;
+import com.meti.type.Type;
 
 import java.util.Map;
 import java.util.stream.Collectors;

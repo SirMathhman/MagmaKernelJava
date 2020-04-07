@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render.point;
+
+import com.meti.render.Renderable;
 
 public class Dereference implements Renderable {
 	private final Renderable value;

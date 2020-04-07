@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.type;
 
 public class StructureType implements Type {
 	private final String name;

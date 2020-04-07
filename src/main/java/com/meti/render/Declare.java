@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render;
+
+import com.meti.type.Type;
 
 public class Declare implements Renderable {
 	private final String name;

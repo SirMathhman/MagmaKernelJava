@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.render;
 
 public class Assign implements Renderable {
 	private final Renderable from;

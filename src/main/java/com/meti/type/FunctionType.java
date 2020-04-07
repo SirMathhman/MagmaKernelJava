@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.type;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.meti;
+package com.meti.render;
 
 public class Variable implements Renderable {
 	private final String name;

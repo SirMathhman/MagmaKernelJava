@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render.primitive;
+
+import com.meti.render.Renderable;
 
 public class Short implements Renderable {
 	private final short value;

@@ -1,4 +1,6 @@
-package com.meti;
+package com.meti.render.block;
+
+import com.meti.render.Renderable;
 
 import java.util.Collection;
 import java.util.Collections;
