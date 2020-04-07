@@ -1,0 +1,15 @@
+
+
+class val StringBuffer : (value : String) = {
+	val +: (string : String) => StringBuffer = {
+
+	}
+
+	implicit val toString = value;
+}
+
+class val StringBuilder : (value : String) = {
+	val append : (string : String) => StringBuilder {
+
+	}
+}

@@ -1,0 +1,24 @@
+import StandardLibrary;
+
+abstract val MemoryBlock : <T> = {
+	val length :=> Int;
+	val resize : (size : Int) => MemoryBlock<T>;
+	val set : (index : Int, value : Pointer<T>);
+	val get : (index : Int) => Pointer<T>;
+	val release : () => Void;
+}
+
+single val Memory = {
+	class val NativeMemoryBlock : <T>(length : Int, reference : Pointer<T>) = {
+		val resize : (size : Int) = {
+			val ref = realloc(reference, size);
+			return NativeMemoryBlock(size, ref);
+		}
+		val set : (index : Int, value : T) = *(reference + index) = value;
+		val get : (index : Int) = *(reference + index);
+		val release : () => Void = free(reference);
+		implicit val MemoryBlock = MemoryBlock(length, resize, set, get, release);
+	}
+	val allocate : <T>(length : Int) => MemoryBlock<T> = NativeMemoryBlock(length, malloc(length));
+	val contiguous : <T>(length : Int) => MemoryBlock<T> = NativeMemoryBlock(length, calloc(length));
+}

@@ -1,0 +1,6 @@
+single val Integers = {
+	//12345
+	val countDigits : (value : Int) => Int = {
+
+	}
+}

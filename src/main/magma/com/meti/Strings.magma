@@ -1,0 +1,14 @@
+import Memory;
+import String;
+
+single val Strings = {
+	val length = len;
+
+	val copy : (value0 String) => String = {
+		val newLength = length(value0) + 1;
+		val string = <String> Memory<Char>.allocate(newLength);
+		string.
+		allocate(value);
+
+	}
+}

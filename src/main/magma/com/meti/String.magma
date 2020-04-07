@@ -1,0 +1,3 @@
+native import string;
+
+native val len : (value : String) => Int;
