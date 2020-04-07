@@ -1,5 +1,5 @@
 package com.meti;
 
-public interface CNode {
+public interface Renderable {
 	String render();
 }
