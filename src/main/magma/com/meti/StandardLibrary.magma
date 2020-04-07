@@ -1,6 +1,0 @@
-import stdio;
-
-native val malloc : (count : Int) => Pointer<Any>;
-native val realloc : (block : Pointer<Any>, count : Int);
-native val calloc : (elementCount : Int, elementSize : Int) => Pointer<Any>;
-native val free : (block : Pointer<Any>);
