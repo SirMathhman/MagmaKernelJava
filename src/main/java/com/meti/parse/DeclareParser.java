@@ -1,9 +1,8 @@
 package com.meti.parse;
 
+import com.google.inject.Inject;
 import com.meti.Compiler;
-import com.meti.Instance;
-import com.meti.Node;
-import com.meti.Parser;
+import com.meti.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +10,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
+	private final Scope scope;
+
+	@Inject
+	public DeclareParser(Scope scope) {
+		this.scope = scope;
+	}
+
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
 		if (content.contains(":")) {
@@ -22,6 +28,7 @@ public class DeclareParser implements Parser {
 			String name = before.substring(last + 1);
 			String typeString = after.trim();
 			Instance type = compiler.resolveName(typeString);
+			scope.define(name, type);
 			return Optional.of(new DeclareNode(type, name));
 		}
 		return Optional.empty();

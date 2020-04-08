@@ -3,10 +3,7 @@ package com.meti;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.meti.instance.CharResolver;
-import com.meti.instance.DoubleResolver;
-import com.meti.instance.IntResolver;
-import com.meti.instance.StructureResolver;
+import com.meti.instance.*;
 import com.meti.parse.*;
 
 import java.util.Collections;
@@ -19,11 +16,12 @@ public class MagmaCompiler extends InjectedCompiler {
 				StructureResolver.class,
 				CharResolver.class,
 				DoubleResolver.class,
+				VariableResolver.class,
 				IntResolver.class,
-				StructureParser.class,
-				DeclareParser.class,
-				AssignParser.class,
 				BlockParser.class,
+				StructureParser.class,
+				AssignParser.class,
+				DeclareParser.class,
 				IntParser.class,
 				VariableParser.class
 		));
