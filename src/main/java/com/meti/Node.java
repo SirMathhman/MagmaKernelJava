@@ -13,4 +13,10 @@ public interface Node {
 	}
 
 	Collection<? extends Renderable> render();
+
+	default Renderable renderSingle() {
+		Renderable[] array = render().toArray(Renderable[]::new);
+		if (1 == array.length) return array[0];
+		throw new IllegalStateException("Not a singleton.");
+	}
 }

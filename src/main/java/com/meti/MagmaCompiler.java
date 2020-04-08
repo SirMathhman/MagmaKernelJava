@@ -7,9 +7,7 @@ import com.meti.instance.CharResolver;
 import com.meti.instance.DoubleResolver;
 import com.meti.instance.IntResolver;
 import com.meti.instance.StructureResolver;
-import com.meti.parse.BlockParser;
-import com.meti.parse.DeclareParser;
-import com.meti.parse.IntParser;
+import com.meti.parse.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,9 +20,12 @@ public class MagmaCompiler extends InjectedCompiler {
 				CharResolver.class,
 				DoubleResolver.class,
 				IntResolver.class,
-				BlockParser.class,
+				StructureParser.class,
 				DeclareParser.class,
-				IntParser.class
+				AssignParser.class,
+				BlockParser.class,
+				IntParser.class,
+				VariableParser.class
 		));
 	}
 

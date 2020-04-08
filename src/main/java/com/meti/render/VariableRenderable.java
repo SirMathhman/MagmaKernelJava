@@ -1,9 +1,9 @@
 package com.meti.render;
 
-public class Variable implements Renderable {
+public class VariableRenderable implements Renderable {
 	private final String name;
 
-	public Variable(String name) {
+	public VariableRenderable(String name) {
 		this.name = name;
 	}
 
