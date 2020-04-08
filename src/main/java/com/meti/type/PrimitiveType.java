@@ -6,7 +6,8 @@ public enum PrimitiveType implements Type {
 	LONG("long"),
 	FLOAT("float"),
 	DOUBLE("double"),
-	CHAR("char");
+	CHAR("char"),
+	VOID("void");
 
 	private final String value;
 

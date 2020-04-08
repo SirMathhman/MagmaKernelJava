@@ -6,6 +6,7 @@ import com.google.inject.Module;
 import com.meti.instance.CharResolver;
 import com.meti.instance.DoubleResolver;
 import com.meti.instance.IntResolver;
+import com.meti.instance.StructureResolver;
 import com.meti.parse.BlockParser;
 import com.meti.parse.DeclareParser;
 import com.meti.parse.IntParser;
@@ -17,6 +18,7 @@ public class MagmaCompiler extends InjectedCompiler {
 	public MagmaCompiler() {
 		//TODO: simplify class
 		this(Collections.singleton(new DataModule()), List.of(
+				StructureResolver.class,
 				CharResolver.class,
 				DoubleResolver.class,
 				IntResolver.class,

@@ -27,7 +27,7 @@ public class Main {
 	}
 
 	private void parse(String content) {
-		String formmated = "val main : () => Int; main = {" + content + "}";
-		compiler.parse(formmated);
+		compiler.parse("val main : () => Int");
+		compiler.parse("main = {" + content + "}");
 	}
 }
