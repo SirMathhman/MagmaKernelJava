@@ -21,8 +21,9 @@ public class MagmaCompiler extends InjectedCompiler {
 				ImportParser.class,
 				ReturnParser.class,
 				StructureParser.class,
-				AssignParser.class,
 				DeclareParser.class,
+				AssignParser.class,
+				CharParser.class,
 				IntParser.class,
 				VariableParser.class
 		));
