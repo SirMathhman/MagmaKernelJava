@@ -2,10 +2,10 @@ package com.meti.render.primitive;
 
 import com.meti.render.Renderable;
 
-public class Int implements Renderable {
+public class IntRenderable implements Renderable {
 	private final int value;
 
-	public Int(int value) {
+	public IntRenderable(int value) {
 		this.value = value;
 	}
 

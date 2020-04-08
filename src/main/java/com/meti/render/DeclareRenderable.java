@@ -2,11 +2,11 @@ package com.meti.render;
 
 import com.meti.type.Type;
 
-public class Declare implements Renderable {
+public class DeclareRenderable implements Renderable {
 	private final String name;
 	private final Type type;
 
-	public Declare(Type type, String name) {
+	public DeclareRenderable(Type type, String name) {
 		this.type = type;
 		this.name = name;
 	}
