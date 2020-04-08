@@ -6,10 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public class Block implements Renderable {
+public class BlockRenderable implements Renderable {
 	private final Collection<? extends Renderable> lines;
 
-	public Block(Collection<? extends Renderable> lines) {
+	public BlockRenderable(Collection<? extends Renderable> lines) {
 		this.lines = Collections.unmodifiableCollection(lines);
 	}
 
