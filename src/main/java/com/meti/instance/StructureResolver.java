@@ -24,9 +24,9 @@ public class StructureResolver implements Resolver {
 				List<Instance> collect = parse(compiler, content.substring(1, index));
 				parameters.addAll(collect);
 			}
-			String substring = content.substring(index).trim();
+			String substring = content.substring(index + 1).trim();
 			if (substring.startsWith("=>")) {
-				String type = substring.substring(2);
+				String type = substring.substring(2).trim();
 				returnType = compiler.resolveName(type);
 			}
 			return Optional.of(new StructureInstance(returnType, parameters));
@@ -48,7 +48,7 @@ public class StructureResolver implements Resolver {
 				if (')' == c) depth--;
 			}
 		}
-		return index;
+		return index + 1;
 	}
 
 	private List<Instance> parse(Compiler compiler, String value) {
