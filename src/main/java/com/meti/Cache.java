@@ -1,13 +1,12 @@
 package com.meti;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class Cache {
-	private final Collection<Node> nodes = new ArrayList<>();
+	private final LinkedList<Node> nodes = new LinkedList<>();
 
-	public Collection<Node> getNodes() {
+	public LinkedList<Node> getNodes() {
 		return nodes;
 	}
 
