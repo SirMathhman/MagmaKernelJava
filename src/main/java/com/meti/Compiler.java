@@ -1,7 +1,7 @@
 package com.meti;
 
 public interface Compiler {
-	String parse(String content);
+	Node parse(String content);
 
 	Instance resolveName(String content);
 
