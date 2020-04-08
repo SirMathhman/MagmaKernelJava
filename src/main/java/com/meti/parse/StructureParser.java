@@ -9,6 +9,7 @@ import java.util.Optional;
 public class StructureParser implements Parser {
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
+		//main = {}
 		return Optional.empty();
 	}
 }
