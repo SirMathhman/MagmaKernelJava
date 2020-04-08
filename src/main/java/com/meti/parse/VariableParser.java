@@ -7,13 +7,13 @@ import com.meti.*;
 import java.util.Optional;
 
 public class VariableParser implements Parser {
-	private final Cache cache;
+	private final Accumulator accumulator;
 	private final Scope scope;
 
 	@Inject
-	public VariableParser(Scope scope, Cache cache) {
+	public VariableParser(Scope scope, Accumulator accumulator) {
 		this.scope = scope;
-		this.cache = cache;
+		this.accumulator = accumulator;
 	}
 
 	@Override

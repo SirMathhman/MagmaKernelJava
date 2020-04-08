@@ -7,8 +7,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
-	public static final Compiler compiler = new MagmaCompiler();
+	public static final Cache CACHE = new Cache();
+	public static final Path META = Paths.get("meta");
 	private static final Path BUILD = Paths.get("build.magma");
+	public static final Path BUILD_OUTPUT = META.resolve("build.c");
+	public static final Compiler compiler = new MagmaCompiler(CACHE);
 
 	public static void main(String[] args) {
 		new Main().run();
@@ -20,14 +23,17 @@ public class Main {
 				Files.createFile(BUILD);
 			}
 			List<String> lines = Files.readAllLines(BUILD);
-			parse(String.join("", lines));
+			String output = parse(String.join("", lines));
+			if (!Files.exists(META)) Files.createDirectory(META);
+			if (!Files.exists(BUILD_OUTPUT)) Files.createFile(BUILD_OUTPUT);
+			Files.writeString(BUILD_OUTPUT, output);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void parse(String content) {
-		compiler.parse("val main : () => Int");
-		compiler.parse("main = {" + content + "}");
+	private String parse(String content) {
+		String pre = compiler.parse("val main : () => Int = {" + content + "}").renderJoined();
+		return CACHE.render() + pre;
 	}
 }

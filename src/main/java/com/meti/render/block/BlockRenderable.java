@@ -17,6 +17,6 @@ public class BlockRenderable implements Renderable {
 	public String render() {
 		return lines.stream()
 				.map(Renderable::render)
-				.collect(Collectors.joining("\n", "{", "}"));
+				.collect(Collectors.joining("\n", "{\n", "\n}\n"));
 	}
 }

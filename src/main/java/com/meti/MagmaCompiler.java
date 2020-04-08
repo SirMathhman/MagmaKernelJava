@@ -10,15 +10,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class MagmaCompiler extends InjectedCompiler {
-	public MagmaCompiler() {
+	public MagmaCompiler(Cache cache) {
 		//TODO: simplify class
-		this(Collections.singleton(new DataModule()), List.of(
+		this(Collections.singleton(new DataModule(cache)), List.of(
 				StructureResolver.class,
 				CharResolver.class,
 				DoubleResolver.class,
 				VariableResolver.class,
 				IntResolver.class,
-				BlockParser.class,
 				StructureParser.class,
 				AssignParser.class,
 				DeclareParser.class,

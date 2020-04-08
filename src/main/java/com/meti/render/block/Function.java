@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 public class Function implements Renderable {
 	private final Renderable content;
 	private final String name;
-	private final Map<String, ? extends Type> parameters;
+	private final Map<String, Type> parameters;
 	private final Type returnType;
 
-	public Function(String name, Type returnType, Map<String, ? extends Type> parameters, Renderable content) {
+	public Function(String name, Type returnType, Map<String, Type> parameters, Renderable content) {
 		this.name = name;
 		this.returnType = returnType;
 		this.parameters = parameters;

@@ -1,15 +1,19 @@
 package com.meti;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class Cache {
-	private Instance instance;
+	private final Collection<Node> nodes = new ArrayList<>();
 
-	public Optional<Instance> getInstance() {
-		return Optional.ofNullable(instance);
+	public Collection<Node> getNodes() {
+		return nodes;
 	}
 
-	public void setInstance(Instance instance) {
-		this.instance = instance;
+	public String render() {
+		return nodes.stream()
+				.map(Node::renderJoined)
+				.collect(Collectors.joining());
 	}
 }

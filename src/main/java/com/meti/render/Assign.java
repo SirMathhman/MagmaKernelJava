@@ -11,6 +11,6 @@ public class Assign implements Renderable {
 
 	@Override
 	public String render() {
-		return to.render() + "=" + from.render();
+		return to.render() + "=" + from.render() + ";";
 	}
 }
