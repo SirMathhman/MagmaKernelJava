@@ -4,7 +4,6 @@ import com.meti.Compiler;
 import com.meti.Instance;
 import com.meti.Node;
 import com.meti.Parser;
-import com.meti.parse.parse.DeclareKeys;
 
 import java.util.Arrays;
 import java.util.List;

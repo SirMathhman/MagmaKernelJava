@@ -1,4 +1,4 @@
-package com.meti.parse.parse;
+package com.meti.parse;
 
 public enum DeclareKeys {
 	VAL,
