@@ -1,7 +1,5 @@
 package com.meti;
 
-import java.util.Optional;
-
 public class IntNode implements Node {
 	private final int value;
 
@@ -10,7 +8,7 @@ public class IntNode implements Node {
 	}
 
 	@Override
-	public Optional<String> render(Cache cache) {
-		return Optional.of(String.valueOf(value));
+	public String render(Cache cache) {
+		return String.valueOf(value);
 	}
 }

@@ -18,10 +18,10 @@ public class DeclareNode implements Node {
 	}
 
 	@Override
-	public Optional<String> render(Cache cache) {
+	public String render(Cache cache) {
 		String header = renderHeader();
 		String footer = renderFooter(cache);
-		return Optional.of(header + footer + ";");
+		return header + footer + ";";
 	}
 
 	private String renderHeader() {
@@ -29,7 +29,7 @@ public class DeclareNode implements Node {
 	}
 
 	private String renderFooter(Cache cache) {
-		return init().flatMap(node -> node.render(cache))
+		return init().map(node -> node.render(cache))
 				.map(value -> "=" + value)
 				.orElse("");
 	}
