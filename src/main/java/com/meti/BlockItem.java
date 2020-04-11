@@ -1,6 +1,7 @@
 package com.meti;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class BlockItem implements Item {
 	private final Collection<? extends Item> children;
@@ -20,7 +21,10 @@ public class BlockItem implements Item {
 	}
 
 	@Override
-	public Collection<CacheUpdate> render() {
-		return null;
+	public Collection<CacheUpdate> toUpdates() {
+		return children.stream()
+				.map(Item::toUpdates)
+				.flatMap(Collection::stream)
+				.collect(Collectors.toList());
 	}
 }

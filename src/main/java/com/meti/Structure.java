@@ -27,9 +27,9 @@ public class Structure implements Item {
 	}
 
 	@Override
-	public Collection<CacheUpdate> render() {
+	public Collection<CacheUpdate> toUpdates() {
 		if (content.hasStructure()) {
-			Collection<CacheUpdate> collection = content.render();
+			Collection<CacheUpdate> collection = content.toUpdates();
 			return Collections.emptyList();
 		} else {
 			return renderWithoutSubStructures();
@@ -41,7 +41,7 @@ public class Structure implements Item {
 		FunctionUpdateBuilder builder = initBuilder(returnType);
 		Map<String, Instance> children = instance.children();
 		FunctionUpdateBuilder reduce = appendChildren(builder, children);
-		Collection<CacheUpdate> toReturn = new ArrayList<>(content.render());
+		Collection<CacheUpdate> toReturn = new ArrayList<>(content.toUpdates());
 		toReturn.add(reduce.build());
 		return toReturn;
 	}

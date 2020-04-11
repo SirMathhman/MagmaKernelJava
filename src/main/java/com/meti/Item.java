@@ -7,5 +7,5 @@ public interface Item {
 
 	boolean hasStructure();
 
-	Collection<CacheUpdate> render();
+	Collection<CacheUpdate> toUpdates();
 }
