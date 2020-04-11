@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-public class Structure implements Node {
+public class StructureNode implements Node {
 	private final Node content;
 	private final Type type;
 	private final String name;
 
-	public Structure(String name, Type type, Node content) {
+	public StructureNode(String name, Type type, Node content) {
 		this.name = name;
 		this.type = type;
 		this.content = content;
