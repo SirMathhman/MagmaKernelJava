@@ -1,5 +1,0 @@
-import stdio;
-
-val x : Int = 10;
-val y : Char = 'a';
-return 0;
