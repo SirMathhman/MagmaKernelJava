@@ -1,29 +1,42 @@
 package com.meti;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MappedCache implements Cache {
 	private final Map<String, String> internalMap;
+	private final Collection<String> lines;
 
 	public MappedCache() {
-		this(new HashMap<>());
+		this(new HashMap<>(), new ArrayList<>());
 	}
 
-	public MappedCache(Map<String, String> internalMap) {
+	public MappedCache(Map<String, String> internalMap, Collection<String> lines) {
 		this.internalMap = internalMap;
+		this.lines = lines;
 	}
 
 	@Override
 	public Cache apply(CacheUpdate update) {
-		String id = update.identifier();
-		if (internalMap.containsKey(id)) {
-			throw new IllegalArgumentException(id + " has already been defined.");
+		Optional<String> identifier = update.identifier();
+		if (identifier.isPresent()) {
+			String id = identifier.get();
+			if (internalMap.containsKey(id)) {
+				throw new IllegalArgumentException(identifier + " has already been defined.");
+			} else {
+				Map<String, String> copy = new HashMap<>(internalMap);
+				copy.put(id, update.render(lines));
+				return new MappedCache(copy, lines);
+			}
 		} else {
-			Map<String, String> copy = new HashMap<>(internalMap);
-			copy.put(id, update.render());
-			return new MappedCache(copy);
+			Collection<String> lineCopy = new ArrayList<>(lines);
+			lineCopy.add(update.render(lines));
+			return new MappedCache(internalMap, lineCopy);
 		}
+	}
+
+	@Override
+	public Collection<String> list() {
+		return Collections.unmodifiableCollection(lines);
 	}
 
 	@Override

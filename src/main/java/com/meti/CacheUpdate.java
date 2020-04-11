@@ -1,7 +1,10 @@
 package com.meti;
 
-public interface CacheUpdate {
-	String identifier();
+import java.util.Collection;
+import java.util.Optional;
 
-	String render();
+public interface CacheUpdate {
+	Optional<String> identifier();
+
+	String render(Collection<String> lines);
 }

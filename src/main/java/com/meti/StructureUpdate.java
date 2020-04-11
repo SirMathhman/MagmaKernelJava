@@ -1,6 +1,8 @@
 package com.meti;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StructureUpdate implements CacheUpdate {
@@ -13,12 +15,12 @@ public class StructureUpdate implements CacheUpdate {
 	}
 
 	@Override
-	public String identifier() {
-		return name;
+	public Optional<String> identifier() {
+		return Optional.of(name);
 	}
 
 	@Override
-	public String render() {
+	public String render(Collection<String> lines) {
 		String joinedFields = fields.keySet().stream()
 				.map(s -> fields.get(s).render(s))
 				.map(s -> s + ";")
