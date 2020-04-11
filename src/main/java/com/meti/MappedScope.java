@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class MappedScope implements Scope {
 	private final Map<String, Scope> children = new HashMap<>();
-	private final Instance instance;
+	private final Type type;
 	private final String name;
 	private final Scope parent;
 
@@ -14,16 +14,16 @@ public class MappedScope implements Scope {
 		this(null, null, null);
 	}
 
-	public MappedScope(String name, Instance instance, Scope parent) {
+	public MappedScope(String name, Type type, Scope parent) {
 		this.name = name;
-		this.instance = instance;
+		this.type = type;
 		this.parent = parent;
 	}
 
 	@Override
-	public Scope define(String name, Instance instance) {
+	public Scope define(String name, Type type) {
 		if (isDefined(name)) throw new IllegalArgumentException(name + " is already defined.");
-		Scope scope = new MappedScope(name, instance, this);
+		Scope scope = new MappedScope(name, type, this);
 		children.put(name, scope);
 		return scope;
 	}
@@ -34,8 +34,8 @@ public class MappedScope implements Scope {
 	}
 
 	@Override
-	public Instance getInstance() {
-		return instance;
+	public Type getType() {
+		return type;
 	}
 
 	@Override

@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class Structure implements Node {
 	private final Node content;
-	private final Instance instance;
+	private final Type type;
 	private final String name;
 
-	public Structure(String name, Instance instance, Node content) {
+	public Structure(String name, Type type, Node content) {
 		this.name = name;
-		this.instance = instance;
+		this.type = type;
 		this.content = content;
 	}
 
@@ -39,7 +39,7 @@ public class Structure implements Node {
 	private Collection<CacheUpdate> renderWithoutSubStructures() {
 		Type returnType = buildReturn();
 		FunctionUpdateBuilder builder = initBuilder(returnType);
-		Map<String, Instance> children = instance.children();
+		Map<String, Type> children = type.getChildren();
 		FunctionUpdateBuilder reduce = appendChildren(builder, children);
 		Collection<CacheUpdate> toReturn = new ArrayList<>(content.toUpdates());
 		toReturn.add(reduce.build());
@@ -47,8 +47,7 @@ public class Structure implements Node {
 	}
 
 	private Type buildReturn() {
-		return instance.asReturn()
-				.map(Instance::toType)
+		return type.getReturnType()
 				.orElse(VoidType.INSTANCE);
 	}
 
@@ -59,7 +58,7 @@ public class Structure implements Node {
 	}
 
 	private FunctionUpdateBuilder appendChildren(FunctionUpdateBuilder builder,
-	                                             Map<String, ? extends Instance> children) {
+	                                             Map<String, ? extends Type> children) {
 		return children.keySet()
 				.stream()
 				.reduce(builder,
@@ -67,11 +66,10 @@ public class Structure implements Node {
 						(prev, current) -> current);
 	}
 
-	private FunctionUpdateBuilder reduce(Map<String, ? extends Instance> children,
+	private FunctionUpdateBuilder reduce(Map<String, ? extends Type> children,
 	                                     FunctionUpdateBuilder builder,
 	                                     String name) {
-		Instance instance = children.get(name);
-		Type type = instance.toType();
+		Type type = children.get(name);
 		return builder.withParameter(name, type);
 	}
 }
