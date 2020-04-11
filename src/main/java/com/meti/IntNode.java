@@ -3,7 +3,7 @@ package com.meti;
 import java.util.Collection;
 import java.util.Collections;
 
-public class IntNode implements Node {
+public class IntNode implements RenderedNode {
 	private final int value;
 
 	public IntNode(int value) {
@@ -22,6 +22,11 @@ public class IntNode implements Node {
 
 	@Override
 	public Collection<CacheUpdate> toUpdates() {
-		return Collections.singleton(new LineUpdate(String.valueOf(value)));
+		return Collections.singleton(new LineUpdate(render()));
+	}
+
+	@Override
+	public String render() {
+		return String.valueOf(value);
 	}
 }
