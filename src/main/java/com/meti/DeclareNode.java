@@ -18,6 +18,11 @@ public class DeclareNode implements Node {
 	}
 
 	@Override
+	public boolean hasStructure() {
+		return null != init && init.hasStructure();
+	}
+
+	@Override
 	public String render(Cache cache) {
 		String header = renderHeader();
 		String footer = renderFooter(cache);

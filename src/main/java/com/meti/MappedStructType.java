@@ -36,6 +36,20 @@ public class MappedStructType implements StructType {
 		return returnType.render(name + collect);
 	}
 
+	@Override
+	public String renderStruct(String name) {
+		String result = renderStructFields();
+		return "struct " + name + result;
+	}
+
+	private String renderStructFields() {
+		return parameters.keySet()
+				.stream()
+				.map(s -> parameters.get(s).render(s))
+				.map(s -> s + ";")
+				.collect(Collectors.joining("", "{", "}"));
+	}
+
 	private String renderHeaderParams() {
 		return parameters.keySet()
 				.stream()

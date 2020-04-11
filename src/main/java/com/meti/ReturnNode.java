@@ -8,6 +8,11 @@ public class ReturnNode implements Node {
 	}
 
 	@Override
+	public boolean hasStructure() {
+		return node.hasStructure();
+	}
+
+	@Override
 	public String render(Cache cache) {
 		return "return " + node.render(cache) + ";";
 	}

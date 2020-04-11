@@ -16,6 +16,11 @@ public class BlockNode implements Node {
 	}
 
 	@Override
+	public boolean hasStructure() {
+		return children.stream().anyMatch(Node::hasStructure);
+	}
+
+	@Override
 	public String render(Cache cache) {
 		return children.stream()
 				.map(node -> node.render(cache))

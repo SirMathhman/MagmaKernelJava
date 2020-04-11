@@ -8,6 +8,11 @@ public class IntNode implements Node {
 	}
 
 	@Override
+	public boolean hasStructure() {
+		return false;
+	}
+
+	@Override
 	public String render(Cache cache) {
 		return String.valueOf(value);
 	}

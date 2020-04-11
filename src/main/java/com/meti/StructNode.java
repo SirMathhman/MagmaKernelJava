@@ -12,12 +12,26 @@ public class StructNode implements Node {
 	}
 
 	@Override
+	public boolean hasStructure() {
+		return true;
+	}
+
+	@Override
 	public String render(Cache cache) {
 		if (!(type instanceof StructType)) throw new IllegalArgumentException(type + " is not a structure.");
-		String header = ((StructType) type).renderHeader(implName());
-		String footer = content.render(cache);
-		cache.append(1, header + footer);
-		return implName();
+		StructType cast = (StructType) this.type;
+		if (content.hasStructure()) {
+			cache.append(0, cast.renderStruct(name));
+			String header = cast.renderHeader(implName());
+			String footer = content.render(cache);
+			cache.append(1, header + footer);
+			return implName();
+		} else {
+			String header = cast.renderHeader(implName());
+			String footer = content.render(cache);
+			cache.append(1, header + footer);
+			return implName();
+		}
 	}
 
 	private String implName() {
