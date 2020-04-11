@@ -1,5 +1,11 @@
 package com.meti;
 
+import java.util.Collection;
+
 public interface Node {
-	String render();
+	boolean hasMultiple();
+
+	boolean hasStructure();
+
+	Collection<CacheUpdate> toUpdates();
 }

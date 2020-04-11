@@ -3,10 +3,10 @@ package com.meti;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class BlockItem implements Item {
-	private final Collection<? extends Item> children;
+public class BlockNode implements Node {
+	private final Collection<? extends Node> children;
 
-	public BlockItem(Collection<? extends Item> children) {
+	public BlockNode(Collection<? extends Node> children) {
 		this.children = children;
 	}
 
@@ -17,13 +17,13 @@ public class BlockItem implements Item {
 
 	@Override
 	public boolean hasStructure() {
-		return children.stream().anyMatch(Item::hasStructure);
+		return children.stream().anyMatch(Node::hasStructure);
 	}
 
 	@Override
 	public Collection<CacheUpdate> toUpdates() {
 		return children.stream()
-				.map(Item::toUpdates)
+				.map(Node::toUpdates)
 				.flatMap(Collection::stream)
 				.collect(Collectors.toList());
 	}

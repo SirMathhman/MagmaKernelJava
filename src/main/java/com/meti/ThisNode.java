@@ -3,10 +3,10 @@ package com.meti;
 import java.util.Collection;
 import java.util.Collections;
 
-public class ThisItem implements Item {
+public class ThisNode implements Node {
 	private final Scope scope;
 
-	public ThisItem(Scope scope) {
+	public ThisNode(Scope scope) {
 		this.scope = scope;
 	}
 
