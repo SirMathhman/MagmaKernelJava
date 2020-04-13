@@ -34,7 +34,7 @@ public class StructParser implements Parser {
 			StringBuilder builder = new StringBuilder();
 			int depth = 0;
 			for (char c : values.toCharArray()) {
-				if (',' == c && 0 == depth) {
+				if (';' == c && 0 == depth) {
 					list.add(builder.toString());
 					builder = new StringBuilder();
 				} else {
