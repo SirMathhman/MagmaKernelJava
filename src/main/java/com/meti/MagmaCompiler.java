@@ -10,6 +10,7 @@ public class MagmaCompiler extends UnitCompiler {
 				StructParser.class,
 				DeclareParser.class,
 				ReturnParser.class,
+				OperationParser.class,
 				InvocationParser.class,
 				StringParser.class,
 				IntParser.class,
