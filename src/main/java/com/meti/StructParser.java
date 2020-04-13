@@ -46,6 +46,8 @@ public class StructParser implements Parser {
 					.map(compiler::parse)
 					.collect(Collectors.toList());
 			return Optional.of(new BlockNode(nodes));
+		} else {
+			return Optional.empty();
 		}
 	}
 }
