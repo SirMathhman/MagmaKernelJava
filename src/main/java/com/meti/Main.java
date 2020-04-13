@@ -8,17 +8,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class Main {
-	private static final Path MAIN = Paths.get("main.magma");
-	private static final Path OUT = Paths.get("main.c");
 	private static final Cache CACHE = new ListCache();
 	private static final Compiler COMPILER = new MagmaCompiler();
+	private static final Path MAIN = Paths.get("main.magma");
+	private static final Path OUT = Paths.get("main.c");
+	private static final Logger logger = Logger.getAnonymousLogger();
 
 	private Main() {
 	}
 
 	public static void main(String[] args) {
+		logger.log(Level.INFO, "Starting compiler.");
 		try {
 			String main = readInput();
 			String result = process(main);
@@ -26,40 +31,66 @@ public final class Main {
 		} catch (Exception e) {
 			handleException(e);
 		}
+		logger.log(Level.INFO, "Exiting compiler.");
 	}
 
 	private static String readInput() throws IOException {
 		Path input = ensure(MAIN);
-		return String.join("", Files.readAllLines(input));
+		List<String> lines = Files.readAllLines(input);
+		logger.log(Level.INFO, "Read in " + lines.size() + " lines of input.");
+		return String.join("", lines);
 	}
 
 	private static String process(String main) {
-		String mainEncapsulated = "val main : () => Int = {" + main + "}";
+		String mainEncapsulated = wrapInMain(main);
 		Node node = COMPILER.parse(mainEncapsulated);
 		return node.render(CACHE);
 	}
 
 	private static void writeOutput(String result) throws IOException {
 		Path output = ensure(OUT);
-		Files.writeString(output, CACHE.render() + result);
+		String renderedCache = CACHE.render();
+		String value = renderedCache + result;
+		Files.writeString(output, value);
+		logger.log(Level.INFO, "Writing output with length " + value.length() + ".");
 	}
 
 	private static void handleException(Exception e) {
-		Throwable t = e;
-		StringBuilder builder = new StringBuilder();
-		do {
-			String message = t.getMessage();
-			builder.append(message)
-					.append(" ")
-					.append(t.getStackTrace()[0])
-					.append("\n");
-			t = t.getCause();
-		} while (null != t);
-		System.out.println(builder);
+		String value = convertStackToString(e);
+		logger.log(Level.SEVERE, "An error occurred.", value);
 	}
 
 	private static Path ensure(Path path) throws IOException {
-		if (!Files.exists(path)) Files.createFile(path);
+		if (!Files.exists(path)) {
+			logger.log(Level.WARNING, path.toAbsolutePath() + " does not exist. It will be created.");
+			Files.createFile(path);
+		}
 		return path;
+	}
+
+	private static String wrapInMain(String main) {
+		return new StringBuilder()
+				.append("val main : () => Int = {")
+				.append(main)
+				.append("}")
+				.toString();
+	}
+
+	private static String convertStackToString(Exception e) {
+		Throwable current = e;
+		StringBuilder builder = new StringBuilder();
+		do {
+			builder = format(current, builder);
+			current = current.getCause();
+		} while (null != current);
+		return builder.toString();
+	}
+
+	private static StringBuilder format(Throwable current, StringBuilder builder) {
+		String message = current.getMessage();
+		return builder.append(message)
+				.append(" ")
+				.append(current.getStackTrace()[0])
+				.append("\n");
 	}
 }
