@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class IntNode implements Node {
-	public static final Node DEFAULT = new IntNode(0);
 	private final int value;
 
 	public IntNode(int value) {

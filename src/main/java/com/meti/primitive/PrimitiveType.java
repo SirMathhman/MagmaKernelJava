@@ -5,7 +5,7 @@ import com.meti.parse.Type;
 
 public enum PrimitiveType implements Type {
 	SHORT("short", null),
-	INT("int", IntNode.DEFAULT),
+	INT("int", new IntNode(0)),
 	LONG("long", null),
 	FLOAT("float", null),
 	DOUBLE("double", null),
