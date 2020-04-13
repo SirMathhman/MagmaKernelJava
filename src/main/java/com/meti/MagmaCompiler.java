@@ -7,6 +7,7 @@ public class MagmaCompiler extends UnitCompiler {
 
 	public MagmaCompiler() {
 		this(Guice.createInjector(new DataModule()),
+				DeclareParser.class,
 				StructParser.class);
 	}
 
