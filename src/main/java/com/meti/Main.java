@@ -57,7 +57,7 @@ public final class Main {
 
 	private static void handleException(Exception e) {
 		String value = convertStackToString(e);
-		logger.log(Level.SEVERE, "An error occurred.", value);
+		logger.log(Level.SEVERE, "An error occurred:\n" + value);
 	}
 
 	private static Path ensure(Path path) throws IOException {
