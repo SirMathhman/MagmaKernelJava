@@ -8,21 +8,19 @@ public class MappedRegister implements Register {
 	private final Map<String, Object> values = new HashMap<>();
 
 	@Override
-	public <T> Optional<T> peek(String name) {
-		return Optional.ofNullable(values.get(name))
-				.map(o -> (T) o);
-	}
-
-	@Override
 	public boolean has(String name) {
 		return values.containsKey(name);
 	}
 
 	@Override
-	public <T> Optional<T> poll(String name) {
+	public <T> Optional<T> peek(String name, Class<T> clazz) {
+		return Optional.ofNullable(values.get(name)).map(clazz::cast);
+	}
+
+	@Override
+	public <T> Optional<T> poll(String name, Class<T> clazz) {
 		if (values.containsKey(name)) {
-			return Optional.of(values.remove(name))
-					.map(o -> (T) o);
+			return Optional.of(values.remove(name)).map(clazz::cast);
 		}
 		return Optional.empty();
 	}

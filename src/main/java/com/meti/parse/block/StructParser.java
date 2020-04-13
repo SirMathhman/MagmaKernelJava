@@ -26,7 +26,7 @@ public class StructParser implements Parser {
 
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
-		Optional<Boolean> assigning = register.poll("assigning");
+		Optional<Boolean> assigning = register.poll("assigning", Boolean.class);
 		if (assigning.isPresent() && assigning.get()) {
 			Node node = compiler.parse(content);
 			Type type = stack.current().type();
