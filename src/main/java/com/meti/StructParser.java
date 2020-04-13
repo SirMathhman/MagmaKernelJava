@@ -46,6 +46,7 @@ public class StructParser implements Parser {
 			list.add(builder.toString());
 			Collection<Node> nodes = list.stream()
 					.filter(s -> !s.isBlank())
+					.map(String::trim)
 					.map(compiler::parse)
 					.collect(Collectors.toList());
 			return Optional.of(new BlockNode(nodes));

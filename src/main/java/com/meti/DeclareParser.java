@@ -25,6 +25,7 @@ public class DeclareParser implements Parser {
 			String substring = content.substring(i, i + 2);
 			if (substring.startsWith("=") && !substring.equals("=>")) {
 				equals = i;
+				break;
 			}
 		}
 		if (-1 != equals) {
