@@ -6,7 +6,7 @@ import com.meti.parse.Node;
 import java.util.Collection;
 import java.util.Collections;
 
-public class NullNode implements Node {
+public final class NullNode implements Node {
 	public static final Node INSTANCE = new NullNode();
 
 	private NullNode() {

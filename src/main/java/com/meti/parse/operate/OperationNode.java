@@ -27,6 +27,6 @@ public class OperationNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		return value0.render(cache) + "=" + value1.render(cache);
+		return value0.render(cache) + operation + value1.render(cache);
 	}
 }
