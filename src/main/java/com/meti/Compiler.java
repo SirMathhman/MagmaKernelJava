@@ -1,11 +1,9 @@
 package com.meti;
 
-public class Compiler {
-	public Node parse(String s) {
-		return null;
-	}
+public interface Compiler {
+	Node parse(String content);
 
-	public Type resolveName(String s) {
-		return null;
-	}
+	Type resolveName(String content);
+
+	Type resolveValue(String content);
 }
