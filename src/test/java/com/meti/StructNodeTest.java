@@ -27,9 +27,9 @@ class StructNodeTest {
 		Node struct = new StructNode("main", type, new BlockNode(new ReturnNode(lambdaNode)));
 		Node declare = new DeclareNode("main", type, struct);
 		String result = declare.render(cache);
-		assertEquals("struct main{}" +
-		             "int lambda_(){return 10;}" +
-		             "int (*main_())(){struct main main={};return lambda_;}" +
+		assertEquals("struct main{int (*lambda)(void *);};" +
+		             "int lambda_(void *main){return 10;}" +
+		             "int (*main_())(void *){struct main main={NULL};return lambda_;}" +
 		             "int (*(*main)())()=main_;", cache.render() + result);
 	}
 
