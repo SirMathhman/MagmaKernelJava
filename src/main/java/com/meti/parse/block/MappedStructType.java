@@ -98,7 +98,7 @@ public class MappedStructType implements StructType {
 	}
 
 	@Override
-	public boolean doesReturnVoid() {
+	public boolean isReturningVoid() {
 		return returnType.equals(PrimitiveType.VOID);
 	}
 

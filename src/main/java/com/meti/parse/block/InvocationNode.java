@@ -7,16 +7,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class InvocationNode implements Node {
-	private final Collection<Node> arguments;
-	private final Node caller;
-	private final boolean returnsVoid;
+public abstract class InvocationNode implements Node {
+	protected final Collection<Node> arguments;
+	protected final Node caller;
 
-	public InvocationNode(Node caller, Collection<Node> arguments, boolean returnsVoid) {
-		this.caller = caller;
+	public InvocationNode(Collection<Node> arguments, Node caller) {
 		this.arguments = arguments;
-		this.returnsVoid = returnsVoid;
+		this.caller = caller;
 	}
+
+	@Override
+	public String render(Cache cache) {
+		String argString = renderArguments(cache);
+		String ext = renderExtension();
+		return caller.render(cache) + argString + ext;
+	}
+
+	private String renderArguments(Cache cache) {
+		return arguments.stream()
+				.map(node -> node.render(cache))
+				.collect(Collectors.joining(",", "(", ")"));
+	}
+
+	protected abstract String renderExtension();
 
 	@Override
 	public Collection<Node> structures() {
@@ -27,18 +40,5 @@ public class InvocationNode implements Node {
 				.flatMap(Collection::stream)
 				.collect(Collectors.toList()));
 		return structures;
-	}
-
-	@Override
-	public String render(Cache cache) {
-		String argString = renderArguments(cache);
-		String ext = (returnsVoid) ? ";" : "";
-		return caller.render(cache) + argString + ext;
-	}
-
-	private String renderArguments(Cache cache) {
-		return arguments.stream()
-				.map(node -> node.render(cache))
-				.collect(Collectors.joining(",", "(", ")"));
 	}
 }

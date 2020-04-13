@@ -9,7 +9,7 @@ public interface Type {
 
 	String render(String name);
 
-	default boolean doesReturnVoid() {
+	default boolean isReturningVoid() {
 		return false;
 	}
 }

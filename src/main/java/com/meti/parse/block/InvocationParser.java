@@ -40,7 +40,10 @@ public class InvocationParser implements Parser {
 					.collect(Collectors.toList());
 			Type callerType = compiler.resolveValue(callerString);
 			if (callerType instanceof StructType) {
-				return Optional.of(new InvocationNode(caller, arguments, callerType.doesReturnVoid()));
+				boolean returningVoid = callerType.isReturningVoid();
+				Node node = (returningVoid) ? new VoidInvocationNode(caller, arguments) :
+						new ValuedInvocationNode(caller, arguments);
+				return Optional.of(node);
 			} else {
 				throw new IllegalStateException(callerType + " is not a structure.");
 			}
