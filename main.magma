@@ -1,6 +1,29 @@
 import stdio;
+import math;
 
 native val printf : (format : String, value : Any) => Void;
+native val powf : (base : Float, exponent : Float) => Float;
+native val sqrtf : (value : Float) => Float;
+
+val Point : (x : Float, y : Float) => Point = {
+	val xSquared : () => Float = {
+		return powf(x, 2);
+	};
+	val ySquared : () => Float = {
+		return powf(y, 2);
+	};
+	val squared : () => Float = {
+		return xSquared(&this) + ySquared(&this);
+	};
+	val length : () => Float = {
+		return sqrf(squared(&this));
+	};
+	return this;
+};
+
+val a : () => Point = {
+	return Point(main, 3, 4);
+};
 
 val printString : (message : String) => Void = {
 	printf("%s", message);
