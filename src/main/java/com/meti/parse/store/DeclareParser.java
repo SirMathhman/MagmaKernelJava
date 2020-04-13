@@ -30,7 +30,7 @@ public class DeclareParser implements Parser {
 		char[] charArray = content.toCharArray();
 		for (int i = 0; i < charArray.length - 2; i++) {
 			String substring = content.substring(i, i + 2);
-			if (substring.startsWith("=") && !substring.equals("=>")) {
+			if (substring.startsWith("=") && !"=>".equals(substring)) {
 				equals = i;
 				break;
 			}

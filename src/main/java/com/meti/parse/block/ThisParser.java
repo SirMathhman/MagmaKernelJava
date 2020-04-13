@@ -19,7 +19,7 @@ public class ThisParser implements Parser {
 
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
-		if (content.equals("this")) {
+		if ("this".equals(content)) {
 			return Optional.of(new VariableNode(stack.current().name()));
 		}
 		return Optional.empty();

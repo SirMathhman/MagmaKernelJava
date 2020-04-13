@@ -18,7 +18,7 @@ public class InvocationParser implements Parser {
 		char[] charArray = content.toCharArray();
 		for (int i = charArray.length - 2; 0 <= i; i--) {
 			char c = charArray[i];
-			if ('(' == c && depth == 0) {
+			if ('(' == c && 0 == depth) {
 				index = i;
 				break;
 			} else {

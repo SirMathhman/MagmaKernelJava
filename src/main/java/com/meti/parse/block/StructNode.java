@@ -44,7 +44,7 @@ public class StructNode implements Node {
 			String footer = content.render(cache);
 			cache.append(1, header + footer);
 			StringBuilder builder = new StringBuilder();
-			if (names.size() > 1) {
+			if (1 < names.size()) {
 				String parent = names.get(names.size() - 2);
 				String actual = names.get(names.size() - 1);
 				builder.append(";")

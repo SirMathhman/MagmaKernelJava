@@ -9,7 +9,7 @@ import java.util.Collections;
 class ImportNode implements Node {
 	private final String value;
 
-	public ImportNode(String value) {
+	ImportNode(String value) {
 		this.value = value;
 	}
 

@@ -16,12 +16,12 @@ public class CastParser implements Parser {
 			int depth = 0;
 			for (int i = 1; i < charArray.length; i++) {
 				char c = charArray[i];
-				if (c == '>' && depth == 0) {
+				if ('>' == c && 0 == depth) {
 					index = i;
 					break;
 				} else {
-					if (c == '<') depth++;
-					if (c == '>') depth--;
+					if ('<' == c) depth++;
+					if ('>' == c) depth--;
 				}
 			}
 			String typeString = content.substring(1, index);

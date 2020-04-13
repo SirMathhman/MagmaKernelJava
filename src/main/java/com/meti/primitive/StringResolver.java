@@ -12,7 +12,7 @@ public class StringResolver implements Resolver {
 
 	@Override
 	public Optional<Type> resolveName(String content, com.meti.Compiler compiler) {
-		if (content.equals("String")) {
+		if ("String".equals(content)) {
 			return Optional.of(TYPE);
 		} else {
 			return Optional.empty();

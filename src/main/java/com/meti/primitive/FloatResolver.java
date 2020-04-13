@@ -9,7 +9,7 @@ import java.util.Optional;
 public class FloatResolver implements Resolver {
 	@Override
 	public Optional<Type> resolveName(String content, Compiler compiler) {
-		if (content.equals("Float")) {
+		if ("Float".equals(content)) {
 			return Optional.of(PrimitiveType.FLOAT);
 		} else {
 			return Optional.empty();

@@ -8,9 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Main {
+public final class Main {
 	public static final Cache CACHE = new ListCache();
 	public static final Compiler COMPILER = new MagmaCompiler();
+
+	private Main() {
+	}
 
 	public static void main(String[] args) {
 		try {
@@ -33,7 +36,7 @@ public class Main {
 						.append(t.getStackTrace()[0])
 						.append("\n");
 				t = t.getCause();
-			} while (t != null);
+			} while (null != t);
 			System.out.println(builder);
 		}
 	}
