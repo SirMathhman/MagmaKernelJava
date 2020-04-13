@@ -1,6 +1,5 @@
 package com.meti;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,8 +19,18 @@ public class Main {
 			Path mainOut = Paths.get("main.c");
 			if (!Files.exists(mainOut)) Files.createFile(mainOut);
 			Files.writeString(mainOut, CACHE.render() + result);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Throwable t = e;
+			StringBuilder builder = new StringBuilder();
+			do {
+				String message = t.getMessage();
+				builder.append(message)
+						.append(" ")
+						.append(t.getStackTrace()[0])
+						.append("\n");
+				t = t.getCause();
+			} while (t != null);
+			System.out.println(builder);
 		}
 	}
 }

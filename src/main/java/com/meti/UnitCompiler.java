@@ -21,10 +21,18 @@ public class UnitCompiler implements Compiler {
 	@Override
 	public Node parse(String content) {
 		return parsers.stream()
-				.map(parser -> parser.parse(content, this))
+				.map(parser -> parseImpl(content, parser))
 				.flatMap(Optional::stream)
 				.findFirst()
 				.orElseThrow(() -> cannot(content));
+	}
+
+	private Optional<Node> parseImpl(String content, Parser parser) {
+		try {
+			return parser.parse(content, this);
+		} catch (Exception e) {
+			throw new CompileException("Failed to parse: " + content, e);
+		}
 	}
 
 	private IllegalArgumentException cannot(String value) {
