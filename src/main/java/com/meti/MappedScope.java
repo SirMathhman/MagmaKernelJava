@@ -21,16 +21,27 @@ public class MappedScope implements Scope {
 	}
 
 	@Override
+	public Optional<Scope> child(String name) {
+		return Optional.ofNullable(children.get(name));
+	}
+
+	@Override
+	public Optional<Scope> search(String name) {
+		if (children.containsKey(name)) {
+			return Optional.ofNullable(children.get(name));
+		} else if (null != parent) {
+			return parent.search(name);
+		} else {
+			return Optional.empty();
+		}
+	}
+
+	@Override
 	public Scope create(String name, Type type) {
 		if (children.containsKey(name)) throw new IllegalArgumentException(name + " is already defined!");
 		Scope scope = new MappedScope(name, type, this);
 		children.put(name, scope);
 		return scope;
-	}
-
-	@Override
-	public Optional<Scope> child(String name) {
-		return Optional.ofNullable(children.get(name));
 	}
 
 	@Override

@@ -1,3 +1,7 @@
+val Point : (x : Int, y : Int) => Point = {
+	return this;
+};
+
 val exitCode : () => Int = {
 	return 10;
 };

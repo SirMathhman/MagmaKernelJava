@@ -29,17 +29,7 @@ public class MappedStack implements Stack {
 
 	@Override
 	public Optional<Scope> search(String name) {
-		Optional<Scope> optional = Optional.of(current);
-		while (optional.isPresent()) {
-			Scope scope = optional.get();
-			Optional<Scope> child = scope.child(name);
-			if (child.isPresent()) {
-				return child;
-			} else {
-				optional = scope.parent();
-			}
-		}
-		return Optional.empty();
+		return current.search(name);
 	}
 
 	@Override
