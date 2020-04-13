@@ -10,17 +10,17 @@ public class StructNode implements Node {
 	private final Type type;
 
 	public StructNode(Type type, Node content, String... names) {
-		this(List.of(names), type, content);
+		this(type, content, List.of(names));
 	}
 
-	public StructNode(List<String> names, Type type, Node content) {
+	public StructNode(Type type, Node content, List<String> names) {
 		this.names = names;
 		this.type = type;
 		this.content = content;
 	}
 
-	public StructNode(String name, Type type, Node content) {
-		this(Collections.singletonList(name), type, content);
+	public StructNode(Type type, Node content, String name) {
+		this(type, content, Collections.singletonList(name));
 	}
 
 	@Override

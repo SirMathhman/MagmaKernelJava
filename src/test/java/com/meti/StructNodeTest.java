@@ -11,7 +11,7 @@ class StructNodeTest {
 	void render() {
 		Cache cache = new ListCache();
 		Type type = new MappedStructType(PrimitiveType.INT);
-		Node struct = new StructNode("main", type, new BlockNode(new ReturnNode(new IntNode(0))));
+		Node struct = new StructNode(type, new BlockNode(new ReturnNode(new IntNode(0))), "main");
 		Node declare = new DeclareNode("main", type, struct);
 		String result = declare.render(cache);
 		assertEquals("int main_(){return 0;}" +
@@ -23,8 +23,8 @@ class StructNodeTest {
 		Cache cache = new ListCache();
 		Type subType = new MappedStructType(PrimitiveType.INT);
 		Type type = new MappedStructType(subType);
-		Node lambdaNode = new StructNode("lambda", subType, new BlockNode(new ReturnNode(new IntNode(10))));
-		Node struct = new StructNode("main", type, new BlockNode(new ReturnNode(lambdaNode)));
+		Node lambdaNode = new StructNode(subType, new BlockNode(new ReturnNode(new IntNode(10))), "lambda");
+		Node struct = new StructNode(type, new BlockNode(new ReturnNode(lambdaNode)), "main");
 		Node declare = new DeclareNode("main", type, struct);
 		String result = declare.render(cache);
 		assertEquals("struct main{int (*lambda)(void *);};" +
@@ -43,7 +43,7 @@ class StructNodeTest {
 				new BlockNode(new ReturnNode(new IntNode(10))), "Point", "length");
 		Node length = new DeclareNode("length", lengthType, lengthNode);
 		Node returnNode = new ReturnNode(new VariableNode("Point"));
-		Node struct = new StructNode("Point", type, new BlockNode(List.of(length, returnNode)));
+		Node struct = new StructNode(type, new BlockNode(List.of(length, returnNode)), "Point");
 		Node declare = new DeclareNode("Point", type, struct);
 		String result = declare.render(cache);
 		assertEquals("struct Point{" +
