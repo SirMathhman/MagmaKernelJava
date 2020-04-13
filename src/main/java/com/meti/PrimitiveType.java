@@ -1,17 +1,26 @@
 package com.meti;
 
 public enum PrimitiveType implements Type {
-	SHORT("short"),
-	INT("int"),
-	LONG("long"),
-	FLOAT("float"),
-	DOUBLE("double"),
-	CHAR("char");
+	SHORT("short", null),
+	INT("int", IntNode.DEFAULT),
+	LONG("long", null),
+	FLOAT("float", null),
+	DOUBLE("double", null),
+	CHAR("char", null),
+	VOID("void", null);
 
 	private final String name;
+	private final Node value;
 
-	PrimitiveType(String name) {
+	PrimitiveType(String name, Node value) {
 		this.name = name;
+		this.value = value;
+	}
+
+	@Override
+	public Node defaultValue() {
+		if (null == value) throw new IllegalArgumentException("Cannot locate default value of type: " + name);
+		return value;
 	}
 
 	@Override

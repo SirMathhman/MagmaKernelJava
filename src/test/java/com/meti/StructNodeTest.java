@@ -39,18 +39,21 @@ class StructNodeTest {
 		Cache cache = new ListCache();
 		Type type = new MappedStructType(new NativeStructType("Point"));
 		Type lengthType = new MappedStructType(PrimitiveType.INT);
-		Node lengthNode = new StructNode("Point_length", lengthType,
-				new BlockNode(new ReturnNode(new IntNode(10))));
-		Node length = new DeclareNode("Point_length", lengthType, lengthNode);
+		Node lengthNode = new StructNode(lengthType,
+				new BlockNode(new ReturnNode(new IntNode(10))), "Point", "length");
+		Node length = new DeclareNode("length", lengthType, lengthNode);
 		Node returnNode = new ReturnNode(new VariableNode("Point"));
 		Node struct = new StructNode("Point", type, new BlockNode(List.of(length, returnNode)));
 		Node declare = new DeclareNode("Point", type, struct);
 		String result = declare.render(cache);
-		assertEquals("struct Point{}" +
-		             "int Point_length_(struct Point Point){return 10;}" +
+		assertEquals("struct Point{" +
+		             "int (*length)(void *);" +
+		             "};" +
+		             "int Point_length_(void *Point){return 10;}" +
 		             "struct Point Point_(){" +
-		             "struct Point Point={};" +
-		             "int (*Point_length)(struct Point)=Point_length_;" +
+		             "struct Point Point={NULL};" +
+		             "int (*length)(void *)=Point_length_;" +
+		             "Point.length=length;" +
 		             "return Point;}" +
 		             "struct Point (*Point)()=Point_;", cache.render() + result);
 	}

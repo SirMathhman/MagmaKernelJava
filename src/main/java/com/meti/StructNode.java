@@ -6,13 +6,21 @@ import java.util.List;
 
 public class StructNode implements Node {
 	private final Node content;
-	private final String name;
+	private final List<String> names;
 	private final Type type;
 
-	public StructNode(String name, Type type, Node content) {
-		this.name = name;
+	public StructNode(Type type, Node content, String... names) {
+		this(List.of(names), type, content);
+	}
+
+	public StructNode(List<String> names, Type type, Node content) {
+		this.names = names;
 		this.type = type;
 		this.content = content;
+	}
+
+	public StructNode(String name, Type type, Node content) {
+		this(Collections.singletonList(name), type, content);
 	}
 
 	@Override
@@ -28,12 +36,27 @@ public class StructNode implements Node {
 			String header = cast.renderHeader(implName());
 			String footer = content.render(cache);
 			cache.append(1, header + footer);
+			StringBuilder builder = new StringBuilder();
+			if (names.size() > 1) {
+				String parent = names.get(names.size() - 2);
+				String actual = names.get(names.size() - 1);
+				builder.append(";")
+						.append(parent)
+						.append(".")
+						.append(actual)
+						.append("=")
+						.append(actual);
+			}
+			return implName() + builder;
 		} else {
+			String name = lastName();
 			Type type = new NativeStructType(name);
 			structures.stream()
 					.map(StructNode.class::cast)
-					.map(StructNode::type)
-					.forEach(structType -> structType.appendParameter(name, type));
+					.forEach(structNode -> {
+						structNode.type().appendParameter(name, new PointerType(PrimitiveType.VOID));
+						cast.appendChild(structNode.lastName(), structNode.type);
+					});
 			cache.append(0, cast.renderStruct(name));
 			String header = cast.renderHeader(implName());
 			ParentNode contentToRender = content instanceof ParentNode ? (ParentNode) content : new BlockNode(content);
@@ -42,16 +65,21 @@ public class StructNode implements Node {
 			children.add(0, new DeclareNode(name, type, construction));
 			String footer = contentToRender.render(cache);
 			cache.append(1, header + footer);
+			return implName();
 		}
-		return implName();
 	}
 
 	private StructType type() {
-		if (!(type instanceof StructType)) throw new IllegalArgumentException(type + " is not a structure.");
-		return (StructType) this.type;
+		if (type instanceof StructType) return (StructType) type;
+		throw new IllegalArgumentException(type + " is not a structure.");
 	}
 
 	private String implName() {
-		return name + "_";
+		return String.join("_", names) + "_";
+	}
+
+	private String lastName() {
+		if (names.isEmpty()) throw new IllegalStateException("No names provided.");
+		return names.get(names.size() - 1);
 	}
 }

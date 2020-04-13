@@ -3,12 +3,10 @@ package com.meti;
 import java.util.Collection;
 import java.util.Collections;
 
-public class IntNode implements Node {
-	public static final Node DEFAULT = new IntNode(0);
-	private final int value;
+public class NullNode implements Node {
+	public static final Node INSTANCE = new NullNode();
 
-	public IntNode(int value) {
-		this.value = value;
+	private NullNode() {
 	}
 
 	@Override
@@ -18,6 +16,6 @@ public class IntNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		return String.valueOf(value);
+		return "NULL";
 	}
 }

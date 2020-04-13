@@ -8,6 +8,11 @@ public class NativeStructType implements Type {
 	}
 
 	@Override
+	public Node defaultValue() {
+		throw new UnsupportedOperationException("Not implemented yet, requires knowledge of arguments");
+	}
+
+	@Override
 	public String render(String name) {
 		return "struct " + this.name + " " + name;
 	}

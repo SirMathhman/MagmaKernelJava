@@ -1,6 +1,8 @@
 package com.meti;
 
 public interface Type {
+	Node defaultValue();
+
 	default String render() {
 		return render("");
 	}
