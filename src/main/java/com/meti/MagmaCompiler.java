@@ -2,6 +2,14 @@ package com.meti;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.meti.data.DataModule;
+import com.meti.parse.block.*;
+import com.meti.parse.external.ImportParser;
+import com.meti.parse.operate.CastParser;
+import com.meti.parse.operate.OperationParser;
+import com.meti.parse.operate.QuantityParser;
+import com.meti.parse.store.*;
+import com.meti.primitive.*;
 
 public class MagmaCompiler extends UnitCompiler {
 
