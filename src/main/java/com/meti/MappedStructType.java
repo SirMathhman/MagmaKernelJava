@@ -74,6 +74,11 @@ public class MappedStructType implements StructType {
 		return returnType.render("(*" + name + ")" + paramString);
 	}
 
+	@Override
+	public boolean doesReturnVoid() {
+		return returnType.equals(PrimitiveType.VOID);
+	}
+
 	private String renderParams() {
 		return fields.values()
 				.stream()

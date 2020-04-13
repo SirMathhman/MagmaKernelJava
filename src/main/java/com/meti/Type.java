@@ -8,4 +8,8 @@ public interface Type {
 	}
 
 	String render(String name);
+
+	default boolean doesReturnVoid() {
+		return false;
+	}
 }

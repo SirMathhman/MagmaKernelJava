@@ -33,7 +33,12 @@ public class InvocationParser implements Parser {
 					.map(String::trim)
 					.map(compiler::parse)
 					.collect(Collectors.toList());
-			return Optional.of(new InvocationNode(caller, arguments));
+			Type callerType = compiler.resolveValue(callerString);
+			if (callerType instanceof StructType) {
+				return Optional.of(new InvocationNode(caller, arguments, callerType.doesReturnVoid()));
+			} else {
+				throw new IllegalStateException(callerType + " is not a structure.");
+			}
 		}
 	}
 }

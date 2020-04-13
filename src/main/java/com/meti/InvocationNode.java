@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 public class InvocationNode implements Node {
 	private final Collection<Node> arguments;
 	private final Node caller;
+	private final boolean returnsVoid;
 
-	public InvocationNode(Node caller, Collection<Node> arguments) {
+	public InvocationNode(Node caller, Collection<Node> arguments, boolean returnsVoid) {
 		this.caller = caller;
 		this.arguments = arguments;
+		this.returnsVoid = returnsVoid;
 	}
 
 	@Override
@@ -27,7 +29,8 @@ public class InvocationNode implements Node {
 	@Override
 	public String render(Cache cache) {
 		String argString = renderArguments(cache);
-		return caller.render(cache) + argString;
+		String ext = (returnsVoid) ? ";" : "";
+		return caller.render(cache) + argString + ext;
 	}
 
 	private String renderArguments(Cache cache) {

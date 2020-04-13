@@ -8,6 +8,8 @@ public interface Stack {
 
 	Scope enter(String name, Type type);
 
+	Scope define(String name, Type type);
+
 	Optional<Scope> exit();
 
 	Optional<Scope> search(String name);

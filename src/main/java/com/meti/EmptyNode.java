@@ -3,13 +3,7 @@ package com.meti;
 import java.util.Collection;
 import java.util.Collections;
 
-class ImportNode implements Node {
-	private final String value;
-
-	public ImportNode(String value) {
-		this.value = value;
-	}
-
+public class EmptyNode implements Node {
 	@Override
 	public Collection<Node> structures() {
 		return Collections.emptySet();
@@ -17,7 +11,6 @@ class ImportNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		cache.append(-1, "#include <" + value.trim() + ".h>\n");
 		return "";
 	}
 }

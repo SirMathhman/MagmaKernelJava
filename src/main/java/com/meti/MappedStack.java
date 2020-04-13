@@ -15,9 +15,14 @@ public class MappedStack implements Stack {
 
 	@Override
 	public Scope enter(String name, Type type) {
-		Scope child = current.create(name, type);
+		Scope child = define(name, type);
 		current = child;
 		return child;
+	}
+
+	@Override
+	public Scope define(String name, Type type) {
+		return current.create(name, type);
 	}
 
 	@Override

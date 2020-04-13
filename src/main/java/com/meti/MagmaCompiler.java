@@ -19,7 +19,8 @@ public class MagmaCompiler extends UnitCompiler {
 				VariableParser.class,
 				StructResolver.class,
 				IntResolver.class,
-				InstanceResolver.class);
+				VoidResolver.class,
+				VariableResolver.class);
 	}
 
 	public MagmaCompiler(Injector injector, Class<?>... classes) {

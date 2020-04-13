@@ -1,2 +1,2 @@
-#include < stdio.h>
-struct main{struct Void (*printf)(struct Any,struct String,void *);};struct Void main_printf_(struct Any  value ,struct String format ,void *main)printf("%s","Hello World!")int main(){struct main main={NULL};struct Void (*printf)(struct Any,struct String,void *);main_printf_;main.printf=printfreturn 0;}
+#include <stdio.h>
+int main(){printf("%s","Hello World!");return 0;}
