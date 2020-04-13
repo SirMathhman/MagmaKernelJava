@@ -1,8 +1,5 @@
-val Point : (x : Int, y : Int) => Point = {
-	return this;
-};
+import stdio;
 
-val exitCode : () => Int = {
-	return 10;
-};
-return exitCode(&this);
+native val printf : (format : String, value : Any) => Void;
+printf("%s", "Hello World!");
+return 0;

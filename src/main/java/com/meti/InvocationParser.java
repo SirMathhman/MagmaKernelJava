@@ -30,6 +30,7 @@ public class InvocationParser implements Parser {
 			List<Node> arguments = Arrays.stream(argString
 					.split(","))
 					.filter(s -> !s.isBlank())
+					.map(String::trim)
 					.map(compiler::parse)
 					.collect(Collectors.toList());
 			return Optional.of(new InvocationNode(caller, arguments));

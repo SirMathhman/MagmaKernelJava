@@ -8,8 +8,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
-	private final Stack stack;
 	private final Register register;
+	private final Stack stack;
 
 	@Inject
 	public DeclareParser(Stack stack, Register register) {
@@ -35,11 +35,7 @@ public class DeclareParser implements Parser {
 			String keyString = before.substring(0, colon).trim();
 			String typeString = before.substring(colon + 1);
 			int lastSpace = keyString.lastIndexOf(' ');
-			List<DeclareKey> keys = Arrays.stream(keyString.substring(0, lastSpace).split(" "))
-					.filter(s -> !s.isBlank())
-					.map(this::parseKey)
-					.flatMap(Optional::stream)
-					.collect(Collectors.toList());
+			List<DeclareKey> keys = parseKeys(keyString, lastSpace);
 			if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
 				String nameString = keyString.substring(lastSpace + 1).trim();
 				register.set("assigning", true);
@@ -48,8 +44,31 @@ public class DeclareParser implements Parser {
 				Node result = compiler.parse(after);
 				return Optional.of(new DeclareNode(nameString, type, result));
 			}
+		} else {
+			int colon = content.indexOf(':');
+			if (colon != -1) {
+				String keyString = content.substring(0, colon).trim();
+				String typeString = content.substring(colon + 1);
+				int lastSpace = keyString.lastIndexOf(' ');
+				List<DeclareKey> keys = parseKeys(keyString, lastSpace);
+				if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
+					String nameString = keyString.substring(lastSpace + 1).trim();
+					register.set("assigning", true);
+					Type type = compiler.resolveName(typeString.trim());
+					stack.enter(nameString, type);
+					return Optional.of(new DeclareNode(nameString, type));
+				}
+			}
 		}
 		return Optional.empty();
+	}
+
+	private List<DeclareKey> parseKeys(String keyString, int lastSpace) {
+		return Arrays.stream(keyString.substring(0, lastSpace).split(" "))
+				.filter(s -> !s.isBlank())
+				.map(this::parseKey)
+				.flatMap(Optional::stream)
+				.collect(Collectors.toList());
 	}
 
 	private Optional<DeclareKey> parseKey(String s) {

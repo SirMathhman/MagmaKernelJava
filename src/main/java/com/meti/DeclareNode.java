@@ -50,6 +50,6 @@ public class DeclareNode implements Node {
 	}
 
 	private Optional<Node> init() {
-		return Optional.of(init);
+		return Optional.ofNullable(init);
 	}
 }

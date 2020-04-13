@@ -1,4 +1,2 @@
-struct main{struct Point (*Point)(int,int,void *);
-int (*exitCode)(void *);};
-struct Point main_Point_(int  y ,int x ,void *main){return Point;}
-int main_exitCode_(void *main){return 10;}int main(){struct main main={NULL,NULL};struct Point (*Point)(int,int,void *)=main_Point_;main.Point=Point;int (*exitCode)(void *)=main_exitCode_;main.exitCode=exitCode;return exitCode(&main);}
+#include < stdio.h>
+struct main{struct Void (*printf)(struct Any,struct String,void *);};struct Void main_printf_(struct Any  value ,struct String format ,void *main)printf("%s","Hello World!")int main(){struct main main={NULL};struct Void (*printf)(struct Any,struct String,void *);main_printf_;main.printf=printfreturn 0;}
