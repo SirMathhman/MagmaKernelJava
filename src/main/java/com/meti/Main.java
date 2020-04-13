@@ -19,7 +19,7 @@ public class Main {
 			String result = node.render(CACHE);
 			Path mainOut = Paths.get("main.c");
 			if (!Files.exists(mainOut)) Files.createFile(mainOut);
-			Files.writeString(mainOut, result);
+			Files.writeString(mainOut, CACHE.render() + result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

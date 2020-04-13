@@ -75,7 +75,14 @@ public class StructNode implements Node {
 	}
 
 	private String implName() {
-		return String.join("_", names) + "_";
+		if (names.isEmpty()) {
+			throw new IllegalStateException("Names is empty");
+		} else if (1 == names.size() && "main".equals(names.get(0))) {
+			return "main";
+		} else {
+			String join = String.join("_", names);
+			return join + "_";
+		}
 	}
 
 	private String lastName() {

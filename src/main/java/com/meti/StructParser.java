@@ -23,7 +23,10 @@ public class StructParser implements Parser {
 		Optional<Boolean> assigning = register.poll("assigning");
 		if (assigning.isPresent() && assigning.get()) {
 			Node node = compiler.parse(content);
-			return Optional.of(new StructNode(stack.current().type(), node, stack.values()));
+			Type type = stack.current().type();
+			List<String> values = stack.values();
+			stack.exit();
+			return Optional.of(new StructNode(type, node, values));
 		}
 		if (content.startsWith("{") && content.endsWith("}")) {
 			String values = content.substring(1, content.length() - 1);

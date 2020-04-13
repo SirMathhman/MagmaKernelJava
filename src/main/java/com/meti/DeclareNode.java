@@ -31,8 +31,11 @@ public class DeclareNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		String header = renderHeader();
 		String footer = renderFooter(cache);
+		if ("main".equals(name) && type instanceof StructType) {
+			return "";
+		}
+		String header = renderHeader();
 		return header + footer + ";";
 	}
 

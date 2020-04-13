@@ -52,6 +52,7 @@ public class MappedStack implements Stack {
 			list.add(scope.name());
 		}
 		Collections.reverse(list);
+		list.remove(0);
 		return list;
 	}
 }
