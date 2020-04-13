@@ -16,9 +16,14 @@ public class VariableParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		int period = content.indexOf('.');
 		if (-1 == period) {
-			return stack.search(content)
+			return Optional.of(new VariableNode(content));
+	/*		if (stack.hasParameter(content)) {
+				return Optional.of(new VariableNode(content));
+			}
+			Optional<Node> node = stack.search(content)
 					.map(Scope::name)
 					.map(VariableNode::new);
+			return node;*/
 		} else {
 			String before = content.substring(0, period);
 			String after = content.substring(period + 1);

@@ -21,6 +21,14 @@ public class MappedScope implements Scope {
 	}
 
 	@Override
+	public Map<String, Type> flattenedParameters() {
+		Map<String, Type> copy = new HashMap<>();
+		if (type instanceof StructType) copy.putAll(((StructType) type).parameters());
+		if (null != parent) copy.putAll(parent.flattenedParameters());
+		return copy;
+	}
+
+	@Override
 	public Optional<Scope> child(String name) {
 		return Optional.ofNullable(children.get(name));
 	}

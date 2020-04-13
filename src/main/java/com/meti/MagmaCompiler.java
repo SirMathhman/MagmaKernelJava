@@ -20,6 +20,7 @@ public class MagmaCompiler extends UnitCompiler {
 				StructResolver.class,
 				IntResolver.class,
 				VoidResolver.class,
+				StringResolver.class,
 				VariableResolver.class);
 	}
 

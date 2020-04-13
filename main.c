@@ -1,2 +1,2 @@
 #include <stdio.h>
-int main(){printf("%s","Hello World!");return 0;}
+struct main{void (*printString)(void *,char *);};void main_printString_(void *main,char *message ){printf("%s",message);}int main(){struct main main={NULL};void (*printString)(void *,char *)=main_printString_;main.printString=printString;printString(&main,"Hello World!");return 0;}

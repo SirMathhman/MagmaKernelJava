@@ -1,23 +1,20 @@
 package com.meti;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MappedStructType implements StructType {
 	private final Map<String, Type> children = new HashMap<>();
-	private final Map<String, Type> fields;
+	private final Map<String, Type> parameters;
 	private final Type returnType;
 
 	public MappedStructType(Type returnType) {
 		this(returnType, new HashMap<>());
 	}
 
-	public MappedStructType(Type returnType, Map<String, Type> fields) {
+	public MappedStructType(Type returnType, Map<String, Type> parameters) {
 		this.returnType = returnType;
-		this.fields = fields;
+		this.parameters = parameters;
 	}
 
 	@Override
@@ -28,13 +25,18 @@ public class MappedStructType implements StructType {
 
 	@Override
 	public void appendParameter(String name, Type type) {
-		if (fields.containsKey(name)) throw new IllegalArgumentException(name + " is already defined.");
-		fields.put(name, type);
+		if (parameters.containsKey(name)) throw new IllegalArgumentException(name + " is already defined.");
+		parameters.put(name, type);
+	}
+
+	@Override
+	public Map<String, Type> parameters() {
+		return Collections.unmodifiableMap(parameters);
 	}
 
 	@Override
 	public Node renderConstruction() {
-		List<Node> paramList = fields.keySet()
+		List<Node> paramList = parameters.keySet()
 				.stream()
 				.sorted()
 				.map(VariableNode::new)
@@ -63,6 +65,21 @@ public class MappedStructType implements StructType {
 		return "struct " + name + result;
 	}
 
+	private String renderHeaderParams() {
+		return parameters.keySet()
+				.stream()
+				.map(s -> parameters.get(s).render(s))
+				.collect(Collectors.joining(",", "(", ")"));
+	}
+
+	private String renderParams() {
+		return parameters.values()
+				.stream()
+				.map(Type::render)
+				.map(String::trim)
+				.collect(Collectors.joining(",", "(", ")"));
+	}
+
 	@Override
 	public Node defaultValue() {
 		return NullNode.INSTANCE;
@@ -79,26 +96,11 @@ public class MappedStructType implements StructType {
 		return returnType.equals(PrimitiveType.VOID);
 	}
 
-	private String renderParams() {
-		return fields.values()
-				.stream()
-				.map(Type::render)
-				.map(String::trim)
-				.collect(Collectors.joining(",", "(", ")"));
-	}
-
-	private String renderHeaderParams() {
-		return fields.keySet()
-				.stream()
-				.map(s -> fields.get(s).render(s))
-				.collect(Collectors.joining(",", "(", ")"));
-	}
-
 	private String renderStructFields() {
-		String collect = fields.keySet()
+		String collect = parameters.keySet()
 				.stream()
 				.sorted()
-				.map(s -> fields.get(s).render(s))
+				.map(s -> parameters.get(s).render(s))
 				.map(s -> s + ";")
 				.collect(Collectors.joining());
 		String result = children.keySet()

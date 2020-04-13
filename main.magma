@@ -1,5 +1,11 @@
 import stdio;
 
 native val printf : (format : String, value : Any) => Void;
-printf("%s", "Hello World!");
+
+val printString : (message : String) => Void = {
+	printf("%s", message);
+};
+
+printString(&this, "Hello World!");
+
 return 0;

@@ -1,9 +1,6 @@
 package com.meti;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MappedStack implements Stack {
 	private Scope current = new MappedScope("root", null);
@@ -49,5 +46,12 @@ public class MappedStack implements Stack {
 		Collections.reverse(list);
 		list.remove(0);
 		return list;
+	}
+
+	@Override
+	public boolean hasParameter(String name) {
+		Map<String, Type> map = current.flattenedParameters();
+		//TODO: for some reason, containsKey doesn't work here???
+		return map.containsKey(name);
 	}
 }

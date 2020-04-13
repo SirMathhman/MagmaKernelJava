@@ -12,6 +12,8 @@ public interface Stack {
 
 	Optional<Scope> exit();
 
+	boolean hasParameter(String name);
+
 	Optional<Scope> search(String name);
 
 	List<String> values();
