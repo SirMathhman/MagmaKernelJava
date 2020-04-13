@@ -8,11 +8,11 @@ import java.util.Optional;
 public interface Stack {
 	Scope current();
 
-	Scope enter(String name, Type type);
+	void enter(String name, Type type);
 
 	Scope define(String name, Type type);
 
-	Optional<Scope> exit();
+	void exit();
 
 	boolean hasParameter(String name);
 

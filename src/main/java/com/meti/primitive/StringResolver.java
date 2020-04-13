@@ -8,7 +8,7 @@ import com.meti.parse.store.PointerType;
 import java.util.Optional;
 
 public class StringResolver implements Resolver {
-	public static final Type TYPE = new PointerType(PrimitiveType.CHAR);
+	private static final Type TYPE = new PointerType(PrimitiveType.CHAR);
 
 	@Override
 	public Optional<Type> resolveName(String content, com.meti.Compiler compiler) {

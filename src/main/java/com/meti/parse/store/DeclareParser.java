@@ -35,19 +35,7 @@ public class DeclareParser implements Parser {
 				break;
 			}
 		}
-		if (-1 != equals) {
-			String before = content.substring(0, equals);
-			String after = content.substring(equals + 1).trim();
-			int colon = before.indexOf(':');
-			String keyString = before.substring(0, colon).trim();
-			String typeString = before.substring(colon + 1);
-			int lastSpace = keyString.lastIndexOf(' ');
-			List<DeclareKey> keys = parseKeys(keyString, lastSpace);
-			if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
-				String nameString = keyString.substring(lastSpace + 1).trim();
-				return set(compiler, typeString, nameString, after);
-			}
-		} else {
+		if (-1 == equals) {
 			int colon = content.indexOf(':');
 			if (-1 != colon) {
 				String keyString = content.substring(0, colon).trim();
@@ -58,6 +46,18 @@ public class DeclareParser implements Parser {
 					String nameString = keyString.substring(lastSpace + 1).trim();
 					return set(compiler, typeString, nameString, keys.contains(DeclareKey.NATIVE));
 				}
+			}
+		} else {
+			String before = content.substring(0, equals);
+			String after = content.substring(equals + 1).trim();
+			int colon = before.indexOf(':');
+			String keyString = before.substring(0, colon).trim();
+			String typeString = before.substring(colon + 1);
+			int lastSpace = keyString.lastIndexOf(' ');
+			List<DeclareKey> keys = parseKeys(keyString, lastSpace);
+			if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
+				String nameString = keyString.substring(lastSpace + 1).trim();
+				return set(compiler, typeString, nameString, after);
 			}
 		}
 		return Optional.empty();
@@ -80,15 +80,15 @@ public class DeclareParser implements Parser {
 	}
 
 	private Optional<Node> set(Compiler compiler, String typeString, String nameString, boolean isNative) {
-		if (!isNative) {
+		if (isNative) {
+			Type type = compiler.resolveName(typeString.trim());
+			stack.define(nameString, type);
+			return Optional.of(new EmptyNode());
+		} else {
 			register.set("assigning", true);
 			Type type = compiler.resolveName(typeString.trim());
 			stack.enter(nameString, type);
 			return Optional.of(new DeclareNode(nameString, type));
-		} else {
-			Type type = compiler.resolveName(typeString.trim());
-			stack.define(nameString, type);
-			return Optional.of(new EmptyNode());
 		}
 	}
 

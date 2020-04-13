@@ -9,8 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class Main {
-	public static final Cache CACHE = new ListCache();
-	public static final Compiler COMPILER = new MagmaCompiler();
+	private static final Cache CACHE = new ListCache();
+	private static final Compiler COMPILER = new MagmaCompiler();
 
 	private Main() {
 	}

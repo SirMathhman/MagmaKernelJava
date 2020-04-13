@@ -13,10 +13,8 @@ public class MappedStack implements Stack {
 	}
 
 	@Override
-	public Scope enter(String name, Type type) {
-		Scope child = define(name, type);
-		current = child;
-		return child;
+	public void enter(String name, Type type) {
+		current = define(name, type);
 	}
 
 	@Override
@@ -25,10 +23,9 @@ public class MappedStack implements Stack {
 	}
 
 	@Override
-	public Optional<Scope> exit() {
+	public void exit() {
 		Optional<Scope> parent = current.parent();
 		parent.ifPresent(scope -> current = scope);
-		return parent;
 	}
 
 	@Override

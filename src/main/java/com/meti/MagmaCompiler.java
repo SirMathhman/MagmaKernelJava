@@ -11,7 +11,7 @@ import com.meti.parse.operate.QuantityParser;
 import com.meti.parse.store.*;
 import com.meti.primitive.*;
 
-public class MagmaCompiler extends UnitCompiler {
+class MagmaCompiler extends UnitCompiler {
 
 	public MagmaCompiler() {
 		this(Guice.createInjector(new DataModule()),
@@ -37,7 +37,7 @@ public class MagmaCompiler extends UnitCompiler {
 				VariableResolver.class);
 	}
 
-	public MagmaCompiler(Injector injector, Class<?>... classes) {
+	private MagmaCompiler(Injector injector, Class<?>... classes) {
 		super(injector, classes);
 	}
 }

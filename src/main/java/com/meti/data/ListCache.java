@@ -10,7 +10,7 @@ public class ListCache implements Cache {
 		this(new HashMap<>());
 	}
 
-	public ListCache(Map<Integer, List<String>> content) {
+	private ListCache(Map<Integer, List<String>> content) {
 		this.content = content;
 	}
 

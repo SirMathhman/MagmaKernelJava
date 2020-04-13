@@ -17,7 +17,7 @@ public class MappedScope implements Scope {
 		this(name, type, null);
 	}
 
-	public MappedScope(String name, Type type, Scope parent) {
+	private MappedScope(String name, Type type, Scope parent) {
 		this.name = name;
 		this.type = type;
 		this.parent = parent;

@@ -8,10 +8,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public abstract class InvocationNode implements Node {
-	protected final Collection<Node> arguments;
-	protected final Node caller;
+	private final Collection<Node> arguments;
+	private final Node caller;
 
-	public InvocationNode(Collection<Node> arguments, Node caller) {
+	protected InvocationNode(Collection<Node> arguments, Node caller) {
 		this.arguments = arguments;
 		this.caller = caller;
 	}

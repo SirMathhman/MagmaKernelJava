@@ -14,7 +14,7 @@ public class UnitCompiler implements Compiler {
 	private final Collection<Parser> parsers = new ArrayList<>();
 	private final Collection<Resolver> resolvers = new ArrayList<>();
 
-	public UnitCompiler(Injector injector, Class<?>... classes) {
+	UnitCompiler(Injector injector, Class<?>... classes) {
 		for (Class<?> aClass : classes) {
 			Object c = injector.getInstance(aClass);
 			if (c instanceof Parser) parsers.add((Parser) c);
