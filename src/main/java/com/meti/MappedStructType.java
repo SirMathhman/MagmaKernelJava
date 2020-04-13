@@ -1,6 +1,7 @@
 package com.meti;
 
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ public class MappedStructType implements StructType {
 	private final Type returnType;
 
 	public MappedStructType(Type returnType) {
-		this(returnType, Collections.emptyMap());
+		this(returnType, new HashMap<>());
 	}
 
 	public MappedStructType(Type returnType, Map<String, Type> parameters) {
@@ -18,16 +19,18 @@ public class MappedStructType implements StructType {
 	}
 
 	@Override
-	public String render(String name) {
-		String paramString = renderParams();
-		return returnType.render("(*" + name + ")" + paramString);
+	public void appendParameter(String name, Type type) {
+		if (parameters.containsKey(name)) throw new IllegalArgumentException(name + " is already defined.");
+		parameters.put(name, type);
 	}
 
-	private String renderParams() {
-		return parameters.values()
+	@Override
+	public Node renderConstruction() {
+		List<VariableNode> lists = parameters.keySet()
 				.stream()
-				.map(Type::render)
-				.collect(Collectors.joining(",", "(", ")"));
+				.map(VariableNode::new)
+				.collect(Collectors.toList());
+		return new ConstructNode(lists);
 	}
 
 	@Override
@@ -54,6 +57,20 @@ public class MappedStructType implements StructType {
 		return parameters.keySet()
 				.stream()
 				.map(s -> parameters.get(s).render(s))
+				.collect(Collectors.joining(",", "(", ")"));
+	}
+
+	@Override
+	public String render(String name) {
+		String paramString = renderParams();
+		return returnType.render("(*" + name + ")" + paramString);
+	}
+
+	private String renderParams() {
+		return parameters.values()
+				.stream()
+				.map(Type::render)
+				.map(String::trim)
 				.collect(Collectors.joining(",", "(", ")"));
 	}
 }

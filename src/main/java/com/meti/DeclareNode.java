@@ -1,5 +1,7 @@
 package com.meti;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class DeclareNode implements Node {
@@ -18,8 +20,13 @@ public class DeclareNode implements Node {
 	}
 
 	@Override
-	public boolean hasStructure() {
-		return null != init && init.hasStructure();
+	public Collection<Node> structures() {
+		Collection<Node> nodes = new HashSet<>();
+		if (null != init) {
+			nodes.add(init);
+			nodes.addAll(init.structures());
+		}
+		return nodes;
 	}
 
 	@Override

@@ -3,11 +3,11 @@ package com.meti;
 import java.util.Collection;
 import java.util.Collections;
 
-public class IntNode implements Node {
-	private final int value;
+public class VariableNode implements Node {
+	private final String name;
 
-	public IntNode(int value) {
-		this.value = value;
+	public VariableNode(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -17,6 +17,6 @@ public class IntNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		return String.valueOf(value);
+		return name;
 	}
 }

@@ -1,7 +1,9 @@
 package com.meti;
 
+import java.util.Collection;
+
 public interface Node {
-	boolean hasStructure();
+	Collection<Node> structures();
 
 	String render(Cache cache);
 }

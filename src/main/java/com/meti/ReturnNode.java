@@ -1,5 +1,7 @@
 package com.meti;
 
+import java.util.Collection;
+
 public class ReturnNode implements Node {
 	private final Node node;
 
@@ -8,8 +10,8 @@ public class ReturnNode implements Node {
 	}
 
 	@Override
-	public boolean hasStructure() {
-		return node.hasStructure();
+	public Collection<Node> structures() {
+		return node.structures();
 	}
 
 	@Override

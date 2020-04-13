@@ -1,23 +1,33 @@
 package com.meti;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class BlockNode implements Node {
-	private final Collection<Node> children;
+public class BlockNode implements ParentNode {
+	private final List<Node> children;
 
 	public BlockNode(Node child) {
 		this(Collections.singleton(child));
 	}
 
 	public BlockNode(Collection<Node> children) {
-		this.children = children;
+		this.children = new ArrayList<>(children);
 	}
 
 	@Override
-	public boolean hasStructure() {
-		return children.stream().anyMatch(Node::hasStructure);
+	public List<Node> children() {
+		return children;
+	}
+
+	@Override
+	public Collection<Node> structures() {
+		return children.stream()
+				.map(Node::structures)
+				.flatMap(Collection::stream)
+				.collect(Collectors.toList());
 	}
 
 	@Override
