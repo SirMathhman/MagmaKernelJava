@@ -1,4 +1,4 @@
 val exitCode : () => Int = {
 	return 10;
 };
-return 2;
+return exitCode(&this);
