@@ -11,8 +11,11 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class Main {
+	private static final int LOGGING_TRUNCATE = 100;
 	private static final Cache CACHE = new ListCache();
 	private static final Compiler COMPILER = new MagmaCompiler();
 	private static final Path MAIN = Paths.get("main.magma");
@@ -88,9 +91,19 @@ public final class Main {
 
 	private static StringBuilder format(Throwable current, StringBuilder builder) {
 		String message = current.getMessage();
+		int length = message.length();
+		int size = Math.min(length, LOGGING_TRUNCATE);
+		String padding = fitPadding(message);
+		message = message.substring(0, size) + padding;
 		return builder.append(message)
 				.append(" ")
 				.append(current.getStackTrace()[0])
 				.append("\n");
+	}
+
+	private static String fitPadding(CharSequence message) {
+		return IntStream.range(0, LOGGING_TRUNCATE - message.length())
+				.mapToObj(value -> " ")
+				.collect(Collectors.joining(""));
 	}
 }
