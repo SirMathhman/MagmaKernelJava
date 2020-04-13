@@ -1,9 +1,17 @@
 package com.meti;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class MappedStack implements Stack {
 	private Scope current = new MappedScope("root", null);
+
+	@Override
+	public Scope current() {
+		return current;
+	}
 
 	@Override
 	public Scope enter(String name, Type type) {
@@ -32,5 +40,18 @@ public class MappedStack implements Stack {
 			}
 		}
 		return Optional.empty();
+	}
+
+	@Override
+	public List<String> values() {
+		List<String> list = new ArrayList<>();
+		Optional<Scope> optional = Optional.of(current);
+		while (optional.isPresent()) {
+			Scope scope = optional.get();
+			optional = scope.parent();
+			list.add(scope.name());
+		}
+		Collections.reverse(list);
+		return list;
 	}
 }

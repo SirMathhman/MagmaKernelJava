@@ -1,11 +1,20 @@
 package com.meti;
 
+import com.google.inject.Inject;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
+	private final Register register;
+
+	@Inject
+	public DeclareParser(Register register) {
+		this.register = register;
+	}
+
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
 		int equals = content.indexOf('=');
@@ -23,6 +32,7 @@ public class DeclareParser implements Parser {
 					.collect(Collectors.toList());
 			if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
 				String nameString = keyString.substring(lastSpace + 1);
+				register.set("assigning", true);
 				Node result = compiler.parse(after);
 				Type type = compiler.resolveName(typeString);
 				return Optional.of(new DeclareNode(nameString, type, result));
