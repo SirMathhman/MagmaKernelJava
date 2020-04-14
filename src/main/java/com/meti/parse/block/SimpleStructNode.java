@@ -97,6 +97,11 @@ public class SimpleStructNode implements StructNode {
 		return names.get(names.size() - 1);
 	}
 
+	@Override
+	public StructType type() {
+		return type;
+	}
+
 	private void appendScope(StructType cast, String name, StructNode node) {
 		StructType type = node.type();
 		type.appendParameter(name, PointerType.ANY);
