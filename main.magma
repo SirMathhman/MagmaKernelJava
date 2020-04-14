@@ -7,7 +7,7 @@ native val sqrtf : (value : Float) => Float;
 
 val Point : (x : Float, y : Float) => Point = {
 	val xSquared : () => Float = {
-		val cast = (<Pointer<Point>>Point)&;
+		val cast : Pointer<Point> = (<Pointer<Point>>Point)&;
 		return powf(cast.x, 2);
 	};
 	val ySquared : () => Float = {
