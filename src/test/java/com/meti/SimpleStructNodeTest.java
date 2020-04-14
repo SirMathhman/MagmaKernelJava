@@ -15,12 +15,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StructNodeTest {
+class SimpleStructNodeTest {
 	@Test
 	void render() {
 		Cache cache = new ListCache();
 		Type type = new MappedStructType(PrimitiveType.INT);
-		Node struct = new StructNode(type, new BlockNode(new ReturnNode(new IntNode(0))), "main");
+		Node struct = new SimpleStructNode(type, new BlockNode(new ReturnNode(new IntNode(0))), "main");
 		Node declare = new DeclareNode("main", type, struct);
 		String result = declare.render(cache);
 		assertEquals("int main_(){return 0;}" +
@@ -32,8 +32,8 @@ class StructNodeTest {
 		Cache cache = new ListCache();
 		Type subType = new MappedStructType(PrimitiveType.INT);
 		Type type = new MappedStructType(subType);
-		Node lambdaNode = new StructNode(subType, new BlockNode(new ReturnNode(new IntNode(10))), "lambda");
-		Node struct = new StructNode(type, new BlockNode(new ReturnNode(lambdaNode)), "main");
+		Node lambdaNode = new SimpleStructNode(subType, new BlockNode(new ReturnNode(new IntNode(10))), "lambda");
+		Node struct = new SimpleStructNode(type, new BlockNode(new ReturnNode(lambdaNode)), "main");
 		Node declare = new DeclareNode("main", type, struct);
 		String result = declare.render(cache);
 		assertEquals("struct main{int (*lambda)(void *);};" +
@@ -48,11 +48,11 @@ class StructNodeTest {
 		Cache cache = new ListCache();
 		Type type = new MappedStructType(new NativeStructType("Point"));
 		Type lengthType = new MappedStructType(PrimitiveType.INT);
-		Node lengthNode = new StructNode(lengthType,
+		Node lengthNode = new SimpleStructNode(lengthType,
 				new BlockNode(new ReturnNode(new IntNode(10))), "Point", "length");
 		Node length = new DeclareNode("length", lengthType, lengthNode);
 		Node returnNode = new ReturnNode(new VariableNode("Point"));
-		Node struct = new StructNode(type, new BlockNode(List.of(length, returnNode)), "Point");
+		Node struct = new SimpleStructNode(type, new BlockNode(List.of(length, returnNode)), "Point");
 		Node declare = new DeclareNode("Point", type, struct);
 		String result = declare.render(cache);
 		assertEquals("struct Point{" +

@@ -32,7 +32,7 @@ public class StructParser implements Parser {
 			Type type = stack.current().type();
 			List<String> values = stack.values();
 			stack.exit();
-			return Optional.of(new StructNode(type, node, values));
+			return Optional.of(new SimpleStructNode(type, node, values));
 		}
 		if (content.startsWith("{") && content.endsWith("}")) {
 			String values = content.substring(1, content.length() - 1);
