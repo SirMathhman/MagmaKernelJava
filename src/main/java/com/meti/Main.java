@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,11 +16,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class Main {
-	private static final int LOGGING_TRUNCATE = 100;
 	private static final Cache CACHE = new ListCache();
 	private static final Compiler COMPILER = new MagmaCompiler();
+	private static final int LOGGING_TRUNCATE = 100;
 	private static final Path MAIN = Paths.get("main.magma");
 	private static final Path OUT = Paths.get("main.c");
+	private static final int STACK_LENGTH = 5;
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	private Main() {
@@ -95,9 +97,19 @@ public final class Main {
 		int size = Math.min(length, LOGGING_TRUNCATE);
 		String padding = fitPadding(message);
 		message = message.substring(0, size) + padding;
+		String stackTraceString;
+		StackTraceElement[] stackTrace = current.getStackTrace();
+		if (null == current.getCause()) {
+			StackTraceElement[] stack = Arrays.copyOf(stackTrace, STACK_LENGTH);
+			stackTraceString = Arrays.stream(stack)
+					.map(StackTraceElement::toString)
+					.collect(Collectors.joining("\n"));
+		} else {
+			stackTraceString = stackTrace[0].toString();
+		}
 		return builder.append(message)
 				.append(" ")
-				.append(current.getStackTrace()[0])
+				.append(stackTraceString)
 				.append("\n");
 	}
 
