@@ -8,11 +8,11 @@ native val sqrtf : (value : Float) => Float;
 val Point : (x : Float, y : Float) => Point = {
 	val xSquared : () => Float = {
 		val cast : Pointer<Point> = (<Pointer<Point>>Point)&;
-		return powf(cast.x, 2);
+		return powf(this.x, 2);
 	};
 	val ySquared : () => Float = {
-		val cast = (<Pointer<Point>>Point)&;
-		return powf(cast.y, 2);
+		val cast : Pointer<Point> = (<Pointer<Point>>Point)&;
+		return powf(this.y, 2);
 	};
 	val squared : () => Float = {
 		return xSquared(&this) + ySquared(&this);

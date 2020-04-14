@@ -7,12 +7,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class FieldNode implements Node {
-	private final String name;
-	private final String value;
+	private final String child;
+	private final Node parent;
 
-	public FieldNode(String name, String value) {
-		this.name = name;
-		this.value = value;
+	public FieldNode(Node parent, String child) {
+		this.parent = parent;
+		this.child = child;
 	}
 
 	@Override
@@ -22,6 +22,6 @@ public class FieldNode implements Node {
 
 	@Override
 	public String render(Cache cache) {
-		return name + "." + value;
+		return parent.render(cache) + "." + child;
 	}
 }

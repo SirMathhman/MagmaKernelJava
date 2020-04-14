@@ -2,7 +2,6 @@ package com.meti.parse.store;
 
 import com.google.inject.Inject;
 import com.meti.Compiler;
-import com.meti.data.Scope;
 import com.meti.data.Stack;
 import com.meti.parse.Node;
 import com.meti.parse.Parser;
@@ -33,11 +32,8 @@ public class VariableParser implements Parser {
 		} else {
 			String before = content.substring(0, period);
 			String after = content.substring(period + 1);
-			Scope scope = stack.search(before)
-					.orElseThrow(() -> new IllegalStateException(before + " is not defined."));
-			Optional<Scope> child = scope.child(after);
-			if (child.isEmpty()) throw new IllegalArgumentException(after + " is not a child of " + before);
-			return Optional.of(new FieldNode(before, after));
+			Node parent = compiler.parse(before);
+			return Optional.of(new FieldNode(parent, after));
 		}
 	}
 }
