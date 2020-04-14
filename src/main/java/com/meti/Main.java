@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 public final class Main {
 	private static final Cache CACHE = new ListCache();
 	private static final Compiler COMPILER = new MagmaCompiler();
-	private static final int LOGGING_TRUNCATE = 100;
+	private static final int LOGGING_TRUNCATE = 75;
 	private static final Path MAIN = Paths.get("main.magma");
 	private static final Path OUT = Paths.get("main.c");
 	private static final int STACK_LENGTH = 5;
@@ -96,7 +96,8 @@ public final class Main {
 		int length = message.length();
 		int size = Math.min(length, LOGGING_TRUNCATE);
 		String padding = fitPadding(message);
-		message = message.substring(0, size) + padding;
+		String replaced = message.substring(0, size).replace("\t", " ");
+		String formatted = replaced + padding;
 		String stackTraceString;
 		StackTraceElement[] stackTrace = current.getStackTrace();
 		if (null == current.getCause()) {
@@ -107,7 +108,7 @@ public final class Main {
 		} else {
 			stackTraceString = stackTrace[0].toString();
 		}
-		return builder.append(message)
+		return builder.append(formatted)
 				.append(" ")
 				.append(stackTraceString)
 				.append("\n");
