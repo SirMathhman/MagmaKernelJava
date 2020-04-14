@@ -22,4 +22,11 @@ public class PointerType implements Type {
 	public String render(String name) {
 		return parent.render("*" + name);
 	}
+
+	@Override
+	public String toString() {
+		return "PointerType{" +
+		       "parent=" + parent +
+		       '}';
+	}
 }

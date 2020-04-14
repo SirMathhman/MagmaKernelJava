@@ -6,6 +6,13 @@ import com.meti.parse.Type;
 public class NativeStructType implements Type {
 	private final String name;
 
+	@Override
+	public String toString() {
+		return "NativeStructType{" +
+		       "name='" + name + '\'' +
+		       '}';
+	}
+
 	public NativeStructType(String name) {
 		this.name = name;
 	}
