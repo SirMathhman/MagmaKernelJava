@@ -1,7 +1,7 @@
 package com.meti;
 
 import com.meti.data.Cache;
-import com.meti.data.ListCache;
+import com.meti.data.MappedCache;
 import com.meti.parse.Node;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class Main {
-	private static final Cache CACHE = new ListCache();
+	private static final Cache CACHE = new MappedCache();
 	private static final Compiler COMPILER = new MagmaCompiler();
 	private static final int LOGGING_TRUNCATE = 75;
 	private static final Path MAIN = Paths.get("main.magma");

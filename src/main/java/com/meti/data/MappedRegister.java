@@ -5,7 +5,15 @@ import java.util.Map;
 import java.util.Optional;
 
 public class MappedRegister implements Register {
-	private final Map<String, Object> values = new HashMap<>();
+	private final Map<String, Object> values;
+
+	public MappedRegister() {
+		this(new HashMap<>());
+	}
+
+	public MappedRegister(Map<String, Object> values) {
+		this.values = values;
+	}
 
 	@Override
 	public boolean has(String name) {

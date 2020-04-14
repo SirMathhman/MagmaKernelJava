@@ -3,14 +3,14 @@ package com.meti.data;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ListCache implements Cache {
+public class MappedCache implements Cache {
 	private final Map<Integer, List<String>> content;
 
-	public ListCache() {
+	public MappedCache() {
 		this(new HashMap<>());
 	}
 
-	private ListCache(Map<Integer, List<String>> content) {
+	MappedCache(Map<Integer, List<String>> content) {
 		this.content = content;
 	}
 

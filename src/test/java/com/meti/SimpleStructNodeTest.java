@@ -1,7 +1,7 @@
 package com.meti;
 
 import com.meti.data.Cache;
-import com.meti.data.ListCache;
+import com.meti.data.MappedCache;
 import com.meti.parse.Node;
 import com.meti.parse.Type;
 import com.meti.parse.block.*;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SimpleStructNodeTest {
 	@Test
 	void render() {
-		Cache cache = new ListCache();
+		Cache cache = new MappedCache();
 		Type type = new MappedStructType(PrimitiveType.INT);
 		Node struct = new SimpleStructNode(type, new BlockNode(new ReturnNode(new IntNode(0))), "main");
 		Node declare = new DeclareNode("main", type, struct);
@@ -29,7 +29,7 @@ class SimpleStructNodeTest {
 
 	@Test
 	void renderChild() {
-		Cache cache = new ListCache();
+		Cache cache = new MappedCache();
 		Type subType = new MappedStructType(PrimitiveType.INT);
 		Type type = new MappedStructType(subType);
 		Node lambdaNode = new SimpleStructNode(subType, new BlockNode(new ReturnNode(new IntNode(10))), "lambda");
@@ -45,7 +45,7 @@ class SimpleStructNodeTest {
 
 	@Test
 	void renderClass() {
-		Cache cache = new ListCache();
+		Cache cache = new MappedCache();
 		Type type = new MappedStructType(new NativeStructType("Point"));
 		Type lengthType = new MappedStructType(PrimitiveType.INT);
 		Node lengthNode = new SimpleStructNode(lengthType,
