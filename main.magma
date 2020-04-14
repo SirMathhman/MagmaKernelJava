@@ -5,32 +5,7 @@ native val printf : (format : String, value : Any) => Void;
 native val powf : (base : Float, exponent : Float) => Float;
 native val sqrtf : (value : Float) => Float;
 
-val Point : (x : Float, y : Float) => Point = {
-	val xSquared : () => Float = {
-		val cast : Pointer<Point> = (<Pointer<Point>>Point)&;
-		return powf(this.x, 2);
-	};
-	val ySquared : () => Float = {
-		val cast : Pointer<Point> = (<Pointer<Point>>Point)&;
-		return powf(this.y, 2);
-	};
-	val squared : () => Float = {
-		return xSquared(&this) + ySquared(&this);
-	};
-	val length : () => Float = {
-		return sqrtf(squared(&this));
-	};
-	return this;
-};
-
-val a : () => Point = {
-	return Point(main, 3, 4);
-};
-
-val printString : (message : String) => Void = {
-	printf("%s", message);
-};
-
-printString(&this, "Hello World!");
+val message = "Hello World!";
+printf("%s", message);
 
 return 0;
