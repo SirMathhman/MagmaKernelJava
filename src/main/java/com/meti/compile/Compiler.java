@@ -1,7 +1,4 @@
-package com.meti;
-
-import com.meti.parse.Node;
-import com.meti.parse.Type;
+package com.meti.compile;
 
 public interface Compiler {
 	Node parse(String content);
