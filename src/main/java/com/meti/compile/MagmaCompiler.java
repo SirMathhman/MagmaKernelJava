@@ -11,6 +11,7 @@ class MagmaCompiler extends UnitCompiler {
 	private MagmaCompiler() {
 		this(Guice.createInjector(new DataModule()),
 				DeclareParser.class,
+				AssignParser.class,
 				IntUnit.class,
 				VariableParser.class);
 	}

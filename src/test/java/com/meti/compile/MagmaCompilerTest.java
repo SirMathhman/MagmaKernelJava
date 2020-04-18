@@ -7,6 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MagmaCompilerTest {
 	@Test
+	void testAssign() {
+		Compiler instance = INSTANCE.get();
+		instance.parse("val x = 10");
+		Node result = instance.parse("x = 20");
+		assertEquals("x=20;", result.render());
+	}
+
+	@Test
 	void testDeclare() {
 		Node result = INSTANCE.get().parse("val x : Int");
 		assertEquals("int x;", result.render());
