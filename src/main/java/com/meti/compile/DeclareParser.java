@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
 	private final Cache cache;
+	private final Stack stack;
 
 	@Inject
-	public DeclareParser(Cache cache) {
+	public DeclareParser(Cache cache, Stack stack) {
 		this.cache = cache;
+		this.stack = stack;
 	}
 
 	@Override
@@ -47,6 +49,7 @@ public class DeclareParser implements Parser {
 				String keyString = content.substring(0, lastSpace).trim();
 				name = nameString.substring(lastSpace + 1).trim();
 				keys = parseKeys(keyString);
+				cache.push(name);
 				if (null == notPresent) {
 					return Optional.empty();
 				} else {
@@ -60,6 +63,7 @@ public class DeclareParser implements Parser {
 			String keyString = nameString.substring(0, lastSpace).trim();
 			name = nameString.substring(lastSpace + 1).trim();
 			keys = parseKeys(keyString);
+			cache.push(name);
 			type = compiler.resolveName(typeString);
 		}
 		return format(keys, type, name, function);
@@ -86,8 +90,9 @@ public class DeclareParser implements Parser {
 	private Optional<Node> format(List<DeclareKey> keys, Type type, String name,
 	                              BiFunction<String, Type, Node> function) {
 		if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
-			cache.push(name);
+			stack.enter(name, type);
 			Node node = function.apply(name, type);
+			stack.exit();
 			return keys.contains(DeclareKey.NATIVE) ?
 					Optional.of(new EmptyNode()) :
 					Optional.of(node);

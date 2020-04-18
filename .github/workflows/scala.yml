@@ -1,6 +1,6 @@
 name: Scala CI
 
-on: [push]
+on: [enter]
 
 jobs:
   build:

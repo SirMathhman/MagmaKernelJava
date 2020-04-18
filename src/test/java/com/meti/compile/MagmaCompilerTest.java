@@ -29,4 +29,12 @@ class MagmaCompilerTest {
 		Node result = INSTANCE.get().parse("10");
 		assertEquals("10", result.render());
 	}
+
+	@Test
+	void testVariable() {
+		Compiler instance = INSTANCE.get();
+		instance.parse("val x = 10");
+		Node result = instance.parse("x");
+		assertEquals("x", result.render());
+	}
 }
