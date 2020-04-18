@@ -19,6 +19,12 @@ class MagmaCompilerTest {
 	}
 
 	@Test
+	void testDeclareWithoutType() {
+		Node result = INSTANCE.get().parse("val x = 10");
+		assertEquals("int x=10;", result.render());
+	}
+
+	@Test
 	void testInt() {
 		Node result = INSTANCE.get().parse("10");
 		assertEquals("10", result.render());
