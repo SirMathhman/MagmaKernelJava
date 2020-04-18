@@ -4,18 +4,29 @@ import java.util.Optional;
 
 public class Cache {
 	private String name = null;
+	private Type type = null;
 
-	public Optional<String> pull() {
+	public boolean hasBlock() {
+		return type != null && type instanceof BlockType;
+	}
+
+	public Optional<String> pullName() {
 		Optional<String> optional = Optional.ofNullable(this.name);
 		this.name = null;
 		return optional;
 	}
 
-	public void push(String name) {
-		if (null == this.name) {
-			this.name = name;
-		} else {
-			throw new IllegalArgumentException("Name has not been popped yet.");
-		}
+	public Optional<Type> pullType() {
+		Optional<Type> optional = Optional.ofNullable(type);
+		this.type = null;
+		return optional;
+	}
+
+	public void pushName(String name) {
+		this.name = name;
+	}
+
+	public void pushType(Type type) {
+		this.type = type;
 	}
 }

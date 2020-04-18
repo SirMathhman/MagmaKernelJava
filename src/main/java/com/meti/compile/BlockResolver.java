@@ -31,7 +31,7 @@ public class BlockResolver implements Resolver {
 		return Optional.of(new BlockType(parameters, returnType));
 	}
 
-	int findParamEnd(String content) {
+	private int findParamEnd(String content) {
 		char[] charArray = content.toCharArray();
 		int index = -1;
 		int depth = 0;
@@ -86,25 +86,4 @@ public class BlockResolver implements Resolver {
 		return Optional.empty();
 	}
 
-	private static final class BlockType implements Type {
-		private final Map<String, Type> parameters;
-		private final Type returnType;
-
-		private BlockType(Map<String, Type> parameters, Type returnType) {
-			this.parameters = parameters;
-			this.returnType = returnType;
-		}
-
-		@Override
-		public String render(String name) {
-			String result = parameters.keySet()
-					.stream()
-					.sorted()
-					.map(parameters::get)
-					.map(Type::render)
-					.map(String::trim)
-					.collect(Collectors.joining(",", "(", ")"));
-			return returnType.render("(*" + name + ")") + result;
-		}
-	}
 }

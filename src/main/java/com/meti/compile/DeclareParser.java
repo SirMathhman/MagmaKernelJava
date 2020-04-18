@@ -49,12 +49,13 @@ public class DeclareParser implements Parser {
 				String keyString = content.substring(0, lastSpace).trim();
 				name = nameString.substring(lastSpace + 1).trim();
 				keys = parseKeys(keyString);
-				cache.push(name);
+				cache.pushName(name);
 				if (null == notPresent) {
 					return Optional.empty();
 				} else {
 					type = notPresent.get();
 				}
+				cache.pushType(type);
 			}
 		} else {
 			nameString = content.substring(0, colon).trim();
@@ -63,8 +64,9 @@ public class DeclareParser implements Parser {
 			String keyString = nameString.substring(0, lastSpace).trim();
 			name = nameString.substring(lastSpace + 1).trim();
 			keys = parseKeys(keyString);
-			cache.push(name);
+			cache.pushName(name);
 			type = compiler.resolveName(typeString);
+			cache.pushType(type);
 		}
 		return format(keys, type, name, function);
 	}
