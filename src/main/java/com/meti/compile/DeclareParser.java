@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class DeclareParser implements Parser {
@@ -20,23 +21,44 @@ public class DeclareParser implements Parser {
 	public Optional<Node> parse(String content, Compiler compiler) {
 		int equals = content.indexOf('=');
 		if (-1 == equals) {
-			return build(compiler, content, this::buildWithoutInit);
+			return build(compiler, content, this::buildWithoutInit, null);
 		} else {
 			String before = content.substring(0, equals).trim();
 			String after = content.substring(equals + 1).trim();
-			return build(compiler, before, (name, type) -> buildWithInit(compiler, name, type, after));
+			return build(compiler, before,
+					(name, type) -> buildWithInit(compiler, name, type, after),
+					() -> compiler.resolveValue(after));
 		}
 	}
 
-	private Optional<Node> build(Compiler compiler, String content, BiFunction<String, Type, Node> function) {
+	private Optional<Node> build(Compiler compiler, String content, BiFunction<String, Type, Node> function,
+	                             Supplier<Type> notPresent) {
 		int colon = content.indexOf(':');
-		String nameString = content.substring(0, colon).trim();
-		String typeString = content.substring(colon + 1).trim();
-		int lastSpace = nameString.lastIndexOf(' ');
-		String keyString = nameString.substring(0, lastSpace).trim();
-		String name = nameString.substring(lastSpace + 1).trim();
-		List<DeclareKey> keys = parseKeys(keyString);
-		return format(compiler, typeString, name, keys, function);
+		String nameString;
+		Type type;
+		List<DeclareKey> keys;
+		String name;
+		if (-1 == colon) {
+			nameString = content;
+			int lastSpace = content.lastIndexOf(' ');
+			String keyString = content.substring(0, lastSpace).trim();
+			name = nameString.substring(lastSpace + 1).trim();
+			keys = parseKeys(keyString);
+			if (null == notPresent) {
+				return Optional.empty();
+			} else {
+				type = notPresent.get();
+			}
+		} else {
+			nameString = content.substring(0, colon).trim();
+			String typeString = content.substring(colon + 1).trim();
+			int lastSpace = nameString.lastIndexOf(' ');
+			String keyString = nameString.substring(0, lastSpace).trim();
+			name = nameString.substring(lastSpace + 1).trim();
+			keys = parseKeys(keyString);
+			type = compiler.resolveName(typeString);
+		}
+		return format(keys, type, name, function);
 	}
 
 	private Node buildWithoutInit(String name, Type type) {
@@ -57,11 +79,10 @@ public class DeclareParser implements Parser {
 				.collect(Collectors.toList());
 	}
 
-	private Optional<Node> format(Compiler compiler, String typeString, String name, List<DeclareKey> keys,
+	private Optional<Node> format(List<DeclareKey> keys, Type type, String name,
 	                              BiFunction<String, Type, Node> function) {
 		if (keys.contains(DeclareKey.VAL) || keys.contains(DeclareKey.VAR)) {
 			cache.push(name);
-			Type type = compiler.resolveName(typeString);
 			Node node = function.apply(name, type);
 			return keys.contains(DeclareKey.NATIVE) ?
 					Optional.of(new EmptyNode()) :
