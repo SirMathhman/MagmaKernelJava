@@ -41,13 +41,17 @@ public class DeclareParser implements Parser {
 		if (-1 == colon) {
 			nameString = content;
 			int lastSpace = content.lastIndexOf(' ');
-			String keyString = content.substring(0, lastSpace).trim();
-			name = nameString.substring(lastSpace + 1).trim();
-			keys = parseKeys(keyString);
-			if (null == notPresent) {
+			if (-1 == lastSpace) {
 				return Optional.empty();
 			} else {
-				type = notPresent.get();
+				String keyString = content.substring(0, lastSpace).trim();
+				name = nameString.substring(lastSpace + 1).trim();
+				keys = parseKeys(keyString);
+				if (null == notPresent) {
+					return Optional.empty();
+				} else {
+					type = notPresent.get();
+				}
 			}
 		} else {
 			nameString = content.substring(0, colon).trim();

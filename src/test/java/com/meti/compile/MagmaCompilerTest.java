@@ -8,19 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MagmaCompilerTest {
 	@Test
 	void testDeclare() {
-		Node result = INSTANCE.parse("val x : Int");
-		assertEquals("int x", result.render());
+		Node result = INSTANCE.get().parse("val x : Int");
+		assertEquals("int x;", result.render());
 	}
 
 	@Test
 	void testDeclareWithValue() {
-		Node result = INSTANCE.parse("val x : Int = 10");
-		assertEquals("int x=10", result.render());
+		Node result = INSTANCE.get().parse("val x : Int = 10");
+		assertEquals("int x=10;", result.render());
 	}
 
 	@Test
 	void testInt() {
-		Node result = INSTANCE.parse("10");
+		Node result = INSTANCE.get().parse("10");
 		assertEquals("10", result.render());
 	}
 }

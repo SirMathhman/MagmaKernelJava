@@ -3,8 +3,10 @@ package com.meti.compile;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class MagmaCompiler extends UnitCompiler {
-	public static final Compiler INSTANCE = new MagmaCompiler();
+import java.util.function.Supplier;
+
+class MagmaCompiler extends UnitCompiler {
+	static final Supplier<Compiler> INSTANCE = MagmaCompiler::new;
 
 	private MagmaCompiler() {
 		this(Guice.createInjector(new DataModule()),
