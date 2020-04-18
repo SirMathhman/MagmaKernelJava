@@ -39,6 +39,24 @@ class MagmaCompilerTest {
 	}
 
 	@Test
+	void testResolveBlock() {
+		Type type = INSTANCE.get().resolveName("(x : Int) => Int");
+		assertEquals("int (*)(int)", type.render());
+	}
+
+	@Test
+	void testResolveBlockNoParams() {
+		Type type = INSTANCE.get().resolveName("=> Int");
+		assertEquals("int (*)()", type.render());
+	}
+
+	@Test
+	void testResolverBlockNoReturn() {
+		Type type = INSTANCE.get().resolveName("(x : Int)");
+		assertEquals("void (*)(int)", type.render());
+	}
+
+	@Test
 	void testVariable() {
 		Compiler instance = INSTANCE.get();
 		instance.parse("val x = 10");

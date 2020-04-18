@@ -13,6 +13,7 @@ class MagmaCompiler extends UnitCompiler {
 				DeclareParser.class,
 				AssignParser.class,
 				IntUnit.class,
+				BlockResolver.class,
 				VariableParser.class);
 	}
 
