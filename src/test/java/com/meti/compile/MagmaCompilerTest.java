@@ -40,7 +40,7 @@ class MagmaCompilerTest {
 
 	@Test
 	void testResolveBlock() {
-		Type type = INSTANCE.get().resolveName("(x : Int) => Int");
+		Type type = INSTANCE.get().resolveName("(Int) => Int");
 		assertEquals("int (*)(int)", type.render());
 	}
 
@@ -52,7 +52,7 @@ class MagmaCompilerTest {
 
 	@Test
 	void testResolverBlockNoReturn() {
-		Type type = INSTANCE.get().resolveName("(x : Int)");
+		Type type = INSTANCE.get().resolveName("(Int)");
 		assertEquals("void (*)(int)", type.render());
 	}
 

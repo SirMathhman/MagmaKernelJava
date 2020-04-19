@@ -1,18 +1,20 @@
 package com.meti.compile;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BlockResolver implements Resolver {
 	@Override
 	public Optional<Type> resolveName(String content, Compiler compiler) {
 		//(x : Int) => Int
-		Map<String, Type> parameters = new HashMap<>();
+		List<Type> parameters = new ArrayList<>();
 		Type returnType;
 		if (content.startsWith("(")) {
 			int index = findParamEnd(content);
 			String paramString = content.substring(1, index).trim();
-			parameters.putAll(parseParameters(paramString, compiler));
+			parameters.addAll(parseParameters(paramString, compiler));
 			String returnString = content.substring(index + 1).trim();
 			if (returnString.startsWith("=>")) {
 				String returnName = returnString.substring(2).trim();
@@ -48,7 +50,7 @@ public class BlockResolver implements Resolver {
 		return index;
 	}
 
-	private Map<String, Type> parseParameters(String paramString, Compiler compiler) {
+	private List<Type> parseParameters(String paramString, Compiler compiler) {
 		List<String> paramStrings = new ArrayList<>();
 		StringBuilder builder = new StringBuilder();
 		int depth = 0;
@@ -67,18 +69,8 @@ public class BlockResolver implements Resolver {
 		return paramStrings.stream()
 				.filter(s -> !s.isBlank())
 				.map(String::trim)
-				.collect(Collectors.toMap(this::parseParamName, string -> parseParamValue(string, compiler)));
-	}
-
-	private String parseParamName(String s) {
-		int before = s.indexOf(':');
-		return s.substring(0, before).trim();
-	}
-
-	private Type parseParamValue(String s, Compiler compiler) {
-		int colon = s.indexOf(':');
-		String format = s.substring(colon + 1).trim();
-		return compiler.resolveName(format);
+				.map(compiler::resolveName)
+				.collect(Collectors.toList());
 	}
 
 	@Override
