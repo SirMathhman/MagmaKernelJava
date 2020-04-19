@@ -61,10 +61,16 @@ public class BlockParser implements Parser {
 			}
 			String block = result.substring(index + 1).trim();
 			Node node = compiler.parse(block);
-			String name = "_" + cache.pullName().orElse(lambda());
-			Node function = new Function(name, parameters, returnType, node);
-			headers.append(2, function.render());
-			return Optional.of(new VariableNode(name));
+			String given = cache.pullName().orElse(lambda());
+			if ("main".equals(given)) {
+				Node main = new Function("main", parameters, returnType, node);
+				return Optional.of(main);
+			} else {
+				String name = "_" + given;
+				Node function = new Function(name, parameters, returnType, node);
+				headers.append(2, function.render());
+				return Optional.of(new VariableNode(name));
+			}
 		}
 		if (content.startsWith("{") && content.endsWith("}")) {
 			String result = content.substring(1, content.length() - 1);

@@ -83,10 +83,14 @@ public class DeclareParser implements Parser {
 
 	private Node buildWithInit(Compiler compiler, String name, Type type, String value) {
 		Node init = compiler.parse(value);
-		return new DeclareNode(name, type, init);
+		if ("main".equals(name)) {
+			return init;
+		} else {
+			return new DeclareNode(name, type, init);
+		}
 	}
 
-	List<DeclareKey> parseKeys(String keyString) {
+	private List<DeclareKey> parseKeys(String keyString) {
 		return Arrays.stream(keyString.split(" "))
 				.filter(s -> !s.isBlank())
 				.map(String::toUpperCase)

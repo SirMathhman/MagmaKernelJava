@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.meti.compile.MagmaCompiler.INSTANCE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MagmaCompilerTest {
 	@Test
@@ -36,6 +37,15 @@ class MagmaCompilerTest {
 	void testInt() {
 		Node result = INSTANCE.get().parse("10");
 		assertEquals("10", result.render());
+	}
+
+	@Test
+	void testMainStructure() {
+		Headers headers = new Headers();
+		Compiler instance = new MagmaCompiler(headers);
+		Node node = instance.parse("val main = () => Int : {return 0;}");
+		assertEquals("int main(){return 0;}", node.render());
+		assertTrue(headers.join().isBlank());
 	}
 
 	@Test
