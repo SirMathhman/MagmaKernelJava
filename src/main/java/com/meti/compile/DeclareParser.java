@@ -21,7 +21,13 @@ public class DeclareParser implements Parser {
 
 	@Override
 	public Optional<Node> parse(String content, Compiler compiler) {
-		int equals = content.indexOf('=');
+		int equals = -1;
+		for (int i = 0; i < content.length() - 2; i++) {
+			String pass = content.substring(i, i + 2);
+			if (pass.startsWith("=") && !"=>".equals(pass)) {
+				equals = i;
+			}
+		}
 		if (-1 == equals) {
 			return build(compiler, content, this::buildWithoutInit, null);
 		} else {

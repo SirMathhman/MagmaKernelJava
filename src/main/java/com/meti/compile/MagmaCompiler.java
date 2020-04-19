@@ -9,7 +9,11 @@ class MagmaCompiler extends UnitCompiler {
 	static final Supplier<Compiler> INSTANCE = MagmaCompiler::new;
 
 	private MagmaCompiler() {
-		this(Guice.createInjector(new DataModule()),
+		this(new Headers());
+	}
+
+	public MagmaCompiler(Headers headers) {
+		this(Guice.createInjector(new DataModule(headers)),
 				DeclareParser.class,
 				AssignParser.class,
 				IntUnit.class,
