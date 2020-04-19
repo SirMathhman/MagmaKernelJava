@@ -109,12 +109,12 @@ public class BlockParser implements Parser {
 		return index;
 	}
 
-	String parseParamName(String s) {
+	private String parseParamName(String s) {
 		int colon = s.indexOf(':');
 		return s.substring(0, colon).trim();
 	}
 
-	Type parseParamValue(Compiler compiler, String s) {
+	private Type parseParamValue(Compiler compiler, String s) {
 		int colon = s.indexOf(':');
 		String value = s.substring(colon + 1).trim();
 		return compiler.resolveName(value);

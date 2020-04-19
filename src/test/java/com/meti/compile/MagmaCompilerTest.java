@@ -66,6 +66,15 @@ class MagmaCompilerTest {
 	}
 
 	@Test
+	void testStructureWithoutRedundancies() {
+		Headers headers = new Headers();
+		Compiler instance = new MagmaCompiler(headers);
+		Node node = instance.parse("val pass = (value : Int) => Int : {return value;}");
+		assertEquals("int (*pass)(int)=_pass;", node.render());
+		assertEquals("int _pass(int value){return value;}", headers.join());
+	}
+
+	@Test
 	void testVariable() {
 		Compiler instance = INSTANCE.get();
 		instance.parse("val x = 10");

@@ -1,11 +1,18 @@
 package com.meti.compile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.google.inject.Inject;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BlockResolver implements Resolver {
+	private final Stack stack;
+
+	@Inject
+	public BlockResolver(Stack stack) {
+		this.stack = stack;
+	}
+
 	@Override
 	public Optional<Type> resolveName(String content, Compiler compiler) {
 		//(x : Int) => Int
@@ -75,7 +82,55 @@ public class BlockResolver implements Resolver {
 
 	@Override
 	public Optional<Type> resolveValue(String content, Compiler compiler) {
-		return Optional.empty();
+		if (content.startsWith("(") && !content.endsWith(")")) {
+			int index = findParamEnd(content);
+			Map<String, Type> parameters = new HashMap<>();
+			if (index != -1) {
+				String paramString = content.substring(1, index);
+				List<String> paramStrings = new ArrayList<>();
+				StringBuilder builder = new StringBuilder();
+				int depth = 0;
+				for (char c : paramString.toCharArray()) {
+					if (c == ',' && depth == 0) {
+						paramStrings.add(builder.toString());
+						builder = new StringBuilder();
+					} else {
+						if ('(' == c) depth++;
+						if (')' == c) depth--;
+						builder.append(c);
+					}
+				}
+				paramStrings.add(builder.toString());
+				Map<String, Type> map = paramStrings.stream()
+						.filter(s -> !s.isBlank())
+						.map(String::trim)
+						.collect(Collectors.toMap(this::parseParamName, s -> parseParamValue(compiler, s)));
+				parameters.putAll(map);
+			}
+			//=> Int : {return x + y;}
+			Type returnType;
+			String result = content.substring(index + 1).trim();
+			if (result.startsWith("=>")) {
+				int colon = result.indexOf(':');
+				String returnName = result.substring(2, colon).trim();
+				returnType = compiler.resolveName(returnName);
+			} else {
+				returnType = VoidType.INSTANCE;
+			}
+			return Optional.of(new BlockType(parameters.values(), returnType));
+		} else {
+			return Optional.empty();
+		}
 	}
 
+	private String parseParamName(String s) {
+		int colon = s.indexOf(':');
+		return s.substring(0, colon).trim();
+	}
+
+	private Type parseParamValue(Compiler compiler, String s) {
+		int colon = s.indexOf(':');
+		String value = s.substring(colon + 1).trim();
+		return compiler.resolveName(value);
+	}
 }

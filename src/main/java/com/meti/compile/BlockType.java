@@ -1,13 +1,13 @@
 package com.meti.compile;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 final class BlockType implements Type {
-	private final List<Type> parameters;
+	private final Collection<Type> parameters;
 	private final Type returnType;
 
-	BlockType(List<Type> parameters, Type returnType) {
+	BlockType(Collection<Type> parameters, Type returnType) {
 		this.parameters = parameters;
 		this.returnType = returnType;
 	}
