@@ -3,8 +3,12 @@ package com.meti.compile;
 public class Stack {
 	private Scope current = new Scope("root", null);
 
+	public void define(String name, Type type) {
+		current.define(name, type);
+	}
+
 	public void enter(String name, Type type) {
-		current = current.enter(name, type);
+		current = current.define(name, type);
 	}
 
 	public void exit() {

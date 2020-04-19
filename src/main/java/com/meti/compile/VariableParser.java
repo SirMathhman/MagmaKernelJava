@@ -19,16 +19,4 @@ public class VariableParser implements Parser {
 				.map(VariableNode::new);
 	}
 
-	private static final class VariableNode implements Node {
-		private final String content;
-
-		private VariableNode(String content) {
-			this.content = content;
-		}
-
-		@Override
-		public String render() {
-			return content;
-		}
-	}
 }

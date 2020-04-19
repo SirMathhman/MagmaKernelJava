@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 public class BlockParser implements Parser {
 	private final Cache cache;
 	private final Headers headers;
-	private final List<String> lambdas = new ArrayList<>();
+	private final Stack stack;
 	private int counter = 0;
 
 	@Inject
-	public BlockParser(Cache cache, Headers headers) {
+	public BlockParser(Cache cache, Headers headers, Stack stack) {
 		this.cache = cache;
 		this.headers = headers;
+		this.stack = stack;
 	}
 
 	//("Hello World");
@@ -40,10 +41,12 @@ public class BlockParser implements Parser {
 						builder.append(c);
 					}
 				}
+				paramStrings.add(builder.toString());
 				Map<String, Type> map = paramStrings.stream()
 						.filter(s -> !s.isBlank())
 						.map(String::trim)
 						.collect(Collectors.toMap(this::parseParamName, s -> parseParamValue(compiler, s)));
+				map.forEach(stack::define);
 				parameters.putAll(map);
 			}
 			//=> Int : {return x + y;}
@@ -51,17 +54,17 @@ public class BlockParser implements Parser {
 			String result = content.substring(index + 1).trim();
 			if (result.startsWith("=>")) {
 				index = result.indexOf(':');
-				String returnName = result.substring(2, index);
+				String returnName = result.substring(2, index).trim();
 				returnType = compiler.resolveName(returnName);
 			} else {
 				returnType = VoidType.INSTANCE;
 			}
-			String block = result.substring(index);
+			String block = result.substring(index + 1).trim();
 			Node node = compiler.parse(block);
-			String name = cache.pullName().orElse(lambda());
+			String name = "_" + cache.pullName().orElse(lambda());
 			Node function = new Function(name, parameters, returnType, node);
 			headers.append(2, function.render());
-			return Optional.of(new EmptyNode());
+			return Optional.of(new VariableNode(name));
 		}
 		if (content.startsWith("{") && content.endsWith("}")) {
 			String result = content.substring(1, content.length() - 1);
@@ -108,17 +111,17 @@ public class BlockParser implements Parser {
 
 	String parseParamName(String s) {
 		int colon = s.indexOf(':');
-		return s.substring(0, colon);
+		return s.substring(0, colon).trim();
 	}
 
 	Type parseParamValue(Compiler compiler, String s) {
 		int colon = s.indexOf(':');
-		String value = s.substring(colon + 1);
+		String value = s.substring(colon + 1).trim();
 		return compiler.resolveName(value);
 	}
 
 	private String lambda() {
-		String s = "_lambda" + counter;
+		String s = "lambda" + counter;
 		counter++;
 		return s;
 	}

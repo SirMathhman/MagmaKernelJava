@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.meti.compile.MagmaCompiler.INSTANCE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MagmaCompilerTest {
 	@Test
@@ -62,8 +61,8 @@ class MagmaCompilerTest {
 		Headers headers = new Headers();
 		Compiler instance = new MagmaCompiler(headers);
 		Node node = instance.parse("val pass : (Int) => Int = (value : Int) => Int : {return value;}");
-		assertTrue(node.render().isBlank());
-		assertEquals("int pass(int value){return value;}", headers.join());
+		assertEquals("int (*pass)(int)=_pass;", node.render());
+		assertEquals("int _pass(int value){return value;}", headers.join());
 	}
 
 	@Test

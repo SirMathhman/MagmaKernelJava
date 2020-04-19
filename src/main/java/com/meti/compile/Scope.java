@@ -20,7 +20,7 @@ public class Scope {
 		this.type = type;
 	}
 
-	public Scope enter(String name, Type type) {
+	public Scope define(String name, Type type) {
 		Scope scope = new Scope(this, name, type);
 		children.put(name, scope);
 		return scope;
