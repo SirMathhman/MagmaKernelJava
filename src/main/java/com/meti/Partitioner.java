@@ -3,7 +3,7 @@ package com.meti;
 import java.util.List;
 
 public interface Partitioner {
-	List<Integer> toIndices();
+	List<Integer> toIndices(String content);
 
-	List<String> toPartitions();
+	List<String> toPartitions(String content);
 }
