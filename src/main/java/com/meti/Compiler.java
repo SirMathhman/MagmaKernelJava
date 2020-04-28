@@ -1,11 +1,12 @@
 package com.meti;
 
-import com.meti.resolve.Type;
+import com.meti.parse.Item;
+import com.meti.resolve.Instance;
 
 public interface Compiler {
-	String parse(String content);
+	Item parse(String content);
 
-	Type resolveName(String content);
+	Instance resolveName(String content);
 
-	Type resolveValue(String content);
+	Instance resolveValue(String content);
 }

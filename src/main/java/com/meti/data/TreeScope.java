@@ -2,9 +2,7 @@ package com.meti.data;
 
 import com.meti.resolve.Instance;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class TreeScope implements DataScope {
 	private final Map<String, DataScope> children = new HashMap<>();
@@ -16,6 +14,20 @@ public class TreeScope implements DataScope {
 		this.name = name;
 		this.instance = instance;
 		this.parent = parent;
+	}
+
+	@Override
+	public Collection<DataScope> collapse() {
+		return getParent()
+				.map(DataScope::collapse)
+				.map(ArrayList::new)
+				.map(this::pass)
+				.orElseGet(() -> Collections.singleton(this));
+	}
+
+	private Collection<DataScope> pass(List<DataScope> dataScopes) {
+		dataScopes.add(this);
+		return dataScopes;
 	}
 
 	@Override

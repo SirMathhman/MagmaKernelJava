@@ -1,7 +1,8 @@
 package com.meti;
 
 import com.google.inject.Injector;
-import com.meti.resolve.Type;
+import com.meti.parse.Item;
+import com.meti.resolve.Instance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class InjectedCompiler implements Compiler {
 	}
 
 	@Override
-	public String parse(String content) {
+	public Item parse(String content) {
 		return parser.parse(content, this)
 				.orElseThrow(() -> fail("Failed to parse: " + content));
 	}
@@ -42,13 +43,13 @@ public class InjectedCompiler implements Compiler {
 	}
 
 	@Override
-	public Type resolveName(String content) {
+	public Instance resolveName(String content) {
 		return resolver.resolveName(content, this)
 				.orElseThrow(() -> fail("Failed to resolve name: " + content));
 	}
 
 	@Override
-	public Type resolveValue(String content) {
+	public Instance resolveValue(String content) {
 		return resolver.resolveValue(content, this)
 				.orElseThrow(() -> fail("Failed to resolve value: " + content));
 	}
