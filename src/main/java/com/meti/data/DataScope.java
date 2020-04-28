@@ -1,5 +1,17 @@
 package com.meti.data;
 
+import com.meti.resolve.Instance;
+
+import java.util.Optional;
+
 public interface DataScope {
-	boolean isDefined(String value);
+	Optional<DataScope> get(String name);
+
+	Instance getInstance();
+
+	String getName();
+
+	Optional<DataScope> getParent();
+
+	DataScope set(String name, Instance instance);
 }
