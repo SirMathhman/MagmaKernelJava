@@ -1,6 +1,4 @@
-package com.meti.parse;
-
-import com.meti.Compiler;
+package com.meti;
 
 import java.util.Optional;
 

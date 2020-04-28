@@ -1,6 +1,6 @@
-package com.meti.resolve;
+package com.meti;
 
-import com.meti.Compiler;
+import com.meti.resolve.Type;
 
 import java.util.Optional;
 
