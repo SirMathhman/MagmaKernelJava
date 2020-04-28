@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class CompoundParser implements Parser {
-	private final Collection<Parser> children;
+	private final Collection<? extends Parser> children;
 
-	public CompoundParser(Collection<Parser> children) {
+	public CompoundParser(Collection<? extends Parser> children) {
 		this.children = children;
 	}
 

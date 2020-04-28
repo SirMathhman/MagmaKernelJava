@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class CompoundResolver implements Resolver {
-	private final Collection<Resolver> children;
+	private final Collection<? extends Resolver> children;
 
-	public CompoundResolver(Collection<Resolver> children) {
+	public CompoundResolver(Collection<? extends Resolver> children) {
 		this.children = children;
 	}
 
