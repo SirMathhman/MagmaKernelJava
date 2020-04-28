@@ -2,6 +2,8 @@ package com.meti;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class SplitPartitioner implements Partitioner {
 	private final char close;
@@ -17,37 +19,46 @@ public class SplitPartitioner implements Partitioner {
 	@Override
 	public List<Integer> toIndices(String content) {
 		List<Integer> list = new ArrayList<>();
+		parse(content,
+				(index, character) -> list.add(index),
+				(index, character) -> {});
+		return list;
+	}
+
+	private void parse(String content, BiConsumer<Integer, Character> valid, BiConsumer<Integer, Character> invalid) {
 		int depth = 0;
 		char[] charArray = content.toCharArray();
 		int length = charArray.length;
-		for (int i = 0; i < length; i++) {
-			char c = charArray[i];
-			if (c == value && 0 == depth) {
-				list.add(i);
+		for (int index = 0; index < length; index++) {
+			char character = charArray[index];
+			if (character == value && 0 == depth) {
+				valid.accept(index, character);
 			} else {
-				if (c == open) depth++;
-				if (c == close) depth--;
+				if (character == open) depth++;
+				if (character == close) depth--;
+				invalid.accept(index, character);
 			}
 		}
-		return list;
 	}
 
 	@Override
 	public List<String> toPartitions(String content) {
 		List<String> list = new ArrayList<>();
-		StringBuilder builder = new StringBuilder();
-		int depth = 0;
-		for (char c : content.toCharArray()) {
-			if (c == value && 0 == depth) {
-				list.add(builder.toString());
-				builder = new StringBuilder();
-			} else {
-				if (c == open) depth++;
-				if (c == close) depth--;
-			}
-		}
-		list.add(builder.toString());
+		List<Character> charList = new ArrayList<>();
+		parse(content,
+				(index, character) -> {
+					list.add(listToString(charList));
+					charList.clear();
+				},
+				(index, character) -> charList.add(character));
+		list.add(listToString(charList));
 		list.removeIf(String::isBlank);
 		return list;
+	}
+
+	private String listToString(List<Character> charList) {
+		return charList.stream()
+				.map(String::valueOf)
+				.collect(Collectors.joining());
 	}
 }
