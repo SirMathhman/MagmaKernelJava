@@ -1,6 +1,6 @@
 package com.meti;
 
-import com.meti.resolve.Type;
+import com.meti.resolve.Instance;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -13,7 +13,7 @@ public class CompoundResolver implements Resolver {
 	}
 
 	@Override
-	public Optional<Type> resolveName(String content, Compiler compiler) {
+	public Optional<Instance> resolveName(String content, Compiler compiler) {
 		return children.stream()
 				.map(child -> child.resolveName(content, compiler))
 				.flatMap(Optional::stream)
@@ -21,7 +21,7 @@ public class CompoundResolver implements Resolver {
 	}
 
 	@Override
-	public Optional<Type> resolveValue(String content, Compiler compiler) {
+	public Optional<Instance> resolveValue(String content, Compiler compiler) {
 		return children.stream()
 				.map(child -> child.resolveValue(content, compiler))
 				.flatMap(Optional::stream)

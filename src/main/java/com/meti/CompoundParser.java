@@ -1,5 +1,7 @@
 package com.meti;
 
+import com.meti.parse.Item;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -11,7 +13,7 @@ public class CompoundParser implements Parser {
 	}
 
 	@Override
-	public Optional<String> parse(String content, Compiler compiler) {
+	public Optional<Item> parse(String content, Compiler compiler) {
 		return children.stream()
 				.map(child -> child.parse(content, compiler))
 				.flatMap(Optional::stream)
