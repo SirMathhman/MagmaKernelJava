@@ -2,11 +2,13 @@ package com.meti.data;
 
 import com.meti.resolve.Instance;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface DataStack {
-	Collection<String> asSnapshot();
+	List<String> asSnapshot();
+
+	void define(String name, Instance instance);
 
 	void enter(String name, Instance instance);
 
@@ -14,5 +16,7 @@ public interface DataStack {
 
 	Optional<Instance> get(String name);
 
-	boolean hasParent(Collection<String> names);
+	Optional<Instance> get(List<String> names);
+
+	boolean hasParent(List<String> names);
 }

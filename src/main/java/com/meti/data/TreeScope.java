@@ -1,5 +1,6 @@
 package com.meti.data;
 
+import com.meti.resolve.BlockInstance;
 import com.meti.resolve.Instance;
 
 import java.util.*;
@@ -25,9 +26,13 @@ public class TreeScope implements DataScope {
 				.orElseGet(() -> Collections.singleton(this));
 	}
 
-	private Collection<DataScope> pass(List<DataScope> dataScopes) {
-		dataScopes.add(this);
-		return dataScopes;
+	@Override
+	public Optional<DataScope> get(List<String> names) {
+		if (names.isEmpty()) return Optional.of(this);
+		else {
+			return Optional.ofNullable(children.get(names.get(0)))
+					.flatMap(dataScope -> dataScope.get(names.subList(1, names.size())));
+		}
 	}
 
 	@Override
@@ -52,6 +57,14 @@ public class TreeScope implements DataScope {
 	}
 
 	@Override
+	public boolean isParent() {
+		return children.values()
+				.stream()
+				.map(DataScope::getInstance)
+				.anyMatch(BlockInstance.class::isInstance);
+	}
+
+	@Override
 	public DataScope set(String name, Instance instance) {
 		DataScope scope = new TreeScope(name, instance, this);
 		children.put(name, scope);
@@ -60,5 +73,10 @@ public class TreeScope implements DataScope {
 
 	private Optional<DataScope> getFromParent(String name) {
 		return getParent().flatMap(p -> parent.get(name));
+	}
+
+	private Collection<DataScope> pass(List<DataScope> dataScopes) {
+		dataScopes.add(this);
+		return dataScopes;
 	}
 }

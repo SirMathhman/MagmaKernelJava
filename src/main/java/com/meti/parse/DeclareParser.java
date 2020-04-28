@@ -8,7 +8,6 @@ import com.meti.resolve.Instance;
 import com.meti.resolve.Type;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,8 +32,9 @@ public class DeclareParser implements Parser {
 			String name = before.substring(lastSpace + 1).trim();
 			List<DeclareKey> collect = parseKeysInList(keyString);
 			if (collect.contains(DeclareKey.VAL) || collect.contains(DeclareKey.VAR)) {
-				Collection<String> snapshot = stack.asSnapshot();
+				List<String> snapshot = stack.asSnapshot();
 				Instance type = compiler.resolveName(typeString);
+				stack.define(name, type);
 				return Optional.of(new DeclareItem(stack, snapshot, name, type));
 			}
 			return Optional.empty();
@@ -69,10 +69,10 @@ public class DeclareParser implements Parser {
 	private static final class DeclareItem implements Item {
 		private final Instance instance;
 		private final String name;
-		private final Collection<String> snapshot;
+		private final List<String> snapshot;
 		private final DataStack stack;
 
-		private DeclareItem(DataStack stack, Collection<String> parentSnapshot, String name, Instance
+		private DeclareItem(DataStack stack, List<String> parentSnapshot, String name, Instance
 				instance) {
 			this.stack = stack;
 			this.snapshot = parentSnapshot;
