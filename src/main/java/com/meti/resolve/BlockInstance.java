@@ -1,4 +1,4 @@
 package com.meti.resolve;
 
-public interface BlockInstance {
+public interface BlockInstance extends Instance {
 }

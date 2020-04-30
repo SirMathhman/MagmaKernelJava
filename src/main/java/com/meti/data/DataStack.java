@@ -18,5 +18,7 @@ public interface DataStack {
 
 	Optional<Instance> get(List<String> names);
 
+	String getName();
+
 	boolean hasParent(List<String> names);
 }

@@ -50,6 +50,11 @@ public class TreeStack implements DataStack {
 	}
 
 	@Override
+	public String getName() {
+		return current.getName();
+	}
+
+	@Override
 	public boolean hasParent(List<String> names) {
 		return root.get(names)
 				.map(DataScope::isParent)
